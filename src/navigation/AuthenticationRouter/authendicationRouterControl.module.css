@@ -1,0 +1,89 @@
+.bgImg {
+  width: 100%;
+  height: 100vh;
+  background-image: url("../../assets/images/bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.palmsLogo {
+  width: 350px;
+  height: 108px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.leftContainer {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.rightContainer {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10%;
+}
+
+/* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////     Media Query Starts here    /////////////////////////////////////////////////// */
+/* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* For Tablet Screen  */
+@media screen and (max-width: 960px) {
+  .leftContainer {
+    min-height: 30vh;
+    width: 100%;
+    position: static;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  .bgImg {
+    height: auto;
+    background-image: none;
+    display: flex;
+    justify-content: center;
+  }
+  .palmsLogo{
+    width: 300px;
+    height: 93px;
+    position: static;
+    transform: none;
+  }
+  .rightContainer {
+    min-height: 70vh;
+    width: 100%;
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* For Mobile Screen  */
+@media screen and (max-width: 480px) {
+  /* .leftContainer {
+    height: 100%;
+    width: 100%;
+    position: relative;
+  } */
+  /* .rightContainer {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    padding: 0 25px;
+  } */
+}

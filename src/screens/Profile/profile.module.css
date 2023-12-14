@@ -1,0 +1,112 @@
+/******** view profile ***************/
+
+.profile-container {
+  display: flex;
+  align-items: center;
+}
+
+.profile-left-container {
+  flex-basis: 35%;
+  padding-top: 2%;
+  display: flex;
+}
+.profile-right-container {
+  flex-basis: 65%;
+}
+
+.profile-right-container p:nth-child(1) {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.profile-right-container p:nth-child(2) {
+  font-size: 15px;
+}
+
+.profile-icon-container {
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  overflow: hidden;
+  position: relative;
+  padding: 10px;
+  border: 2px solid #032947;
+}
+.profile-input-container {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  width: 80%;
+  margin: 2%;
+}
+
+.profile-input-field {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+}
+
+.profile-input-field p:nth-child(1) {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.profile-input-field p:nth-child(2) {
+  font-size: 16px;
+  margin-left: 5%;
+}
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3%;
+}
+.button-container button {
+  width: 50%;
+}
+.profile-edit-icon {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  top: 18%;
+  left: 23%;
+  z-index: 1;
+}
+
+@media (max-width: 500px) {
+  .button-container button {
+    width: 80%;
+  }
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:10px
+  }
+  .profile-right-container {
+    text-align: center;
+  }
+  .profile-edit-icon {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    top: 18%;
+    left: 59%;
+    z-index: 1;
+  }
+}
+
+/******** Change Password ***************/
+
+.password-header {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+.password-form {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

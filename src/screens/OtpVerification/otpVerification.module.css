@@ -1,0 +1,74 @@
+.main {
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+  animation-name: example;
+  animation-duration: 0.5s;
+  width: 100%;
+}
+
+@keyframes example {
+  from {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+.otp-header {
+  margin: 10px 0;
+  font-weight: 600;
+  text-align: center;
+  font-size: 18px;
+}
+.image_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.text_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.otp_image {
+  width: 240px;
+  height: 180px;
+  margin-bottom: 20px;
+}
+.image_container > p {
+  width: 80%;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.otp_Input_field {
+  background-color: #aeffe1;
+  max-width: 50px;
+  margin: 20px 10px;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #00000029;
+  border-radius: 10px;
+  outline: none;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.resend_otp_previous_text {
+  margin: 10px 0 0 0;
+  font-size: 15px;
+}
+
+.resend_otp_text {
+  color: #3ac793;
+  margin: 10px 0;
+  font-size: 15px;
+  cursor: pointer;
+}
+

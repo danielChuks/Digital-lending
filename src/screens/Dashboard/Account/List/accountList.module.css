@@ -1,0 +1,81 @@
+.Account-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.account-action-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 65px 25px;
+}
+
+.account-action-box {
+  cursor: pointer;
+  border: 1px solid #3ac793;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0px 3px 22px #0000001f;
+  border-radius: 19px;
+}
+
+.account-action-content-dpAccount {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px 20px;
+}
+.account-action-content-lnAccount {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px 20px;
+}
+
+.account-action-box:hover {
+  transition: all 0.5s ease;
+  background-color: #032947;
+}
+
+.account-action-header {
+  margin: 6px 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.account-action-box:hover > .account-action-header{
+color: #fff;
+}
+
+.account-action-box:hover > .account-action-content-dpAccount .text-container p {
+  color: #fff;
+}
+.account-action-box:hover > .account-action-content-lnAccount .text-container p {
+  color: #fff;
+}
+
+.text-container {
+  font-size: 0.9rem;
+  margin: 5px 0;
+}
+.green-text {
+  color: #39c594;
+}
+
+.buton-container {
+  margin: 20px 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 960px) {
+  .account-action-container {
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 65px 25px;
+  }
+}

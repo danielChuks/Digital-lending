@@ -1,0 +1,12 @@
+export const VERIFY_OTP = "/verification";
+export const SIGN_UP = "/register";
+export const FORGOT_PASSWORD = "/forgotPassword";
+export const CHANGE_PASSWORD = "/changePassword";
+export const SIGN_IN = "/login";
+export const CUSTOMER_TYPE = "/customerType";
+export const DASHBOARD = "/dashboard";
+export const CREATE_CUSTOMER = "/createCustomer";
+export const ACCOUNT = "/account";
+export const ACCOUNT_STATEMENT = "/account/accountStatement";
+export const CREATE_CREDITAPPL = "/createCreditApplication";
+export const DRAFT_LIST = "/draftList";

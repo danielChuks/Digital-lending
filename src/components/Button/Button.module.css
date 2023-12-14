@@ -1,0 +1,53 @@
+.button_field {
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #3ac793;
+  box-shadow: 0 2px 10px #00000029;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 12px 16px;
+  width: 100%;
+  position: relative
+  
+}
+
+.button_field
+.button_field:disabled,
+.button_field[disabled]{
+  cursor: not-allowed;
+  background-color: #3ac793be;
+  color: #ffffffd0;
+}
+
+.back_button, .next_button{ 
+  position: relative;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #3ac793;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 35px;
+  padding: 12px 0;
+  width: clamp(70px, 50%, 140px);
+}
+
+.back-btn-icon{
+  position: absolute;
+  left: 30px;
+  top: 16px;
+  width: 14px;
+  height: 14px;
+}
+
+.next-btn-icon{
+  position: absolute;
+  right: 30px;
+  top: 16px;
+  width: 14px;
+  height: 14px;
+}

@@ -1,0 +1,63 @@
+.Header-container {
+  height: 100px;
+  width: 100%;
+  background-color: #032947;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.logo-container {
+  width: 100%;
+}
+
+.palms-logo {
+  width: 200px;
+  height: 62px;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-container > p {
+  color: #c1d494;
+}
+
+.user-logo {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.custom-breadcrumb {
+  font-size: 1rem;
+  padding: 20px 120px;
+  background-color: #ececec;
+}
+
+.profile-model {
+  top: 20%;
+  left: 4%;
+}
+
+@media (max-width: 500px) {
+  .custom-breadcrumb {
+    padding: 20px 40px;
+    background-color: #ececec;
+  }
+  .palms-logo {
+    width: 150px;
+    height: 46px;
+  }
+  .userName {
+    display: none;
+  }
+  .profile-model {
+    top: 10%;
+    left: 0%;
+  }
+}

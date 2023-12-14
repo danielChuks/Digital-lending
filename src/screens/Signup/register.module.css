@@ -1,0 +1,111 @@
+.main {
+  animation-name: example;
+  animation-duration: 0.5s;
+  width: 100%;
+}
+
+.tel-input {
+  width: 100% !important;
+  padding: 10px 15px 10px 60px !important;
+}
+
+@keyframes example {
+  from {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+.register-header {
+  font-weight: 600;
+  text-align: center;
+  font-size: 18px;
+}
+.register-form {
+  margin-top: 25px;
+}
+
+.lastName input {
+  padding: 10px 15px;
+}
+
+.register-input-pair {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: flex-start;
+  grid-gap: 10px;
+}
+
+.fName{
+  grid-column: 1/4;
+}
+.email, .birthDate ,.password, .confirmPwd{
+  grid-column: 1/7;
+}
+.lName{
+  grid-column: 4/7;
+}
+.country{
+  grid-column: 1/3;
+  margin: 8px auto;
+}
+.mobile{
+  grid-column: 3/7;
+}
+.register-button-icon-container {
+  position: relative;
+}
+
+.register-button {
+  margin-top: 10px;
+}
+
+.register-button-icon-container img {
+  width: 20px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-40%);
+  right: 20px;
+}
+
+.forgot-pwd {
+  cursor: pointer;
+  color: #3ac793;
+  text-align: right;
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.backto-login {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 25px;
+}
+.backto-login p {
+  color: #3ac793;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* .register-form input[type="date"]::before {
+  content: attr(placeholder);
+  position: absolute;
+  color: #757575;
+}
+
+.register-form input[type="date"] {
+  color: #ffffff;
+}
+
+.register-form input[type="date"]:focus,
+.register-form input[type="date"]:valid {
+  color: #666666;
+}
+
+.register-form input[type="date"]:focus::before,
+.register-form input[type="date"]:valid::before {
+  content: "";
+} */
