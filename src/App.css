@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 * {
-    font-family: 'Poppins', sans-serif;
+    font-family: "inter";
     font-weight: 400;
     box-sizing: border-box;
     padding: 0;
@@ -13,7 +13,7 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-input[type='number'] {
+input[type="number"] {
     -moz-appearance: textfield;
 }
 
@@ -127,7 +127,7 @@ body {
     font-weight: 500;
     font-size: 16px;
     letter-spacing: 1px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'inter';
 }
 
 .ant-modal {

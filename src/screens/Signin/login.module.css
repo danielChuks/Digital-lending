@@ -1,58 +1,57 @@
 .main {
-  animation-name: example;
-   animation-duration: 0.5s;
-   width: 100%;
- }
- @keyframes example {
-   from {
-     transform: translateY(60px);
-     opacity: 0;
-   }
-   to {
-     transform: translateY(0px);
-     opacity: 1;
-   }
- }
+    animation-name: example;
+    animation-duration: 0.5s;
+    width: 100%;
+}
+@keyframes example {
+    from {
+        transform: translateY(60px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
 .login-header {
-  font-weight: 600;
-  text-align: center;
-  font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 18px;
 }
 .login-form {
-  margin-top: 25px;
+    margin-top: 25px;
 }
 
-  .forgot-pwd {
+.forgot-pwd {
     cursor: pointer;
-    color: #3AC793;
+    color: #3ac793;
     text-align: right;
     padding: 8px 0;
     font-size: 14px;
-  }
-  .signin-portion {
+}
+.signin-portion {
     display: flex;
     justify-content: space-evenly;
     margin-top: 25px;
-  }
-  .signin-portion > :first-child {
+}
+.signin-portion > :first-child {
     opacity: 60%;
     font-size: 14px;
-  }
-  .signin-portion > :last-child {
-    color: #3AC793;
+}
+.signin-portion > :last-child {
+    color: #3ac793;
     cursor: pointer;
     font-size: 14px;
-  }
+}
 
-  .login-input-icon-container img{
+.login-input-icon-container img {
     width: 20px;
     position: absolute;
-    top:50%;
+    top: 50%;
     transform: translateY(-50%);
-    left:10px;
-  }
+    left: 10px;
+}
 
-  .login-input-icon-container {
+.login-input-icon-container {
     position: relative;
-    
-  }
+}
