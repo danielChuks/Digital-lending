@@ -1,31 +1,29 @@
-import React, { useState, useContext, useEffect } from 'react';
-import styles from '../../createCustomer.module.css';
-import InputField from '../../../../components/InputFiled/InputField';
-import CustomSelector from '../../../../components/CustomSelector/customSelector';
-import { Button, ConfigProvider, notification, Upload } from 'antd';
-import {
-    DocumentListInfoProps,
-    useCustomerContext,
-} from '../../../../context/customerDetailsContext';
-import { UploadOutlined } from '@ant-design/icons';
-import CustomButton from '../../../../components/Button/Button';
+import React, { useState, useEffect } from "react";
+import styles from "../../createCustomer.module.css";
+import InputField from "../../../../components/InputFiled/InputField";
+import CustomSelector from "../../../../components/CustomSelector/customSelector";
+import { Button, ConfigProvider, notification, Upload } from "antd";
+import { useCustomerContext } from "../../../../context/customerDetailsContext";
+import { UploadOutlined } from "@ant-design/icons";
+import CustomButton from "../../../../components/Button/Button";
 import {
     useCreateCustomerDocument,
     useGetPicklist,
     useModifyCustomerDocument,
     useRemoveCustomerDocument,
-} from '../../createCustomerService';
-import SimpleReactValidator from 'simple-react-validator';
-import Loader from '../../../../components/Loader/loader';
+} from "../../createCustomerService";
+import SimpleReactValidator from "simple-react-validator";
+import Loader from "../../../../components/Loader/loader";
 import openNotificationWithIcon, {
     CommonnotificationProps,
-} from '../../../../components/Notification/commonnotification';
-import { useNavigate } from 'react-router-dom';
-import usePopulateCustomerDraft from '../../../../Hooks/populateCustomerDraft';
-import PaperClipOutlined from '@ant-design/icons/lib/icons/PaperClipOutlined';
+} from "../../../../components/Notification/commonnotification";
+import { useNavigate } from "react-router-dom";
+import usePopulateCustomerDraft from "../../../../Hooks/populateCustomerDraft";
+import PaperClipOutlined from "@ant-design/icons/lib/icons/PaperClipOutlined";
 import DialogueBox, {
     DialogueBoxProps,
-} from '../../../../components/Model/model';
+} from "../../../../components/Model/model";
+import { DocumentListInfoProps } from "../../../../interfaces/documentListInfoProps.interface";
 
 const DocumentInfo: React.FC<any> = (props: any) => {
     const [validator] = useState(new SimpleReactValidator());
@@ -40,15 +38,15 @@ const DocumentInfo: React.FC<any> = (props: any) => {
     const modifyCustomerDocumentMutation = useModifyCustomerDocument();
     const removeCustomerDocumentMutation = useRemoveCustomerDocument();
     const [documentData, setDocumentData] = useState<DocumentListInfoProps>({
-        binaryDocument: '',
-        docFileName: '',
-        docTypeDesc: '',
-        docExt: '',
-        docFileExt: '',
+        binaryDocument: "",
+        docFileName: "",
+        docTypeDesc: "",
+        docExt: "",
+        docFileExt: "",
         docId: null,
-        docRef: '',
-        docTypeId: '',
-        docDesc: '',
+        docRef: "",
+        docTypeId: "",
+        docDesc: "",
     });
     const navigate = useNavigate();
     const [fileList, setFileList] = useState([]);
@@ -56,11 +54,11 @@ const DocumentInfo: React.FC<any> = (props: any) => {
     const [documentExtensions, setdocumentExtensions] = useState<any>();
     const [acceptFileTypes, setAcceptFileTypes] = useState<any>();
     const [modelData, setModelData] = useState<DialogueBoxProps>({
-        title: '',
-        content: '',
-        okText: '',
-        cancelText: '',
-        onOk: '',
+        title: "",
+        content: "",
+        okText: "",
+        cancelText: "",
+        onOk: "",
         onCancel: true,
     });
     const [modelOpen, setModelOpen] = useState(false);
@@ -123,9 +121,9 @@ const DocumentInfo: React.FC<any> = (props: any) => {
 
     const fetPicklistData = async () => {
         const payload = {
-            instituteCode: 'DBS01',
+            instituteCode: "DBS01",
             transmissionTime: Date.now(),
-            category: 'FETCH_DOCUMENT_REF',
+            category: "FETCH_DOCUMENT_REF",
             subCategory: CustomerData.basicInfoData.customerType,
         };
         const data = await picklistMutation.mutateAsync(payload);
@@ -142,18 +140,18 @@ const DocumentInfo: React.FC<any> = (props: any) => {
             );
             setDocumentTypes(temp);
         } else if (
-            data.errorCode === 'CI_JWT_001' ||
-            data.errorCode === 'CI_JWT_002'
+            data.errorCode === "CI_JWT_001" ||
+            data.errorCode === "CI_JWT_002"
         ) {
             const notificationData: CommonnotificationProps = {
-                type: 'info',
-                msgtitle: 'Notification',
-                msgDesc: 'Your session is over, Please login again',
+                type: "info",
+                msgtitle: "Notification",
+                msgDesc: "Your session is over, Please login again",
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             setTimeout(() => {
-                navigate({ pathname: '/login' });
+                navigate({ pathname: "/login" });
             }, 3000);
         }
     };
@@ -166,9 +164,9 @@ const DocumentInfo: React.FC<any> = (props: any) => {
 
     const fetchDocumentExtensions = async () => {
         const payload = {
-            instituteCode: 'DBS01',
+            instituteCode: "DBS01",
             transmissionTime: Date.now(),
-            category: 'FETCH_DOCUMENT_EXTENTION_REF',
+            category: "FETCH_DOCUMENT_EXTENTION_REF",
             subCategory: documentData.docTypeId,
         };
         const data = await picklistMutation.mutateAsync(payload);
@@ -188,18 +186,18 @@ const DocumentInfo: React.FC<any> = (props: any) => {
             setdocumentExtensions(temp);
             setAcceptFileTypes(array.toString());
         } else if (
-            data.errorCode === 'CI_JWT_001' ||
-            data.errorCode === 'CI_JWT_002'
+            data.errorCode === "CI_JWT_001" ||
+            data.errorCode === "CI_JWT_002"
         ) {
             const notificationData: CommonnotificationProps = {
-                type: 'info',
-                msgtitle: 'Notification',
-                msgDesc: 'Your session is over, Please login again',
+                type: "info",
+                msgtitle: "Notification",
+                msgDesc: "Your session is over, Please login again",
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             setTimeout(() => {
-                navigate({ pathname: '/login' });
+                navigate({ pathname: "/login" });
             }, 3000);
         }
     };
@@ -209,7 +207,7 @@ const DocumentInfo: React.FC<any> = (props: any) => {
         reader.onload = (event: ProgressEvent<FileReader>) => {
             const result = event.target?.result as ArrayBuffer;
             setByteArray(new Uint8Array(result));
-            onSuccess('ok');
+            onSuccess("ok");
         };
         reader.readAsArrayBuffer(file);
     };
@@ -230,24 +228,24 @@ const DocumentInfo: React.FC<any> = (props: any) => {
             }));
 
             if (
-                info.fileList[0]?.type === 'application/pdf' ||
-                info.fileList[0]?.type === 'application/msword'
+                info.fileList[0]?.type === "application/pdf" ||
+                info.fileList[0]?.type === "application/msword"
             ) {
                 setDocumentData((prev) => ({
                     ...prev,
-                    docFileExt: '.' + info.fileList[0].type.substring(12),
+                    docFileExt: "." + info.fileList[0].type.substring(12),
                 }));
             }
             if (
-                info.fileList[0]?.type === 'image/png' ||
-                info.fileList[0]?.type === 'image/jpeg'
+                info.fileList[0]?.type === "image/png" ||
+                info.fileList[0]?.type === "image/jpeg"
             ) {
                 setDocumentData((prev) => ({
                     ...prev,
                     docFileExt:
-                        '.' +
-                        (info.fileList[0]?.type === 'image/jpeg'
-                            ? 'jpg'
+                        "." +
+                        (info.fileList[0]?.type === "image/jpeg"
+                            ? "jpg"
                             : info.fileList[0].type?.substring(6)),
                 }));
             }
@@ -278,7 +276,7 @@ const DocumentInfo: React.FC<any> = (props: any) => {
             const payload: any = new FormData();
 
             const stringifyBlob = new Blob([byteArray]);
-            payload.append('file', stringifyBlob);
+            payload.append("file", stringifyBlob);
 
             const json = {
                 docFileName: documentData.docFileName,
@@ -288,20 +286,20 @@ const DocumentInfo: React.FC<any> = (props: any) => {
                 docRef: documentData.docRef,
                 docTypeId: documentData.docTypeId,
                 docDesc: documentData.docDesc,
-                dbsCustApplId: sessionStorage.getItem('dbsCustApplId'),
-                dbsUserId: Number(sessionStorage.getItem('dbsUserId')),
+                dbsCustApplId: sessionStorage.getItem("dbsCustApplId"),
+                dbsUserId: Number(sessionStorage.getItem("dbsUserId")),
                 transmissionTime: Date.now(),
-                channelCode: 'DBS',
-                instituteCode: 'DBS01',
-                channelId: '144',
+                channelCode: "DBS",
+                instituteCode: "DBS01",
+                channelId: "144",
                 docId: documentData.docId ? documentData.docId : null,
             };
 
             const blob = new Blob([JSON.stringify(json)], {
-                type: 'application/json',
+                type: "application/json",
             });
 
-            payload.append('request', blob);
+            payload.append("request", blob);
             setIsLoading(true);
 
             let data;
@@ -318,9 +316,9 @@ const DocumentInfo: React.FC<any> = (props: any) => {
             if (data.status === 200) {
                 setIsLoading(false);
                 const notificationData: CommonnotificationProps = {
-                    type: 'success',
-                    msgtitle: 'success',
-                    msgDesc: 'Document Date Successfully added',
+                    type: "success",
+                    msgtitle: "success",
+                    msgDesc: "Document Date Successfully added",
                     api: api,
                 };
                 openNotificationWithIcon(notificationData);
@@ -332,25 +330,25 @@ const DocumentInfo: React.FC<any> = (props: any) => {
                     props.setOpen(false);
                 }, 2000);
             } else if (
-                data.errorCode === 'CI_JWT_001' ||
-                data.errorCode === 'CI_JWT_002'
+                data.errorCode === "CI_JWT_001" ||
+                data.errorCode === "CI_JWT_002"
             ) {
                 setIsLoading(false);
                 const notificationData: CommonnotificationProps = {
-                    type: 'info',
-                    msgtitle: 'Notification',
-                    msgDesc: 'Your session is over, Please login again',
+                    type: "info",
+                    msgtitle: "Notification",
+                    msgDesc: "Your session is over, Please login again",
                     api: api,
                 };
                 openNotificationWithIcon(notificationData);
                 setTimeout(() => {
-                    navigate({ pathname: '/login' });
+                    navigate({ pathname: "/login" });
                 }, 3000);
             } else {
                 setIsLoading(false);
                 const notificationData: CommonnotificationProps = {
-                    type: 'error',
-                    msgtitle: '',
+                    type: "error",
+                    msgtitle: "",
                     msgDesc: data.errorMessage,
                     api: api,
                 };
@@ -367,15 +365,15 @@ const DocumentInfo: React.FC<any> = (props: any) => {
 
         setModelOpen(true);
         setModelData({
-            title: 'Confirmation',
-            content: 'Are you sure, you want to delete the Document ?',
-            okText: 'Delete',
-            cancelText: 'Cancel',
+            title: "Confirmation",
+            content: "Are you sure, you want to delete the Document ?",
+            okText: "Delete",
+            cancelText: "Cancel",
             onOk: async () => {
                 setModelOpen(false);
                 const payload = {
-                    dbsCustApplId: sessionStorage.getItem('dbsCustApplId'),
-                    dbsUserId: Number(sessionStorage.getItem('dbsUserId')),
+                    dbsCustApplId: sessionStorage.getItem("dbsCustApplId"),
+                    dbsUserId: Number(sessionStorage.getItem("dbsUserId")),
                     docId: documentData.docId,
                 };
 
@@ -388,9 +386,9 @@ const DocumentInfo: React.FC<any> = (props: any) => {
                 if (data.status === 200) {
                     setIsLoading(false);
                     const notificationData: CommonnotificationProps = {
-                        type: 'success',
-                        msgtitle: 'success',
-                        msgDesc: 'Document Deleted Successfully ',
+                        type: "success",
+                        msgtitle: "success",
+                        msgDesc: "Document Deleted Successfully ",
                         api: api,
                     };
                     openNotificationWithIcon(notificationData);
@@ -402,25 +400,25 @@ const DocumentInfo: React.FC<any> = (props: any) => {
                         props.setOpen(false);
                     }, 2000);
                 } else if (
-                    data.errorCode === 'CI_JWT_001' ||
-                    data.errorCode === 'CI_JWT_002'
+                    data.errorCode === "CI_JWT_001" ||
+                    data.errorCode === "CI_JWT_002"
                 ) {
                     setIsLoading(false);
                     const notificationData: CommonnotificationProps = {
-                        type: 'info',
-                        msgtitle: 'Notification',
-                        msgDesc: 'Your session is over, Please login again',
+                        type: "info",
+                        msgtitle: "Notification",
+                        msgDesc: "Your session is over, Please login again",
                         api: api,
                     };
                     openNotificationWithIcon(notificationData);
                     setTimeout(() => {
-                        navigate({ pathname: '/login' });
+                        navigate({ pathname: "/login" });
                     }, 3000);
                 } else {
                     setIsLoading(false);
                     const notificationData: CommonnotificationProps = {
-                        type: 'error',
-                        msgtitle: '',
+                        type: "error",
+                        msgtitle: "",
                         msgDesc: data.errorMessage,
                         api: api,
                     };
@@ -440,83 +438,83 @@ const DocumentInfo: React.FC<any> = (props: any) => {
                 DialogueBoxProps={modelData}
                 setOpen={setModelOpen}
             />
-            <div className={styles['basic-info-container']}>
+            <div className={styles["basic-info-container"]}>
                 <div>
                     <CustomSelector
-                        label={'Document Type'}
+                        label={"Document Type"}
                         onChange={(e, option) => {
                             handleSelector(
                                 e,
                                 option,
-                                'docTypeDesc',
-                                'docTypeId'
+                                "docTypeDesc",
+                                "docTypeId"
                             );
                         }}
                         optionsList={documentTypes}
                         value={documentData.docTypeId}
                     />
-                    <span className="text-error">
+                    <span className='text-error'>
                         {validator.message(
-                            'documentType',
+                            "documentType",
                             documentData.docTypeId,
-                            'required'
+                            "required"
                         )}
                     </span>
                 </div>
-                <div className={styles['input-container']}>
+                <div className={styles["input-container"]}>
                     <InputField
-                        label={'Document Reference'}
-                        type={'text'}
+                        label={"Document Reference"}
+                        type={"text"}
                         required={true}
                         onChange={handleDocumentInfo}
                         value={documentData.docRef}
-                        name="docRef"
+                        name='docRef'
                     />
-                    <span className="text-error">
+                    <span className='text-error'>
                         {validator.message(
-                            'documentReference',
+                            "documentReference",
                             documentData.docRef,
-                            'required'
+                            "required"
                         )}
                     </span>
                 </div>
-                <div className={styles['input-container']}>
+                <div className={styles["input-container"]}>
                     <InputField
-                        label={'Document Description'}
-                        type={'text'}
+                        label={"Document Description"}
+                        type={"text"}
                         required={true}
                         onChange={handleDocumentInfo}
                         value={documentData.docDesc}
-                        name="docDesc"
+                        name='docDesc'
                     />
                 </div>
                 <ConfigProvider
                     theme={{
                         token: {
-                            colorPrimary: '#39C594',
+                            colorPrimary: "#39C594",
                         },
                     }}
                 >
                     <div>
                         <div
                             style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
+                                display: "flex",
+                                justifyContent: "space-between",
                             }}
                         >
-                            <p className={styles['label']}>
+                            <p className={styles["label"]}>
                                 Select file to Upload
                             </p>
-                            <p className={styles['selectFileheader']}>
+                            <p className={styles["selectFileheader"]}>
                                 {props.docData &&
                                 !(fileList.length > 0) &&
                                 props?.docData?.documentType?.toString() ===
                                     documentData.docTypeId ? (
                                     <>
-                                        <PaperClipOutlined /> {'1 file(s)'}
+                                        <PaperClipOutlined /> {"1 file(s)"}
                                     </>
                                 ) : (
-                                    ''
+                                    ""
                                 )}
                             </p>
                         </div>
@@ -535,45 +533,45 @@ const DocumentInfo: React.FC<any> = (props: any) => {
                         >
                             <Button
                                 icon={<UploadOutlined />}
-                                style={{ width: '100%', margin: '15px 0' }}
+                                style={{ width: "100%", margin: "15px 0" }}
                             >
                                 Select File
                             </Button>
                         </Upload>
-                        <span className="text-error">
+                        <span className='text-error'>
                             {validator.message(
-                                'binaryDocument',
+                                "binaryDocument",
                                 byteArray,
-                                'required'
+                                "required"
                             )}
                         </span>
                     </div>
                 </ConfigProvider>
             </div>
-            <div className={styles['button-Outer-Container']}>
-                <div className={styles['button-Container']}>
-                    <div className={styles['save-button']}>
+            <div className={styles["button-Outer-Container"]}>
+                <div className={styles["button-Container"]}>
+                    <div className={styles["save-button"]}>
                         <CustomButton
-                            text={'Save Document'}
-                            type="button"
+                            text={"Save Document"}
+                            type='button'
                             onClick={handleSaveDocument}
                         />
                     </div>
-                    <div className={styles['delete-button']}>
+                    <div className={styles["delete-button"]}>
                         {props?.docData ? (
                             <CustomButton
-                                text={'Delete Document'}
-                                type="button"
+                                text={"Delete Document"}
+                                type='button'
                                 onClick={handleDeleteDocument}
                             />
                         ) : (
-                            ''
+                            ""
                         )}
                     </div>
-                    <div className={styles['close-button']}>
+                    <div className={styles["close-button"]}>
                         <CustomButton
-                            text={'Close'}
-                            type={'button'}
+                            text={"Close"}
+                            type={"button"}
                             onClick={() => {
                                 props.setOpen(false);
                                 props.setDocData();

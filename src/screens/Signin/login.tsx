@@ -7,7 +7,8 @@ import InputField from "../../components/InputFiled/InputField";
 import Button from "../../components/Button/Button";
 import Loader from "../../components/Loader/loader";
 // import { password_regex } from "../../Utils/Constants/constants";
-import { LoginCredentials, useLogin } from "./signin";
+import { useLogin } from "./signin";
+import { LoginCredentialsProps } from "../../interfaces";
 import { notification } from "antd";
 import openNotificationWithIcon, {
     CommonnotificationProps,
@@ -103,7 +104,7 @@ export const Login = () => {
         event.preventDefault();
 
         setIsLoading(true);
-        const credentials: LoginCredentials = {
+        const credentials: LoginCredentialsProps = {
             instituteCode: "DBS01",
             transmissionTime: Date.now(),
             userLoginId: usernameState,

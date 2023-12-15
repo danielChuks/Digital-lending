@@ -27,10 +27,11 @@ import { useNavigate } from "react-router-dom";
 import usePopulateCustomerDraft from "../../../../Hooks/populateCreditDraft";
 import CustomDatePicker from "../../../../components/CustomDatePicker/customDatePicker";
 import { usePickListContext } from "../../../../context/pickListDataContext";
-import { CreditCollateralDocument } from "../../../../context/creditApplDetailsContext";
+
 import DialogueBox, {
   DialogueBoxProps,
 } from "../../../../components/Model/model";
+import { CreditCollateralDocument } from "../../../../interfaces";
 const Collateral: React.FC<any> = (props: any) => {
   const [validator] = useState(new SimpleReactValidator());
   const { creditApplDataFields_context, setCreditApplDataFields_context } =
