@@ -1,7 +1,4 @@
-import { ForwardedRef } from 'react';
-import styles from './InputFiled.module.css';
-import { Form } from 'antd';
-import { AnyTxtRecord } from 'dns';
+import styles from "./InputFiled.module.css";
 
 interface TextFieldProps {
     outerClass?: string;
@@ -24,45 +21,63 @@ interface TextFieldProps {
     onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
-const InputField: React.FC<TextFieldProps> = (props: TextFieldProps) => {
+const InputField: React.FC<TextFieldProps> = ({
+    outerClass,
+    image,
+    placeholder,
+    type,
+    required,
+    readonly,
+    pattern,
+    title,
+    minLength,
+    maxLength,
+    onChange,
+    value,
+    min,
+    max,
+    name,
+    label,
+    rules,
+    onBlur,
+}: TextFieldProps) => {
     return (
         <>
-            {props.label !== 'hidden' && (
+            {label !== "hidden" && (
                 <>
-                    {props.label ? (
-                        <div className={styles['label']}>{props.label}</div>
+                    {label ? (
+                        <div className={styles["label"]}>{label}</div>
                     ) : (
-                        ''
+                        ""
                     )}
                 </>
             )}
             {/* {props.label?<div className={styles["label"]}>{props.label}</div>:""} */}
-            {props.label === 'hidden' && (
-                <div className={styles['label']}>
-                    {' '}
+            {label === "hidden" && (
+                <div className={styles["label"]}>
+                    {" "}
                     <br></br>
                 </div>
             )}
-            <div className={`${styles.input_field} ${props.outerClass}`}>
-                {props.image ? <img src={props.image} /> : ''}
+            <div className={`${styles.input_field} ${outerClass}`}>
+                {image ? <img src={image} alt='' /> : ""}
                 <input
-                    type={props.type}
-                    placeholder={props.placeholder}
-                    required={props.required || false}
-                    style={{ padding: props.image ? '' : '8px 15px' }}
-                    pattern={props.pattern}
-                    title={props.title}
-                    maxLength={props.maxLength}
-                    minLength={props.minLength}
-                    onChange={props.onChange}
-                    value={props.value}
-                    min={props.min}
-                    max={props.max}
-                    name={props.name}
-                    disabled={props.readonly}
-                    onBlur={props.onBlur}
-                />{' '}
-                {/* </Form.Item> */}
+                    type={type}
+                    placeholder={placeholder}
+                    required={required || false}
+                    style={{ padding: image ? "" : "8px 15px" }}
+                    pattern={pattern}
+                    title={title}
+                    maxLength={maxLength}
+                    minLength={minLength}
+                    onChange={onChange}
+                    value={value}
+                    min={min}
+                    max={max}
+                    name={name}
+                    disabled={readonly}
+                    onBlur={onBlur}
+                />{" "}
             </div>
         </>
     );

@@ -1,46 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { ConfigProvider, message, notification, Upload } from 'antd';
-import type { UploadChangeParam } from 'antd/es/upload';
-import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
-import ImgCrop from 'antd-img-crop';
-import styles from './profile.module.css';
-import InputField from '../../components/InputFiled/InputField';
-import CustomDatePicker from '../../components/CustomDatePicker/customDatePicker';
-import Button from '../../components/Button/Button';
-import EditIcon from '../../assets/icons/editIcon.png';
-import SimpleReactValidator from 'simple-react-validator';
+import React, { useEffect, useState } from "react";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { ConfigProvider, message, notification, Upload } from "antd";
+import type { UploadChangeParam } from "antd/es/upload";
+import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+import ImgCrop from "antd-img-crop";
+import styles from "./profile.module.css";
+import InputField from "../../components/InputFiled/InputField";
+import CustomDatePicker from "../../components/CustomDatePicker/customDatePicker";
+import Button from "../../components/Button/Button";
+import EditIcon from "../../assets/icons/editIcon.png";
+import SimpleReactValidator from "simple-react-validator";
 
 const getBase64 = (img: RcFile, callback: (url: string) => void) => {
     const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result as string));
+    reader.addEventListener("load", () => callback(reader.result as string));
     reader.readAsDataURL(img);
 };
 
 const beforeUpload = (file: RcFile) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
     if (!isJpgOrPng) {
-        message.error('You can only upload JPG/PNG file!');
+        message.error("You can only upload JPG/PNG file!");
     }
     const isLt2M = file.size / 1024 / 1024 < 2;
     if (!isLt2M) {
-        message.error('Image must smaller than 2MB!');
+        message.error("Image must smaller than 2MB!");
     }
     return isJpgOrPng && isLt2M;
+};
+
+const initialValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    mobile: "",
+    userProfileImage: "",
+    birthDate: "",
 };
 
 const ViewProfile = (props: any) => {
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState<string | null>();
     const [validator] = useState(new SimpleReactValidator());
-    const [profileData, setProfileData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        mobile: '',
-        userProfileImage: '',
-        birthDate: '',
-    });
+    const [profileData, setProfileData] = useState(initialValues);
     const [, forceUpdate] = useState({});
     const [api, contextHolder] = notification.useNotification();
     const [isLoading, setIsLoading] = useState(false);
@@ -96,7 +98,7 @@ const ViewProfile = (props: any) => {
         getBase64(file as RcFile, (url) => {
             setProfileData((prev) => ({
                 ...prev,
-                userProfileImage: url.toString().split(',')[1],
+                userProfileImage: url.toString().split(",")[1],
             }));
             setImageUrl(url);
         });
@@ -105,21 +107,21 @@ const ViewProfile = (props: any) => {
     return (
         <>
             {contextHolder}
-            <div className={styles['profile-container']}>
-                <div className={styles['profile-left-container']}>
-                    <div className={styles['profile-icon-container']}>
+            <div className={styles["profile-container"]}>
+                <div className={styles["profile-left-container"]}>
+                    <div className={styles["profile-icon-container"]}>
                         <ConfigProvider
                             theme={{
                                 token: {
-                                    colorPrimary: '#3AC793',
+                                    colorPrimary: "#3AC793",
                                 },
                             }}
                         >
                             <ImgCrop rotationSlider>
                                 <Upload
-                                    name="avatar"
-                                    listType="picture-circle"
-                                    className="avatar-uploader"
+                                    name='avatar'
+                                    listType='picture-circle'
+                                    className='avatar-uploader'
                                     showUploadList={false}
                                     beforeUpload={beforeUpload}
                                     customRequest={customRequest}
@@ -127,10 +129,10 @@ const ViewProfile = (props: any) => {
                                     {imageUrl ? (
                                         <img
                                             src={imageUrl}
-                                            alt="avatar"
+                                            alt='avatar'
                                             style={{
-                                                width: '120px',
-                                                height: '120px',
+                                                width: "120px",
+                                                height: "120px",
                                             }}
                                         />
                                     ) : (
@@ -142,53 +144,53 @@ const ViewProfile = (props: any) => {
                     </div>
                     <img
                         src={EditIcon}
-                        alt="editIcon"
-                        className={styles['profile-edit-icon']}
+                        alt='editIcon'
+                        className={styles["profile-edit-icon"]}
                     />
                 </div>
-                <div className={styles['profile-right-container']}>
-                    <p>{profileData.firstName + ' ' + profileData.lastName}</p>
+                <div className={styles["profile-right-container"]}>
+                    <p>{profileData.firstName + " " + profileData.lastName}</p>
                     <p>{profileData.email}</p>
                 </div>
             </div>
-            <div className={styles['profile-input-container']}>
-                <div className={styles['profile-input-field']}>
+            <div className={styles["profile-input-container"]}>
+                <div className={styles["profile-input-field"]}>
                     <p>First Name</p>
                     <div>
                         <InputField
-                            type={'text'}
-                            name="firstName"
+                            type={"text"}
+                            name='firstName'
                             onChange={handleProfileData}
                             value={profileData.firstName}
                         />
-                        <span className="text-error">
+                        <span className='text-error'>
                             {validator.message(
-                                'firstName',
+                                "firstName",
                                 profileData.firstName,
-                                'required'
+                                "required"
                             )}
                         </span>
                     </div>
                 </div>
-                <div className={styles['profile-input-field']}>
+                <div className={styles["profile-input-field"]}>
                     <p>Last Name</p>
                     <div>
                         <InputField
-                            type={'text'}
-                            name="lastName"
+                            type={"text"}
+                            name='lastName'
                             onChange={handleProfileData}
                             value={profileData.lastName}
                         />
-                        <span className="text-error">
+                        <span className='text-error'>
                             {validator.message(
-                                'lastName',
+                                "lastName",
                                 profileData.lastName,
-                                'required'
+                                "required"
                             )}
                         </span>
                     </div>
                 </div>
-                <div className={styles['profile-input-field']}>
+                <div className={styles["profile-input-field"]}>
                     <p>Date of Birth</p>
                     <div>
                         <CustomDatePicker
@@ -200,40 +202,40 @@ const ViewProfile = (props: any) => {
                                 }));
                             }}
                         />
-                        <span className="text-error">
+                        <span className='text-error'>
                             {validator.message(
-                                'lastName',
+                                "lastName",
                                 profileData.birthDate,
-                                'required'
+                                "required"
                             )}
                         </span>
                     </div>
                 </div>
-                <div className={styles['profile-input-field']}>
+                <div className={styles["profile-input-field"]}>
                     <p>Mobile</p>
                     <InputField
-                        type={'text'}
-                        name="mobile"
+                        type={"text"}
+                        name='mobile'
                         onChange={handleProfileData}
                         value={profileData.mobile}
                         readonly={true}
                     />
                 </div>
-                <div className={styles['profile-input-field']}>
+                <div className={styles["profile-input-field"]}>
                     <p>Email</p>
                     <InputField
-                        type={'text'}
-                        name="email"
+                        type={"text"}
+                        name='email'
                         onChange={handleProfileData}
                         value={profileData.email}
                         readonly={true}
                     />
                 </div>
             </div>
-            <div className={styles['button-container']}>
+            <div className={styles["button-container"]}>
                 <Button
-                    text={'Save Changes'}
-                    type={'button'}
+                    text={"Save Changes"}
+                    type={"button"}
                     onClick={saveProfile}
                     open={isLoading}
                     disabled={isLoading}

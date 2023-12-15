@@ -1,4 +1,4 @@
-.table-container{
+.table-container {
     background-color: #fff;
     padding: 20px;
     box-shadow: 0px 3px 22px #0000001f;
@@ -6,7 +6,7 @@
     border-radius: 9px;
 }
 
-.table-sub-heading{
+.table-sub-heading {
     font-size: 1.5rem;
     font-weight: 600;
     margin: 10px 0;
