@@ -55,6 +55,7 @@ const ViewProfile = (props: any) => {
 
     useEffect(() => {
         if (props.profileInfoData) {
+            console.log(props);
             setProfileData((prev) => ({
                 ...prev,
                 firstName: props.profileInfoData?.firstName,
