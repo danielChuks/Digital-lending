@@ -2,6 +2,18 @@ import { PostAxios } from "../../Network/api";
 import { useMutation } from "react-query";
 import { User } from "../Signin/signin";
 
+export interface UserDetailRequest {
+  instituteCode: string;
+  transmissionTime: number;
+  dbsUserId: string;
+}
+export interface ValidateOTP {
+  instituteCode: string;
+  transmissionTime: number;
+  dbsUserId: string;
+  securityCd: string;
+}
+
 const requestOTP = async (requestdata: UserDetailRequest): Promise<User> => {
   const generateotpResponse = await PostAxios(
     "/app/dbs/userservice/generateOtp",
@@ -16,11 +28,6 @@ const requestOTPMutationFN = (requestdata: UserDetailRequest) => {
 
 export const useRequestOTP = () => useMutation(requestOTPMutationFN);
 
-export interface UserDetailRequest {
-  instituteCode: string;
-  transmissionTime: number;
-  dbsUserId: string;
-}
 
 const validateOTP = async (requestdata: ValidateOTP): Promise<User> => {
   const validateotpResponse = await PostAxios(
@@ -36,9 +43,3 @@ const validateOTPMutationFN = (requestdata: ValidateOTP) => {
 
 export const useValidateOTP = () => useMutation(validateOTPMutationFN);
 
-export interface ValidateOTP {
-  instituteCode: string;
-  transmissionTime: number;
-  dbsUserId: string;
-  securityCd: string;
-}
