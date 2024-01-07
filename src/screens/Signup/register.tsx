@@ -25,6 +25,8 @@ import { formatDate } from "../../Utils/UtilityFunctions/utilityFunctions";
 import CustomDatePicker from "../../components/CustomDatePicker/customDatePicker";
 import { CalendarOutlined } from "@ant-design/icons";
 import SimpleReactValidator from "simple-react-validator";
+
+
 export const Register = () => {
   const navigate = useNavigate();
   const [countryCode, setCountryCode] = useState("");
