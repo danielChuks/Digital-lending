@@ -1,6 +1,37 @@
 import { useMutation } from "react-query";
 import { PostAxios } from "../../../Network/api";
 
+export interface IFindAppDraftResponse {
+  errorMsg: any;
+  objectId: any;
+  referenceNo: any;
+  dbsUserId: number;
+  returnCd: string;
+  responseMsg: any;
+  applData: ApplDaum[];
+}
+
+export interface ApplDaum {
+  errorMsg?: any;
+  objectId?: any;
+  referenceNo?: any;
+  dbsUserId?: any;
+  dbsCustApplId?: number;
+  applRefNo?: string;
+  customerId?: any;
+  creditApplId?: any;
+  creditApplStatus?: any;
+  applType?: string;
+  applData?: any;
+  custDraftData?: any;
+  creditAppDraftData?: any;
+  depositAccDraftData?: any;
+  recordavailablestatus?: boolean;
+  returnCd?: any;
+  responseMsg?: any;
+}
+
+
 async function findAppDraft(credentials: any): Promise<IFindAppDraftResponse> {
   const applDraftResponse = await PostAxios(
     "/app/dbs/creditapplication/findApplDraft",
@@ -48,32 +79,4 @@ const trackDBSCustomerMutationFN = (requestdata: any) => {
 export const useTrackDBSCustomer = () =>
   useMutation(trackDBSCustomerMutationFN);
 
-export interface IFindAppDraftResponse {
-  errorMsg: any;
-  objectId: any;
-  referenceNo: any;
-  dbsUserId: number;
-  returnCd: string;
-  responseMsg: any;
-  applData: ApplDaum[];
-}
 
-export interface ApplDaum {
-  errorMsg?: any;
-  objectId?: any;
-  referenceNo?: any;
-  dbsUserId?: any;
-  dbsCustApplId?: number;
-  applRefNo?: string;
-  customerId?: any;
-  creditApplId?: any;
-  creditApplStatus?: any;
-  applType?: string;
-  applData?: any;
-  custDraftData?: any;
-  creditAppDraftData?: any;
-  depositAccDraftData?: any;
-  recordavailablestatus?: boolean;
-  returnCd?: any;
-  responseMsg?: any;
-}
