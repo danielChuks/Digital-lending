@@ -3,7 +3,7 @@
   border: none;
   outline: none;
   color: #ffffff;
-  background-color: #3ac793;
+  background-color: #006c33;
   box-shadow: 0 2px 10px #00000029;
   font-size: 16px;
   font-weight: 600;
@@ -18,8 +18,8 @@
 .button_field:disabled,
 .button_field[disabled]{
   cursor: not-allowed;
-  background-color: #3ac793be;
-  color: #ffffffd0;
+  background-color: #006c33;
+  color: #ffffff;
 }
 
 .back_button, .next_button{ 
@@ -28,7 +28,7 @@
   border: none;
   outline: none;
   color: #ffffff;
-  background-color: #3ac793;
+  background-color: #006c33;
   font-size: 1rem;
   font-weight: 500;
   border-radius: 35px;

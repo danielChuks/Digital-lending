@@ -1,11 +1,10 @@
-.select-container{
+.select-container {
     display: flex;
     align-items: flex-start;
     flex-direction: column;
 }
 .label {
     font-size: 14px;
-    color: #777;
+    color: #343a40;
     padding-left: 5px;
-  }
-  
+}
