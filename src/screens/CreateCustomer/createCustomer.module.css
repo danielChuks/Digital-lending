@@ -3,51 +3,15 @@
     margin-top: 30px;
     background-color: #fff;
     padding: 20px;
-    box-shadow: 0px 3px 22px #0000001f;
+    box-shadow: 0px 3px 22px #5ca77f;
     border-radius: 18px;
 }
-/* 
-.input-1 {
-  grid-area: input1;
-}
-.input-2 {
-  grid-area: input2;
-}
-.input-3 {
-  grid-area: input3;
-}
-.input-4 {
-  grid-area: input4;
-}
-.input-5 {
-  grid-area: input5;
-}
-.input-6 {
-  grid-area: input6;
-}
-.input-7 {
-  grid-area: input7;
-}
-.input-8 {
-  grid-area: input8;
-}
-.input-9 {
-  grid-area: input9;
-}
-.input-10 {
-  grid-area: input10;
-} */
 
 .basic-info-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     column-gap: 20px;
     row-gap: 10px;
-    /* grid-template-areas:
-    "input1 input1 input2 input2"
-    "input3 input3 input4 input4"
-    "input5 input5 input6 input6"
-    "input7 input8 input9 input10"; */
 }
 
 .buton-container {

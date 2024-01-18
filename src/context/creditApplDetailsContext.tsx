@@ -5,14 +5,14 @@ import {
     ReactNode,
     Dispatch,
     SetStateAction,
-} from "react";
-import { ApplCreditData } from "../interfaces/ApplCreditData.interface";
+} from 'react';
+import { ApplCreditData } from '../interfaces/ApplCreditData.interface';
 
 interface MyComponentProps {
     children: ReactNode;
 }
 
-// Define the shape of your context state
+//Define the shape of your context state
 interface MyContextType {
     creditApplDataFields_context: ApplCreditData;
     setCreditApplDataFields_context: Dispatch<SetStateAction<ApplCreditData>>;
@@ -20,15 +20,15 @@ interface MyContextType {
 
 export const CreditApplicationData = createContext<MyContextType | null>(null);
 
-// Define a custom hook to access the context
+//Define a custom hook to access the context
 export function useCreditApplicationDataContext() {
     const context = useContext(CreditApplicationData);
     if (!context) {
-        throw new Error("useMyContext must be used within a MyContextProvider");
+        throw new Error('useMyContext must be used within a MyContextProvider');
     }
     return context;
 }
-const CreditApplContext: React.FC<MyComponentProps> = ({ children }) => {
+const CreditApplContext = ({ children }: MyComponentProps) => {
     const [creditApplDataFields_context, setCreditApplDataFields_context] =
         useState<ApplCreditData>({
             basicInfo: {
@@ -37,10 +37,10 @@ const CreditApplContext: React.FC<MyComponentProps> = ({ children }) => {
                 currencyId: null,
                 productId: null,
                 purposeOfCreditId: null,
-                strApplicationDate: "",
-                termCode: "",
+                strApplicationDate: '',
+                termCode: '',
                 termValue: null,
-                repaySourceAcctNo: "",
+                repaySourceAcctNo: '',
             },
             collateralinfoData: null,
             documentInfodata: null,

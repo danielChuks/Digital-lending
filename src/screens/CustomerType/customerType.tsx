@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import styles from './customerType.module.css';
-// import IndividualIcon from '../../assets/icons/customerType/group.png';
-// import NonIndividualIcon from '../../assets/icons/customerType/non-individual.png';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import { useCustomerContext } from '../../context/customerDetailsContext';

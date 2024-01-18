@@ -24,7 +24,7 @@
 
 .forgot-pwd {
     cursor: pointer;
-    color: #3ac793;
+    color: #006c33;
     text-align: right;
     padding: 8px 0;
     font-size: 14px;
@@ -39,7 +39,7 @@
     font-size: 14px;
 }
 .signin-portion > :last-child {
-    color: #3ac793;
+    color: #006c33;
     cursor: pointer;
     font-size: 14px;
 }

@@ -1,30 +1,30 @@
-import React, { useState, useContext, useEffect } from "react";
-import styles from "../../createCustomer.module.css";
-import InputField from "../../../../components/InputFiled/InputField";
-import CustomSelector from "../../../../components/CustomSelector/customSelector";
-import { Button, ConfigProvider, notification, Upload } from "antd";
-import { useCustomerContext } from "../../../../context/customerDetailsContext";
-import { UploadOutlined } from "@ant-design/icons";
-import type { UploadProps } from "antd";
-import CustomDatePicker from "../../../../components/CustomDatePicker/customDatePicker";
-import CustomButton from "../../../../components/Button/Button";
+import React, { useState, useEffect } from 'react';
+import styles from '../../createCustomer.module.css';
+import InputField from '../../../../components/InputFiled/InputField';
+import CustomSelector from '../../../../components/CustomSelector/customSelector';
+import { Button, ConfigProvider, notification, Upload } from 'antd';
+import { useCustomerContext } from '../../../../context/customerDetailsContext';
+import { UploadOutlined } from '@ant-design/icons';
+import type { UploadProps } from 'antd';
+import CustomDatePicker from '../../../../components/CustomDatePicker/customDatePicker';
+import CustomButton from '../../../../components/Button/Button';
 import {
     useCreateCustomerDraft,
     useGetPicklist,
-} from "../../createCustomerService";
-import SimpleReactValidator from "simple-react-validator";
-import { usePickListContext } from "../../../../context/pickListDataContext";
+} from '../../createCustomerService';
+import SimpleReactValidator from 'simple-react-validator';
+import { usePickListContext } from '../../../../context/pickListDataContext';
 import openNotificationWithIcon, {
     CommonnotificationProps,
-} from "../../../../components/Notification/commonnotification";
-import { useNavigate } from "react-router-dom";
-import usePopulateCustomerDraft from "../../../../Hooks/populateCustomerDraft";
-import PaperClipOutlined from "@ant-design/icons/lib/icons/PaperClipOutlined";
-import Loader from "../../../../components/Loader/loader";
+} from '../../../../components/Notification/commonnotification';
+import { useNavigate } from 'react-router-dom';
+import usePopulateCustomerDraft from '../../../../Hooks/populateCustomerDraft';
+import PaperClipOutlined from '@ant-design/icons/lib/icons/PaperClipOutlined';
+import Loader from '../../../../components/Loader/loader';
 import DialogueBox, {
     DialogueBoxProps,
-} from "../../../../components/Model/model";
-import { identificationInfoProps } from "../../../../interfaces";
+} from '../../../../components/Model/model';
+import { identificationInfoProps } from '../../../../interfaces';
 
 const KycInfo: React.FC<any> = (props: any) => {
     const [validator] = useState(new SimpleReactValidator());
@@ -32,32 +32,33 @@ const KycInfo: React.FC<any> = (props: any) => {
     const picklistMutation = useGetPicklist();
     const [identityTypes, setIdentityTypes] = useState<any>();
     const [kycData, setkycData] = useState<identificationInfoProps>({
-        binaryImage: "",
+        binaryImage: '',
         countryOfIssueId: null,
-        identityNumber: "",
-        identityTypeCd: "",
-        identityTypeDesc: "",
-        strExpiryDate: "",
-        strIssueDate: "",
+        identityNumber: '',
+        identityTypeCd: '',
+        identityTypeDesc: '',
+        strExpiryDate: '',
+        strIssueDate: '',
     });
-    const { picklistData, setPicklistData } = usePickListContext();
+    const { picklistData } = usePickListContext();
     const createCustomerDraftMutation = useCreateCustomerDraft();
     const [api, contextHolder] = notification.useNotification();
     const navigate = useNavigate();
     const { populateCustomerDraft } = usePopulateCustomerDraft();
     const [isLoading, setIsLoading] = useState(false);
     const [modelData, setModelData] = useState<DialogueBoxProps>({
-        title: "",
-        content: "",
-        okText: "",
-        cancelText: "",
-        onOk: "",
+        title: '',
+        content: '',
+        okText: '',
+        cancelText: '',
+        onOk: '',
         onCancel: true,
     });
     const [modelOpen, setModelOpen] = useState(false);
 
     useEffect(() => {
         if (props.identityData?.data) {
+            console.log(props.identityData)
             setkycData({
                 binaryImage: props.identityData.data.binaryImage,
                 countryOfIssueId:
@@ -108,8 +109,8 @@ const KycInfo: React.FC<any> = (props: any) => {
                 setkycData((prev) => ({
                     ...prev,
                     binaryImage: reader.result
-                        ? reader.result?.toString().split(",")[1]
-                        : "",
+                        ? reader.result?.toString().split(',')[1]
+                        : '',
                 }));
             };
             return false;
@@ -132,9 +133,9 @@ const KycInfo: React.FC<any> = (props: any) => {
 
     const fetPicklistData = async () => {
         const payload = {
-            instituteCode: "DBS01",
+            instituteCode: 'DBS01',
             transmissionTime: Date.now(),
-            category: "FETCH_CUSTOMER_IDENTIFICATION_XREF",
+            category: 'FETCH_CUSTOMER_IDENTIFICATION_XREF',
             subCategory: CustomerData.basicInfoData.customerType,
         };
         const data: any = await picklistMutation.mutateAsync(payload);
@@ -152,18 +153,18 @@ const KycInfo: React.FC<any> = (props: any) => {
                 setIdentityTypes(temp);
             }
         } else if (
-            data.errorCode === "CI_JWT_001" ||
-            data.errorCode === "CI_JWT_002"
+            data.errorCode === 'CI_JWT_001' ||
+            data.errorCode === 'CI_JWT_002'
         ) {
             const notificationData: CommonnotificationProps = {
-                type: "info",
-                msgtitle: "Notification",
-                msgDesc: "Your session is over, Please login again",
+                type: 'info',
+                msgtitle: 'Notification',
+                msgDesc: 'Your session is over, Please login again',
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             setTimeout(() => {
-                navigate({ pathname: "/login" });
+                navigate({ pathname: '/login' });
             }, 3000);
         }
     };
@@ -189,19 +190,20 @@ const KycInfo: React.FC<any> = (props: any) => {
                 }
             } else {
                 arr = [kycData];
+                console.log(kycData);
             }
             const payload = {
-                instituteCode: sessionStorage.getItem("instituteCode"),
+                instituteCode: sessionStorage.getItem('instituteCode'),
                 transmissionTime: Date.now(),
                 ...CustomerData.basicInfoData,
                 ...CustomerData.addressInfoData,
                 ...CustomerData.otherInfoData,
                 identificationsList: arr,
-                dbsUserId: Number(sessionStorage.getItem("dbsUserId")),
+                dbsUserId: Number(sessionStorage.getItem('dbsUserId')),
                 customerCategory: CustomerData.customerCategory,
-                email: sessionStorage.getItem("email"),
-                mobile: sessionStorage.getItem("mobile"),
-                dbsCustApplId: Number(sessionStorage.getItem("dbsCustApplId")),
+                email: sessionStorage.getItem('email'),
+                mobile: sessionStorage.getItem('mobile'),
+                dbsCustApplId: Number(sessionStorage.getItem('dbsCustApplId')),
                 strphotoGraphImage: CustomerData.strphotoGraphImage,
                 strsignatureImage: CustomerData.strsignatureImage,
             };
@@ -211,9 +213,9 @@ const KycInfo: React.FC<any> = (props: any) => {
             if (data.status === 200) {
                 setIsLoading(false);
                 const notificationData: CommonnotificationProps = {
-                    type: "success",
-                    msgtitle: "success",
-                    msgDesc: "Identification Date Successfully added",
+                    type: 'success',
+                    msgtitle: 'success',
+                    msgDesc: 'Identification Date Successfully added',
                     api: api,
                 };
                 openNotificationWithIcon(notificationData);
@@ -229,25 +231,25 @@ const KycInfo: React.FC<any> = (props: any) => {
                     props.setOpen(false);
                 }, 2000);
             } else if (
-                data.errorCode === "CI_JWT_001" ||
-                data.errorCode === "CI_JWT_002"
+                data.errorCode === 'CI_JWT_001' ||
+                data.errorCode === 'CI_JWT_002'
             ) {
                 setIsLoading(false);
                 const notificationData: CommonnotificationProps = {
-                    type: "info",
-                    msgtitle: "Notification",
-                    msgDesc: "Your session is over, Please login again",
+                    type: 'info',
+                    msgtitle: 'Notification',
+                    msgDesc: 'Your session is over, Please login again',
                     api: api,
                 };
                 openNotificationWithIcon(notificationData);
                 setTimeout(() => {
-                    navigate({ pathname: "/login" });
+                    navigate({ pathname: '/login' });
                 }, 3000);
             } else {
                 setIsLoading(false);
                 const notificationData: CommonnotificationProps = {
-                    type: "error",
-                    msgtitle: "",
+                    type: 'error',
+                    msgtitle: '',
                     msgDesc: data.errorMessage,
                     api: api,
                 };
@@ -263,10 +265,10 @@ const KycInfo: React.FC<any> = (props: any) => {
         e.preventDefault();
         setModelOpen(true);
         setModelData({
-            title: "Confirmation",
-            content: "Are you sure, you want to delete the Identification ?",
-            okText: "Delete",
-            cancelText: "Cancel",
+            title: 'Confirmation',
+            content: 'Are you sure, you want to delete the Identification ?',
+            okText: 'Delete',
+            cancelText: 'Cancel',
             onOk: async () => {
                 setModelOpen(false);
                 let arr;
@@ -280,18 +282,18 @@ const KycInfo: React.FC<any> = (props: any) => {
                     arr = null;
                 }
                 const payload = {
-                    instituteCode: sessionStorage.getItem("instituteCode"),
+                    instituteCode: sessionStorage.getItem('instituteCode'),
                     transmissionTime: Date.now(),
                     ...CustomerData.basicInfoData,
                     ...CustomerData.addressInfoData,
                     ...CustomerData.otherInfoData,
                     identificationsList: arr,
-                    dbsUserId: Number(sessionStorage.getItem("dbsUserId")),
+                    dbsUserId: Number(sessionStorage.getItem('dbsUserId')),
                     customerCategory: CustomerData.customerCategory,
-                    email: sessionStorage.getItem("email"),
-                    mobile: sessionStorage.getItem("mobile"),
+                    email: sessionStorage.getItem('email'),
+                    mobile: sessionStorage.getItem('mobile'),
                     dbsCustApplId: Number(
-                        sessionStorage.getItem("dbsCustApplId")
+                        sessionStorage.getItem('dbsCustApplId')
                     ),
                     strphotoGraphImage: CustomerData.strphotoGraphImage,
                     strsignatureImage: CustomerData.strsignatureImage,
@@ -304,9 +306,9 @@ const KycInfo: React.FC<any> = (props: any) => {
                 if (data.status === 200) {
                     setIsLoading(false);
                     const notificationData: CommonnotificationProps = {
-                        type: "success",
-                        msgtitle: "success",
-                        msgDesc: "Identification Successfully Deleted",
+                        type: 'success',
+                        msgtitle: 'success',
+                        msgDesc: 'Identification Successfully Deleted',
                         api: api,
                     };
                     openNotificationWithIcon(notificationData);
@@ -314,7 +316,7 @@ const KycInfo: React.FC<any> = (props: any) => {
                         props.setIdentityData();
                     }
                     sessionStorage.setItem(
-                        "dbsCustApplId",
+                        'dbsCustApplId',
                         data.data?.dbsCustApplId
                     );
                     populateCustomerDraft();
@@ -322,25 +324,25 @@ const KycInfo: React.FC<any> = (props: any) => {
                         props.setOpen(false);
                     }, 2000);
                 } else if (
-                    data.errorCode === "CI_JWT_001" ||
-                    data.errorCode === "CI_JWT_002"
+                    data.errorCode === 'CI_JWT_001' ||
+                    data.errorCode === 'CI_JWT_002'
                 ) {
                     setIsLoading(false);
                     const notificationData: CommonnotificationProps = {
-                        type: "info",
-                        msgtitle: "Notification",
-                        msgDesc: "Your session is over, Please login again",
+                        type: 'info',
+                        msgtitle: 'Notification',
+                        msgDesc: 'Your session is over, Please login again',
                         api: api,
                     };
                     openNotificationWithIcon(notificationData);
                     setTimeout(() => {
-                        navigate({ pathname: "/login" });
+                        navigate({ pathname: '/login' });
                     }, 3000);
                 } else {
                     setIsLoading(false);
                     const notificationData: CommonnotificationProps = {
-                        type: "error",
-                        msgtitle: "",
+                        type: 'error',
+                        msgtitle: '',
                         msgDesc: data.errorMessage,
                         api: api,
                     };
@@ -360,75 +362,75 @@ const KycInfo: React.FC<any> = (props: any) => {
                 DialogueBoxProps={modelData}
                 setOpen={setModelOpen}
             />
-            <div className={styles["basic-info-container"]}>
-                <div className={styles["input-container-split"]}>
+            <div className={styles['basic-info-container']}>
+                <div className={styles['input-container-split']}>
                     <div>
                         <CustomSelector
-                            label={"Identity Type"}
+                            label={'Identity Type'}
                             onChange={(e, option) => {
                                 handleSelector(
                                     e,
                                     option,
-                                    "identityTypeDesc",
-                                    "identityTypeCd"
+                                    'identityTypeDesc',
+                                    'identityTypeCd'
                                 );
                             }}
                             optionsList={identityTypes}
                             value={kycData.identityTypeCd}
                         />
-                        <span className='text-error'>
+                        <span className="text-error">
                             {validator.message(
-                                "identityNumber",
+                                'identityNumber',
                                 kycData.identityTypeCd,
-                                "required"
+                                'required'
                             )}
                         </span>
                     </div>
                 </div>
-                <div className={styles["input-container-split"]}>
-                    <div className={styles["input-container"]}>
+                <div className={styles['input-container-split']}>
+                    <div className={styles['input-container']}>
                         <InputField
-                            label={"Identity Number"}
-                            type={"text"}
+                            label={'Identity Number'}
+                            type={'text'}
                             required={true}
                             onChange={handleIdentityInfo}
                             value={kycData.identityNumber}
-                            name='identityNumber'
+                            name="identityNumber"
                         />
-                        <span className='text-error'>
+                        <span className="text-error">
                             {validator.message(
-                                "identityNumber",
+                                'identityNumber',
                                 kycData.identityNumber,
-                                "required"
+                                'required'
                             )}
                         </span>
                     </div>
                 </div>
 
-                <div className={styles["input-container-split"]}>
+                <div className={styles['input-container-split']}>
                     <div>
                         <CustomSelector
-                            label={"Country Of Issue"}
+                            label={'Country Of Issue'}
                             onChange={(e) =>
-                                handleSelector(e, "", "", "countryOfIssueId")
+                                handleSelector(e, '', '', 'countryOfIssueId')
                             }
                             optionsList={picklistData.countryList}
                             value={kycData.countryOfIssueId}
-                            name='countryOfIssueId'
+                            name="countryOfIssueId"
                         />
-                        <span className='text-error'>
+                        <span className="text-error">
                             {validator.message(
-                                "countryOfIssueId",
+                                'countryOfIssueId',
                                 kycData.countryOfIssueId,
-                                "required"
+                                'required'
                             )}
                         </span>
                     </div>
                 </div>
-                <div className={styles["input-container-split"]}>
+                <div className={styles['input-container-split']}>
                     <div>
                         <CustomDatePicker
-                            label={"Issue Date"}
+                            label={'Issue Date'}
                             value={kycData.strIssueDate}
                             onChange={(date: any, dateString: any) => {
                                 setkycData((prev) => ({
@@ -437,17 +439,17 @@ const KycInfo: React.FC<any> = (props: any) => {
                                 }));
                             }}
                         />
-                        <span className='text-error'>
+                        <span className="text-error">
                             {validator.message(
-                                "Issue",
+                                'Issue',
                                 kycData.strIssueDate,
-                                "required"
+                                'required'
                             )}
                         </span>
                     </div>
                 </div>
 
-                <div className={styles["input-container-split"]}>
+                <div className={styles['input-container-split']}>
                     <div>
                         <CustomDatePicker
                             value={kycData.strExpiryDate}
@@ -457,14 +459,14 @@ const KycInfo: React.FC<any> = (props: any) => {
                                     strExpiryDate: dateString,
                                 }));
                             }}
-                            label={"Expiry Date"}
-                            name={"ExpiryDate"}
+                            label={'Expiry Date'}
+                            name={'ExpiryDate'}
                         />
-                        <span className='text-error'>
+                        <span className="text-error">
                             {validator.message(
-                                "ExpiryDate",
+                                'ExpiryDate',
                                 kycData.strExpiryDate,
-                                "required"
+                                'required'
                             )}
                         </span>
                     </div>
@@ -473,28 +475,28 @@ const KycInfo: React.FC<any> = (props: any) => {
                 <ConfigProvider
                     theme={{
                         token: {
-                            colorPrimary: "#39C594",
+                            colorPrimary: '#39C594',
                         },
                     }}
                 >
-                    <div className={styles["input-container-split"]}>
+                    <div className={styles['input-container-split']}>
                         <div>
                             <div
                                 style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
                                 }}
                             >
-                                <p className={styles["label"]}>
+                                <p className={styles['label']}>
                                     Select file to Upload
                                 </p>
-                                <p className={styles["selectFileheader"]}>
+                                <p className={styles['selectFileheader']}>
                                     {props.identityData?.data?.binaryImage ? (
                                         <>
-                                            <PaperClipOutlined /> {"1 file(s)"}
+                                            <PaperClipOutlined /> {'1 file(s)'}
                                         </>
                                     ) : (
-                                        ""
+                                        ''
                                     )}
                                 </p>
                             </div>
@@ -502,51 +504,51 @@ const KycInfo: React.FC<any> = (props: any) => {
                                 {...uploadprops}
                                 multiple={false}
                                 maxCount={1}
-                                accept={".pdf"}
+                                accept={'.pdf'}
                             >
                                 <Button
                                     icon={<UploadOutlined />}
-                                    style={{ width: "100%", margin: "10px 0" }}
-                                    name={"binaryImage"}
+                                    style={{ width: '100%', margin: '10px 0' }}
+                                    name={'binaryImage'}
                                 >
                                     Select File
                                 </Button>
                             </Upload>
-                            <span className='text-error'>
+                            <span className="text-error">
                                 {validator.message(
-                                    "binaryImage",
+                                    'binaryImage',
                                     kycData.binaryImage,
-                                    "required"
+                                    'required'
                                 )}
                             </span>
                         </div>
                     </div>
                 </ConfigProvider>
             </div>
-            <div className={styles["button-Outer-Container"]}>
-                <div className={styles["button-Container"]}>
-                    <div className={styles["save-button"]}>
+            <div className={styles['button-Outer-Container']}>
+                <div className={styles['button-Container']}>
+                    <div className={styles['save-button']}>
                         <CustomButton
-                            text={"Save Identification"}
-                            type='button'
+                            text={'Save Identification'}
+                            type="button"
                             onClick={handleIdentification}
                         />
                     </div>
-                    <div className={styles["delete-button"]}>
+                    <div className={styles['delete-button']}>
                         {props.identityData?.data ? (
                             <CustomButton
-                                text={"Delete Identification"}
-                                type='button'
+                                text={'Delete Identification'}
+                                type="button"
                                 onClick={handleDeleteIdentification}
                             />
                         ) : (
-                            ""
+                            ''
                         )}
                     </div>
-                    <div className={styles["close-button"]}>
+                    <div className={styles['close-button']}>
                         <CustomButton
-                            text={"Close"}
-                            type={"button"}
+                            text={'Close'}
+                            type={'button'}
                             onClick={() => {
                                 props.setOpen(false);
                                 props.setIdentityData();

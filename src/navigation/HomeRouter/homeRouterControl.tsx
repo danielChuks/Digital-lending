@@ -1,7 +1,7 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import styles from './homeRouterControl.module.css';
-import PalmsLogo from '../../assets/icons/logo.png';
+import PalmsLogo from '../../assets/icons/logo-boi.png';
 import UserLogo from '../../assets/icons/user-circle.svg';
 import { MenuProps, Modal, notification } from 'antd';
 import { Dropdown } from 'antd';
@@ -215,13 +215,13 @@ export const HomeRouterControl = () => {
                         placement="bottomRight"
                         arrow
                     >
-                        <a onClick={(e) => e.preventDefault()}>
+                        <div onClick={(e) => e.preventDefault()}>
                             <img
                                 className={styles['user-logo']}
                                 src={UserLogo}
                                 alt="user logo"
                             />
-                        </a>
+                        </div>
                     </Dropdown>
                 </div>
             </header>

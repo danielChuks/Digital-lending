@@ -89,7 +89,7 @@
     position: relative;
     width: 96px;
     height: 96px;
-    transform: rotate(45deg);
+    /* transform: rotate(45deg); */
 }
 
 .loader-square {
@@ -99,7 +99,7 @@
     width: 28px;
     height: 28px;
     margin: 2px;
-    border-radius: 0px;
+    border-radius: 100%;
     background: #ffffff;
     background-size: cover;
     background-position: center;
