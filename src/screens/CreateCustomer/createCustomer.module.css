@@ -82,7 +82,7 @@
 
 .card:hover {
     transform: scale(0.98);
-    box-shadow: #3d5466;
+    box-shadow: #006c33;
 }
 .card {
     min-width: 300px;
@@ -115,7 +115,7 @@
 .addnew-card:hover {
     background-color: #006c33;
     color: #ffffff;
-    border: 2px solid #39c594;
+    border: 2px solid #006c33;
 }
 .addnew-card-content {
     display: flex;
@@ -130,7 +130,7 @@
     text-align: center;
     color: #ffffff;
     padding: 5px 0;
-    border-bottom: 1px solid #39c594;
+    border-bottom: 1px solid #006c33;
 }
 .card-content {
     color: #ffffff;
@@ -165,7 +165,7 @@
 
 .selectFileheader {
     font-size: 14px;
-    color: rgb(67, 119, 214);
+    color: #006c33;
     padding-left: 5px;
 }
 
@@ -332,7 +332,7 @@
     }
     .card {
         min-width: 250px;
-        background-color: #032947;
+        background-color: #006c33;
         padding: 10px 10px;
         border-radius: 8px;
         margin: 10px 10px;

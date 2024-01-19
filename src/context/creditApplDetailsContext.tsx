@@ -28,6 +28,10 @@ export function useCreditApplicationDataContext() {
     }
     return context;
 }
+
+
+
+
 const CreditApplContext = ({ children }: MyComponentProps) => {
     const [creditApplDataFields_context, setCreditApplDataFields_context] =
         useState<ApplCreditData>({
