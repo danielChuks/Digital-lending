@@ -183,6 +183,21 @@ export const HomeRouterControl = () => {
         },
     ];
 
+    // .dashboard-content {
+    //     display: flex;
+    //     grid-template-columns: repeat(2, 2fr);
+    //     gap: 120px;
+    //     padding: 20px 20px;
+    //     width: 100%;
+    // }
+    
+    // .action-icons-container {
+    //     width: 100%;
+    //     display: grid;
+    //     grid-template-columns: repeat(3, 2fr);
+    //     gap: 25px 25px;
+    // }
+
     return (
         <>
             {contextHolder}

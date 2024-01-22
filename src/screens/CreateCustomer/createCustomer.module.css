@@ -41,7 +41,7 @@
 }
 .text-Container :nth-child(2) {
     font-size: 16px;
-    color: #726f6f;
+    color: #CEA766;
 }
 .text-Container {
     padding: 10px 0;
@@ -57,19 +57,19 @@
 }
 .save-button > button {
     margin-left: 20px;
-    color: #ffffff;
+    color: #CEA766;
     box-shadow: none;
 }
 .delete-button > button {
     margin-left: 20px;
     background-color: #d64b4b;
-    color: #ffffff;
+    color: #CEA766;
     box-shadow: none;
 }
 .close-button > button {
     margin-left: 20px;
     background-color: #ffffff;
-    color: #006c33;
+    color: #CEA766;
     border: 1px solid rgb(117, 114, 114);
     box-shadow: none;
 }
@@ -114,7 +114,7 @@
 }
 .addnew-card:hover {
     background-color: #006c33;
-    color: #ffffff;
+    color: #CEA766;
     border: 2px solid #006c33;
 }
 .addnew-card-content {

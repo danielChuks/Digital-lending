@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './dashboard.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useCustomerContext } from '../../context/customerDetailsContext';
@@ -14,6 +14,7 @@ import { RiDraftFill } from 'react-icons/ri';
 import { FaMoneyBillWheat } from 'react-icons/fa6';
 import { HiDocumentSearch } from 'react-icons/hi';
 import { MdDrafts } from 'react-icons/md';
+import croller from '../../assets/images/croller.png';
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -116,12 +117,30 @@ const Dashboard = () => {
         }
     };
 
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentSlide((prevSlide) => (prevSlide + 1) % 2);
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    const nextSlide = () => {
+        setCurrentSlide((prevSlide) => (prevSlide + 1) % 2);
+    };
+
+    const prevSlide = () => {
+        setCurrentSlide((prevSlide) => (prevSlide - 1 + 2) % 2);
+    };
+
     return (
         <>
             {contextHolder}
             <div className="main-container">
                 <div className={styles['dashboard-heading']}>Dashboard</div>
-                <section className={styles['dashboard-content']}>
+                <div className={styles['dashboard-content']}>
                     <div className={styles['action-icons-container']}>
                         {actionIconsList.map(({ id, name, icon, path }) => (
                             <div
@@ -139,15 +158,21 @@ const Dashboard = () => {
                         ))}
                     </div>
                     <div className={styles['right-carousel-container']}>
-                        <iframe
-                            title="Bank Offers"
-                            src={
-                                'http://10.100.80.140:9090/rubikonciapplication/app/dbs/userservice/getBankOffers'
-                            }
-                            style={{ border: '0' }}
-                        ></iframe>
+                        <div
+                            className={styles['carousel-wrapper']}
+                            style={{
+                                transform: `translateX(-${currentSlide * 50}%)`,
+                            }}
+                        >
+                            <div className={styles['carousel-slide']}>
+                                <img src={croller} alt="Bank Offer 1" />
+                            </div>
+                            <div className={styles['carousel-slide']}>
+                                <img src={croller} alt="Bank Offer 2" />
+                            </div>
+                        </div>
                     </div>
-                </section>
+                </div>
             </div>
         </>
     );

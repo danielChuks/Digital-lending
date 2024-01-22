@@ -70,7 +70,7 @@ const Button: React.FC<ButtonProps> = ({
                 <Spin
                     indicator={antIcon}
                     style={{
-                        color: "#ffffff",
+                        color: "#fff",
                         left: "10%",
                         position: "absolute",
                         visibility: open ? "visible" : "hidden",

@@ -69,6 +69,7 @@
   top: 50%;
   transform: translateY(-40%);
   right: 20px;
+  height: 20px;
 }
 
 .forgot-pwd {

@@ -223,7 +223,7 @@ export const Register = () => {
           <div className={styles["register-button"]}>
             <div className={styles["register-button-icon-container"]}>
               <Button text={"Create"} type={"submit"} disabled={false} />
-              <img src={checkmark} />
+              <img src={checkmark} alt='' />
             </div>
           </div>
           <div className={styles["backto-login"]}>

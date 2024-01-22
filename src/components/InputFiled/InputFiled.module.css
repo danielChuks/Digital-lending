@@ -11,7 +11,8 @@
 }
 
 .input_field img {
-    width: 20px;
+    width: 15px;
+    height: 15px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
