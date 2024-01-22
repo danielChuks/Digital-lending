@@ -1,4 +1,10 @@
-import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
+import React, {
+    useState,
+    ChangeEvent,
+    useRef,
+    useEffect,
+    useCallback,
+} from 'react';
 import styles from './otpVerification.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import OtpVerificationImage from '../../assets/icons/OTPverification.png';
@@ -80,12 +86,8 @@ const OtpVerification = () => {
         }
     };
 
-    useEffect(() => {
-        requestOTP();
-    }, []);
-
-    const requestOTP = async () => {
-        setResentOtpCount(resentOtpCount + 1);
+    const requestOTP = useCallback(async () => {
+        setResentOtpCount((prevCount) => prevCount + 1);
         if (resentOtpCount === resentAttempts) {
             setTimerVisible(false);
         }
@@ -108,9 +110,29 @@ const OtpVerification = () => {
                 api: api,
             };
             openNotificationWithIcon(notificationData);
-            // commonErrorHanlder(error);
         }
         setTimerVisible(true);
+    }, [
+        resentOtpCount,
+        setTimerVisible,
+        setIsLoading,
+        requestOTPMutation,
+        api,
+    ]);
+
+    useEffect(() => {
+        const otpRequested = sessionStorage.getItem('otpRequested');
+        if (!otpRequested) {
+            requestOTP();
+            sessionStorage.setItem('otpRequested', 'true');
+        }
+        return () => {
+            requestOTPMutation.reset();
+        };
+    }, [requestOTP, requestOTPMutation]);
+
+    const handleResendOTP = () => {
+        requestOTP();
     };
 
     const validateOTP = async () => {
@@ -197,7 +219,7 @@ const OtpVerification = () => {
                 {!isTimerVisible && resentOtpCount < resentAttempts + 1 && (
                     <p
                         className={styles['resend_otp_text']}
-                        onClick={requestOTP}
+                        onClick={handleResendOTP}
                     >
                         Resend OTP
                     </p>
