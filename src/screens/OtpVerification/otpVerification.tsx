@@ -52,7 +52,7 @@ const OtpVerification = () => {
     useEffect(() => {
         // disable verify button if otp not entered
         const isOtpEntered = otp.filter((value) => value === '');
-        if (isOtpEntered.length === 0) {
+        if (isOtpEntered.length == 0) {
             setIsDisableVerifyBtn(false);
         } else {
             setIsDisableVerifyBtn(true);
@@ -112,13 +112,7 @@ const OtpVerification = () => {
             openNotificationWithIcon(notificationData);
         }
         setTimerVisible(true);
-    }, [
-        resentOtpCount,
-        setTimerVisible,
-        setIsLoading,
-        requestOTPMutation,
-        api,
-    ]);
+    }, []);
 
     useEffect(() => {
         const otpRequested = sessionStorage.getItem('otpRequested');
@@ -129,9 +123,10 @@ const OtpVerification = () => {
         return () => {
             requestOTPMutation.reset();
         };
-    }, [requestOTP, requestOTPMutation]);
+    }, []);
 
     const handleResendOTP = () => {
+        console.log('clicked');
         requestOTP();
     };
 
