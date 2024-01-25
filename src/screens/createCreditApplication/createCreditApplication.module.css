@@ -121,7 +121,7 @@
     margin-left: 20px;
     background-color: #ffffff;
     color: #cea766;
-    border: 1px solid rgb(117, 114, 114);
+    border: 1px solid #cea766;
     box-shadow: none;
 }
 
@@ -132,11 +132,11 @@
 }
 .card:hover {
     transform: scale(0.98);
-    box-shadow: #3d5466;
+    box-shadow: #4d8b6a;
 }
 .card {
     min-width: 300px;
-    background-color: #032947;
+    background-color: #006c33;
     padding: 10px 10px;
     border-radius: 8px;
     margin: 10px 10px;
@@ -146,7 +146,7 @@
 
 .addnew-card {
     min-width: 200px;
-    border: 2px solid #032947;
+    border: 2px solid #006c33;
     padding: 10px 10px;
     border-radius: 8px;
     margin: 10px 10px;
@@ -157,9 +157,9 @@
     height: 100%;
 }
 .addnew-card:hover {
-    background-color: #032947;
-    color: #CEA766;
-    border: 2px solid #39c594;
+    background-color: #006c33;
+    color: #cea766;
+    border: 2px solid #4d8b6a;
 }
 .addnew-card-content {
     display: flex;
@@ -172,12 +172,12 @@
 }
 .card-header {
     text-align: center;
-    color: #CEA766;
+    color: #cea766;
     padding: 5px 0;
-    border-bottom: 1px solid #39c594;
+    border-bottom: 1px solid #4d8b6a;
 }
 .card-content {
-    color: #CEA766;
+    color: #cea766;
     padding: 10px 0 0 10px;
 }
 
@@ -186,11 +186,11 @@
 }
 .card-content-section :nth-child(1) {
     font-size: 14px;
-    color: #CEA766;
+    color: #cea766;
 }
 .card-content-section :nth-child(2) {
     font-size: 16px;
-    color: #CEA766;
+    color: #cea766;
 }
 .card-main-container {
     display: grid;
@@ -203,13 +203,13 @@
 
 .label {
     font-size: 14px;
-    color: #CEA766;
+    color: #cea766;
     padding-left: 5px;
 }
 
 .selectFileheader {
     font-size: 14px;
-    color: #CEA766;
+    color: #cea766;
     padding-left: 5px;
 }
 
@@ -272,11 +272,6 @@
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         row-gap: 20px;
-        /* grid-template-areas:
-      "input1 input1 input2 input2"
-      "input3 input3 input4 input4"
-      "input5 input5 input6 input6"
-      "input7 input8 input9 input10"; */
     }
 
     .button-Container {
@@ -303,11 +298,6 @@
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         row-gap: 20px;
-        /* grid-template-areas:
-      "input1 input1 input2 input2"
-      "input3 input3 input4 input4"
-      "input5 input5 input6 input6"
-      "input7 input8 input9 input10"; */
     }
     .input-container-split > div {
         margin: 0 8px;
@@ -331,7 +321,7 @@
     }
     .card {
         min-width: 250px;
-        background-color: #032947;
+        background-color: #006c33;
         padding: 10px 10px;
         border-radius: 8px;
         margin: 10px 10px;

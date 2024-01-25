@@ -41,7 +41,7 @@
 }
 .text-Container :nth-child(2) {
     font-size: 16px;
-    color: #CEA766;
+    color: #cea766;
 }
 .text-Container {
     padding: 10px 0;
@@ -57,19 +57,19 @@
 }
 .save-button > button {
     margin-left: 20px;
-    color: #CEA766;
+    color: #cea766;
     box-shadow: none;
 }
 .delete-button > button {
     margin-left: 20px;
     background-color: #d64b4b;
-    color: #CEA766;
+    color: #cea766;
     box-shadow: none;
 }
 .close-button > button {
     margin-left: 20px;
     background-color: #ffffff;
-    color: #CEA766;
+    color: #cea766;
     border: 1px solid rgb(117, 114, 114);
     box-shadow: none;
 }
@@ -114,7 +114,7 @@
 }
 .addnew-card:hover {
     background-color: #006c33;
-    color: #CEA766;
+    color: #cea766;
     border: 2px solid #006c33;
 }
 .addnew-card-content {
@@ -128,12 +128,12 @@
 }
 .card-header {
     text-align: center;
-    color: #ffffff;
+    color: #cea766;
     padding: 5px 0;
     border-bottom: 1px solid #006c33;
 }
 .card-content {
-    color: #ffffff;
+    color: #cea766;
     padding: 10px 0 0 10px;
 }
 
@@ -142,11 +142,11 @@
 }
 .card-content-section :nth-child(1) {
     font-size: 14px;
-    color: #cfcbcb;
+    color: #cea766;
 }
 .card-content-section :nth-child(2) {
     font-size: 16px;
-    color: #ffffff;
+    color: #cea766;
 }
 .card-main-container {
     display: grid;
@@ -159,7 +159,7 @@
 
 .label {
     font-size: 14px;
-    color: #777;
+    color: #cea766;
     padding-left: 5px;
 }
 
@@ -196,7 +196,7 @@
 }
 
 .image-preview-container-background-black {
-    background-color: rgb(179, 174, 174);
+    background-color: #cea766;
     flex-basis: 50%;
     height: 50vh;
     border: 2px dotted black;
@@ -235,11 +235,6 @@
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         row-gap: 20px;
-        /* grid-template-areas:
-      "input1 input1 input2 input2"
-      "input3 input3 input4 input4"
-      "input5 input5 input6 input6"
-      "input7 input8 input9 input10"; */
     }
 
     .button-Container {
@@ -304,11 +299,6 @@
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         row-gap: 20px;
-        /* grid-template-areas:
-      "input1 input1 input2 input2"
-      "input3 input3 input4 input4"
-      "input5 input5 input6 input6"
-      "input7 input8 input9 input10"; */
     }
     .input-container-split > div {
         margin: 0 8px;
@@ -355,7 +345,7 @@
     }
 
     .image-preview-container-background-black {
-        background-color: rgb(179, 174, 174);
+        background-color: #cea766;
         width: 100%;
         height: 50vh;
         border: 2px dotted black;
