@@ -23,20 +23,20 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 25px 25px;
+    gap: 45px 25px;
 }
 
 .action-box {
     cursor: pointer;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 19px;
+    padding: 10px 20px 10px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     box-shadow: 5px 5px 8px rgba(77, 139, 106, 0.2);
     transition: transform 0.5s ease-in-out;
+    color: #ffff;
+    border-radius: 10px;
 
     &:hover {
         transform: scale(1.1);

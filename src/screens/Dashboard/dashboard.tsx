@@ -11,7 +11,7 @@ import { GiFamilyHouse } from 'react-icons/gi';
 import { GiTakeMyMoney } from 'react-icons/gi';
 
 import { RiDraftFill } from 'react-icons/ri';
-import { FaMoneyBillWheat } from 'react-icons/fa6';
+import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { HiDocumentSearch } from 'react-icons/hi';
 import { MdDrafts } from 'react-icons/md';
 import croller from '../../assets/images/croller.png';
@@ -59,37 +59,37 @@ const Dashboard = () => {
         {
             id: 1,
             name: 'Account',
-            icon: <GiFamilyHouse size={80} color="#4d8b6a" />,
+            icon: <GiFamilyHouse size={80} color="#fff" />,
             path: '/dashboard/account',
         },
         {
             id: 2,
             name: 'Apply',
-            icon: <GiTakeMyMoney size={80} color="#4d8b6a" />,
+            icon: <GiTakeMyMoney size={80} color="#fff" />,
             path: '/dashboard/createCreditApplication',
         },
         {
             id: 3,
             name: 'Draft',
-            icon: <RiDraftFill size={80} color="#4d8b6a" />,
+            icon: <RiDraftFill size={80} color="#fff" />,
             path: '/dashboard/draftList',
         },
         {
             id: 4,
             name: 'Transfer',
-            icon: <FaMoneyBillWheat size={80} color="#4d8b6a" />,
+            icon: <FaMoneyBillTransfer  size={80} color="#fff" />,
             path: '/dashboard/fundTransfer',
         },
         {
             id: 5,
             name: 'Track',
-            icon: <HiDocumentSearch size={80} color="#4d8b6a" />,
+            icon: <HiDocumentSearch size={80} color="#fff" />,
             path: '/dashboard/track',
         },
         {
             id: 6,
             name: 'Message',
-            icon: <MdDrafts size={80} color="#4d8b6a" />,
+            icon: <MdDrafts size={80} color="#fff" />,
             path: '/dashboard/message',
         },
     ];
@@ -135,27 +135,38 @@ const Dashboard = () => {
         setCurrentSlide((prevSlide) => (prevSlide - 1 + 2) % 2);
     };
 
+    const cardColors = ['#DA9729', '#006c33'];
+    const shuffledColors = [...cardColors].sort(() => Math.random() - 0.5);
+
     return (
         <>
             {contextHolder}
             <div className="main-container">
-                <div className={styles['dashboard-heading']}>Dashboard</div>
+                <div className={styles['dashboard-heading']}>Home</div>
                 <div className={styles['dashboard-content']}>
                     <div className={styles['action-icons-container']}>
-                        {actionIconsList.map(({ id, name, icon, path }) => (
-                            <div
-                                key={id}
-                                className={styles['action-box']}
-                                onClick={() => handleNavigator(path)}
-                            >
-                                <div className={styles['icon-container']}>
-                                    {icon}
+                        {actionIconsList.map(
+                            ({ id, name, icon, path }, index) => (
+                                <div
+                                    key={id}
+                                    style={{
+                                        backgroundColor:
+                                            shuffledColors[
+                                                index % shuffledColors.length
+                                            ],
+                                    }}
+                                    className={styles['action-box']}
+                                    onClick={() => handleNavigator(path)}
+                                >
+                                    <div className={styles['icon-container']}>
+                                        {icon}
+                                    </div>
+                                    <div className={styles['action-name']}>
+                                        {name}
+                                    </div>
                                 </div>
-                                <div className={styles['action-name']}>
-                                    {name}
-                                </div>
-                            </div>
-                        ))}
+                            )
+                        )}
                     </div>
                     <div className={styles['right-carousel-container']}>
                         <div

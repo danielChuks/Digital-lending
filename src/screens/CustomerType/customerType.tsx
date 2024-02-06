@@ -82,7 +82,7 @@ const CustomerType = () => {
         },
         {
             id: 1,
-            name: 'Non - Individual',
+            name: 'Corporate',
             icon: <IoPeople size={100} color={'#006c33'} />,
             path: '/dashboard/createCustomer',
             customerType: 'COR',

@@ -412,7 +412,7 @@ const CreateCustomer = () => {
             {contextHolder}
             <Loader loading={isLoading} />
             <div className={'main-container'}>
-                <div className={'main-heading'}>Customer Enrollment</div>
+                <div className={'main-heading'}>Customer Onboarding</div>
                 <section className={styles['customer-type-content']}>
                     <form onSubmit={handleFormSubmit}>
                         <>

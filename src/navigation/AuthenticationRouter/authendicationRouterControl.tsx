@@ -6,9 +6,7 @@ export const AuthendicationRouterControl = () => {
     return (
         <>
             <div className={styles['leftContainer']}>
-                <div className={styles.bgImg}>
-                    {/* <img className={styles.palmsLogo} src={PalmsLogo} alt="palms logo" /> */}
-                </div>
+                <div className={styles.bgImg}></div>
             </div>
             <div className={styles['rightContainer']}>
                 <Outlet />

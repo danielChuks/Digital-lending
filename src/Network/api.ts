@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useCustomerContext } from "../context/customerDetailsContext";
+// import { useCustomerContext } from "../context/customerDetailsContext";
 
 const axiosInstance = axios.create({
     headers: {
@@ -187,7 +187,7 @@ export const fetchConfigInfo = async () => {
     let data;
     try {
         const res = await fetch(
-            "/palmsdigitalportal/applicationProperties.json"
+            "/applicationProperties.json"
         );
         data = await res.json();
     } catch (error) {
