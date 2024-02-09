@@ -52,7 +52,7 @@ const otherInfo = {
     marketingCampaignCd: "",
     sourceOfFundCd: "",
     amountUnit: "",
-    monthlyIncomeAmount: "",
+    monthlyIncomeAmount: 0,
 };
 
 // const identificationInfo = {

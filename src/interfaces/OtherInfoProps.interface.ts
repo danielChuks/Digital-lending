@@ -3,6 +3,6 @@ export interface otherInfoProps {
     marketingCampaignCd: string;
     sourceOfFundCd: string;
     amountUnit: string;
-    monthlyIncomeAmount: string;
+    monthlyIncomeAmount: number;
   }
   

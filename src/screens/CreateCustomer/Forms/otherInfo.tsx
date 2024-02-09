@@ -1,10 +1,10 @@
-import React, { forwardRef, useImperativeHandle, useState } from 'react';
-import styles from '../createCustomer.module.css';
-import InputField from '../../../components/InputFiled/InputField';
-import CustomSelector from '../../../components/CustomSelector/customSelector';
-import { useCustomerContext } from '../../../context/customerDetailsContext';
-import SimpleReactValidator from 'simple-react-validator';
-import { usePickListContext } from '../../../context/pickListDataContext';
+import React, { forwardRef, useImperativeHandle, useState } from "react";
+import styles from "../createCustomer.module.css";
+import InputField from "../../../components/InputFiled/InputField";
+import CustomSelector from "../../../components/CustomSelector/customSelector";
+import { useCustomerContext } from "../../../context/customerDetailsContext";
+import SimpleReactValidator from "simple-react-validator";
+import { usePickListContext } from "../../../context/pickListDataContext";
 
 // Define the props for the ChildComponent
 type ChildComponentProps = {};
@@ -23,9 +23,14 @@ const OtherInfo = forwardRef<ChildMethods, ChildComponentProps>(
         const handleAddressInfo = ({
             target: { value, name },
         }: React.ChangeEvent<HTMLInputElement>) => {
+            // Parse the value to a number before setting it in the state
+            const incomeAmount = parseFloat(value);
             setCustomerData((prev) => ({
                 ...prev,
-                otherInfoData: { ...prev.otherInfoData, [name]: value },
+                otherInfoData: {
+                    ...prev.otherInfoData,
+                    [name]: isNaN(incomeAmount) ? "" : incomeAmount,
+                },
             }));
         };
 
@@ -59,94 +64,94 @@ const OtherInfo = forwardRef<ChildMethods, ChildComponentProps>(
 
         return (
             <div>
-                <div className={styles['basic-info-container']}>
-                    <div className={styles['input-container-split']}>
+                <div className={styles["basic-info-container"]}>
+                    <div className={styles["input-container-split"]}>
                         <div>
                             <CustomSelector
-                                label={'Opening Reason'}
+                                label={"Opening Reason"}
                                 onChange={(e) =>
-                                    handleSelector(e, 'openingReasonCd')
+                                    handleSelector(e, "openingReasonCd")
                                 }
                                 optionsList={picklistData.openingReasonList}
                                 value={
                                     CustomerData.otherInfoData.openingReasonCd
                                 }
-                                name={'OpeningReason'}
+                                name={"OpeningReason"}
                                 readonly={
                                     CustomerData.customerDraftReadOnlyFlag
                                 }
                             />
-                            <span className="text-error">
+                            <span className='text-error'>
                                 {validator.message(
-                                    'OpeningReason',
+                                    "OpeningReason",
                                     CustomerData.otherInfoData.openingReasonCd,
-                                    'required'
+                                    "required"
                                 )}
                             </span>
                         </div>
                     </div>
 
-                    <div className={styles['input-container-split']}>
+                    <div className={styles["input-container-split"]}>
                         <div>
                             <CustomSelector
-                                label={'How did you find out about us?'}
+                                label={"How did you find out about us?"}
                                 onChange={(e) =>
-                                    handleSelector(e, 'marketingCampaignCd')
+                                    handleSelector(e, "marketingCampaignCd")
                                 }
                                 optionsList={picklistData.marketingCampaignList}
                                 value={
                                     CustomerData.otherInfoData
                                         .marketingCampaignCd
                                 }
-                                name={'MarketingCampaign'}
+                                name={"MarketingCampaign"}
                                 readonly={
                                     CustomerData.customerDraftReadOnlyFlag
                                 }
                             />
-                            <span className="text-error">
+                            <span className='text-error'>
                                 {validator.message(
-                                    'MarketingCampaign',
+                                    "MarketingCampaign",
                                     CustomerData.otherInfoData
                                         .marketingCampaignCd,
-                                    'required'
+                                    "required"
                                 )}
                             </span>
                         </div>
                     </div>
 
-                    <div className={styles['input-container-split']}>
+                    <div className={styles["input-container-split"]}>
                         <CustomSelector
-                            label={'Your source of income/funds?'}
+                            label={"Your source of income/funds?"}
                             onChange={(e) =>
-                                handleSelector(e, 'sourceOfFundCd')
+                                handleSelector(e, "sourceOfFundCd")
                             }
                             optionsList={picklistData.sourceofFundList}
                             value={CustomerData.otherInfoData.sourceOfFundCd}
                             readonly={CustomerData.customerDraftReadOnlyFlag}
                         />
                     </div>
-                    <div className={styles['input-container-split']}>
+                    <div className={styles["input-container-split"]}>
                         <CustomSelector
-                            label={'Currency'}
-                            onChange={(e) => handleSelector(e, 'amountUnit')}
+                            label={"Currency"}
+                            onChange={(e) => handleSelector(e, "amountUnit")}
                             optionsList={picklistData.currencyList}
                             value={CustomerData.otherInfoData.amountUnit}
                             readonly={CustomerData.customerDraftReadOnlyFlag}
                         />
                     </div>
 
-                    <div className={styles['input-container-split']}>
-                        <div className={styles['input-container']}>
+                    <div className={styles["input-container-split"]}>
+                        <div className={styles["input-container"]}>
                             <InputField
-                                label={'Amount'}
-                                type={'text'}
+                                label={"Monthly Income / Turnover"}
+                                type={"text"}
                                 // required={true}
                                 onChange={handleAddressInfo}
                                 value={
                                     CustomerData.otherInfoData
                                         .monthlyIncomeAmount
                                 }
-                                name="monthlyIncomeAmount"
+                                name='monthlyIncomeAmount'
                                 readonly={
                                     CustomerData.customerDraftReadOnlyFlag
                                 }

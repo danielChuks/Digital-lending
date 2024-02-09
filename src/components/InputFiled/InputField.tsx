@@ -11,7 +11,7 @@ interface TextFieldProps {
     minLength?: number;
     maxLength?: number;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    value?: string;
+    value?: string | number;
     min?: string;
     max?: string;
     name?: any;

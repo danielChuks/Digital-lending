@@ -1,6 +1,6 @@
-import { PostAxios } from '../../Network/api';
-import { useMutation } from 'react-query';
-import { User } from '../Signin/signin';
+import { PostAxios } from "../../Network/api";
+import { useMutation } from "react-query";
+import { User } from "../Signin/signin";
 
 export interface SignUpRequest {
     instituteCode: string;
@@ -22,7 +22,7 @@ export interface ErrorResponse {
 
 const signUp = async (registerData: SignUpRequest): Promise<User> => {
     const registerResponse = await PostAxios(
-        '/app/dbs/userservice/userRegister',
+        "/app/dbs/userservice/userRegister",
         registerData
     );
     return registerResponse;
@@ -36,7 +36,7 @@ export const useSignUp = () => useMutation(signUpMutationFn);
 
 const findDbsUser = async (data: any): Promise<User> => {
     const response = await PostAxios(
-        '/app/dbs/userservice/findDbsUserById',
+        "/app/dbs/userservice/findDbsUserById",
         data
     );
     return response;

@@ -5,8 +5,8 @@ import {
     ReactNode,
     Dispatch,
     SetStateAction,
-} from 'react';
-import { ApplCreditData } from '../interfaces/ApplCreditData.interface';
+} from "react";
+import { ApplCreditData } from "../interfaces/ApplCreditData.interface";
 
 interface MyComponentProps {
     children: ReactNode;
@@ -24,13 +24,10 @@ export const CreditApplicationData = createContext<MyContextType | null>(null);
 export function useCreditApplicationDataContext() {
     const context = useContext(CreditApplicationData);
     if (!context) {
-        throw new Error('useMyContext must be used within a MyContextProvider');
+        throw new Error("useMyContext must be used within a MyContextProvider");
     }
     return context;
 }
-
-
-
 
 const CreditApplContext = ({ children }: MyComponentProps) => {
     const [creditApplDataFields_context, setCreditApplDataFields_context] =
@@ -41,10 +38,10 @@ const CreditApplContext = ({ children }: MyComponentProps) => {
                 currencyId: null,
                 productId: null,
                 purposeOfCreditId: null,
-                strApplicationDate: '',
-                termCode: '',
+                strApplicationDate: "",
+                termCode: "",
                 termValue: null,
-                repaySourceAcctNo: '',
+                repaySourceAcctNo: "",
             },
             collateralinfoData: null,
             documentInfodata: null,

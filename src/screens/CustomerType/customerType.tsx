@@ -55,7 +55,7 @@ const CustomerType = () => {
             marketingCampaignCd: '',
             sourceOfFundCd: '',
             amountUnit: '',
-            monthlyIncomeAmount: '',
+            monthlyIncomeAmount: 0,
         };
         setCustomerData((prev) => ({
             ...prev,
