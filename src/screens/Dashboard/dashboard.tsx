@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import styles from './dashboard.module.css';
-import { useNavigate } from 'react-router-dom';
-import { useCustomerContext } from '../../context/customerDetailsContext';
-import { useCreditApplicationDataContext } from '../../context/creditApplDetailsContext';
+import React, { useEffect, useState } from "react";
+import styles from "./dashboard.module.css";
+import { useNavigate } from "react-router-dom";
+import { useCustomerContext } from "../../context/customerDetailsContext";
+import { useCreditApplicationDataContext } from "../../context/creditApplDetailsContext";
 import openNotificationWithIcon, {
     CommonnotificationProps,
-} from '../../components/Notification/commonnotification';
-import { notification } from 'antd';
-import { GiFamilyHouse } from 'react-icons/gi';
-import { GiTakeMyMoney } from 'react-icons/gi';
+} from "../../components/Notification/commonnotification";
+import { notification } from "antd";
+import { GiFamilyHouse } from "react-icons/gi";
+import { GiTakeMyMoney } from "react-icons/gi";
 
-import { RiDraftFill } from 'react-icons/ri';
+import { RiDraftFill } from "react-icons/ri";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
-import { HiDocumentSearch } from 'react-icons/hi';
-import { MdDrafts } from 'react-icons/md';
-import croller from '../../assets/images/croller.png';
+import { HiDocumentSearch } from "react-icons/hi";
+import { MdDrafts } from "react-icons/md";
+import croller from "../../assets/images/croller.png";
+import { FaFileUpload } from "react-icons/fa";
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -29,7 +30,7 @@ const Dashboard = () => {
             addDocumentFlag: false,
         }));
 
-        if (sessionStorage.getItem('customerDraftFlag') === 'true') {
+        if (sessionStorage.getItem("customerDraftFlag") === "true") {
             setCustomerData((prev) => ({
                 ...prev,
                 customerDraftFlag: true,
@@ -40,7 +41,7 @@ const Dashboard = () => {
             ...prev,
             customerDraftReadOnlyFlag: false,
         }));
-        sessionStorage.setItem('customerDraftReadOnlyFlag', 'false');
+        sessionStorage.setItem("customerDraftReadOnlyFlag", "false");
 
         setCreditApplDataFields_context({
             basicInfo: {},
@@ -48,7 +49,7 @@ const Dashboard = () => {
             collateralinfoData: [],
             loading: false,
         });
-        sessionStorage.removeItem('dbsCustApplId');
+        sessionStorage.removeItem("dbsCustApplId");
         setCreditApplDataFields_context((prev) => ({
             ...prev,
             addDocumentFlag: false,
@@ -58,54 +59,60 @@ const Dashboard = () => {
     const actionIconsList = [
         {
             id: 1,
-            name: 'Account',
-            icon: <GiFamilyHouse size={80} color="#fff" />,
-            path: '/dashboard/account',
+            name: "Account",
+            icon: <GiFamilyHouse size={80} color='#fff' />,
+            path: "/dashboard/account",
         },
         {
             id: 2,
-            name: 'Apply',
-            icon: <GiTakeMyMoney size={80} color="#fff" />,
-            path: '/dashboard/createCreditApplication',
+            name: "Apply",
+            icon: <GiTakeMyMoney size={80} color='#fff' />,
+            path: "/dashboard/createCreditApplication",
         },
         {
             id: 3,
-            name: 'Draft',
-            icon: <RiDraftFill size={80} color="#fff" />,
-            path: '/dashboard/draftList',
+            name: "Draft",
+            icon: <RiDraftFill size={80} color='#fff' />,
+            path: "/dashboard/draftList",
         },
         {
             id: 4,
-            name: 'Transfer',
-            icon: <FaMoneyBillTransfer  size={80} color="#fff" />,
-            path: '/dashboard/fundTransfer',
+            name: "Transfer",
+            icon: <FaMoneyBillTransfer size={80} color='#fff' />,
+            path: "/dashboard/fundTransfer",
         },
         {
             id: 5,
-            name: 'Track',
-            icon: <HiDocumentSearch size={80} color="#fff" />,
-            path: '/dashboard/track',
+            name: "Track",
+            icon: <HiDocumentSearch size={80} color='#fff' />,
+            path: "/dashboard/track",
         },
         {
             id: 6,
-            name: 'Message',
-            icon: <MdDrafts size={80} color="#fff" />,
-            path: '/dashboard/message',
+            name: "Message",
+            icon: <MdDrafts size={80} color='#fff' />,
+            path: "/dashboard/message",
+        },
+        {
+            id: 7,
+            name: "Docs Upload",
+            icon: <FaFileUpload size={80} color='#fff' />,
+            path: "/dashboard/uploadFiles",
         },
     ];
 
     const handleNavigator = (data: any) => {
         if (
-            data === '/dashboard/createCreditApplication' ||
-            data === '/dashboard/message' ||
-            data === '/dashboard/fundTransfer'
+            data === "/dashboard/createCreditApplication" ||
+            data === "/dashboard/message" ||
+            data === "/dashboard/fundTransfer"
         ) {
-            if (sessionStorage.getItem('custNo') === 'null') {
+            if (sessionStorage.getItem("custNo") === "null") {
                 const notificationData: CommonnotificationProps = {
-                    type: 'info',
-                    msgtitle: 'Notification',
+                    type: "info",
+                    msgtitle: "Notification",
                     msgDesc:
-                        'There is no active customer to perform this action',
+                        "There is no active customer to perform this action",
                     api: api,
                 };
                 openNotificationWithIcon(notificationData);
@@ -135,16 +142,16 @@ const Dashboard = () => {
         setCurrentSlide((prevSlide) => (prevSlide - 1 + 2) % 2);
     };
 
-    const cardColors = ['#DA9729', '#006c33'];
+    const cardColors = ["#DA9729", "#006c33"];
     const shuffledColors = [...cardColors].sort(() => Math.random() - 0.5);
 
     return (
         <>
             {contextHolder}
-            <div className="main-container">
-                <div className={styles['dashboard-heading']}>Home</div>
-                <div className={styles['dashboard-content']}>
-                    <div className={styles['action-icons-container']}>
+            <div className='main-container'>
+                <div className={styles["dashboard-heading"]}>Home</div>
+                <div className={styles["dashboard-content"]}>
+                    <div className={styles["action-icons-container"]}>
                         {actionIconsList.map(
                             ({ id, name, icon, path }, index) => (
                                 <div
@@ -155,31 +162,31 @@ const Dashboard = () => {
                                                 index % shuffledColors.length
                                             ],
                                     }}
-                                    className={styles['action-box']}
+                                    className={styles["action-box"]}
                                     onClick={() => handleNavigator(path)}
                                 >
-                                    <div className={styles['icon-container']}>
+                                    <div className={styles["icon-container"]}>
                                         {icon}
                                     </div>
-                                    <div className={styles['action-name']}>
+                                    <div className={styles["action-name"]}>
                                         {name}
                                     </div>
                                 </div>
                             )
                         )}
                     </div>
-                    <div className={styles['right-carousel-container']}>
+                    <div className={styles["right-carousel-container"]}>
                         <div
-                            className={styles['carousel-wrapper']}
+                            className={styles["carousel-wrapper"]}
                             style={{
                                 transform: `translateX(-${currentSlide * 50}%)`,
                             }}
                         >
-                            <div className={styles['carousel-slide']}>
-                                <img src={croller} alt="Bank Offer 1" />
+                            <div className={styles["carousel-slide"]}>
+                                <img src={croller} alt='Bank Offer 1' />
                             </div>
-                            <div className={styles['carousel-slide']}>
-                                <img src={croller} alt="Bank Offer 2" />
+                            <div className={styles["carousel-slide"]}>
+                                <img src={croller} alt='Bank Offer 2' />
                             </div>
                         </div>
                     </div>
