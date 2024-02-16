@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import CustomTable from "../../../../components/Table/Table";
 import styles from "./statement.module.css";
 import type { ColumnsType } from "antd/es/table";
@@ -36,7 +36,7 @@ export const AccountStatement = () => {
     const [accountStatement, setAccountStatement] = useState<Statement[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [api, contextHolder] = notification.useNotification();
-    const { CustomerData, setCustomerData } = useCustomerContext();
+    const { setCustomerData } = useCustomerContext();
     const [activeSettlement, setActiveToggleSettlement] = useState(true);
 
     useEffect(() => {
@@ -57,10 +57,9 @@ export const AccountStatement = () => {
             acctNo: selectedAccount[0].acctNo,
             productCateory: selectedAccount[0].productCategory,
         };
-        // setIsLoading(true);
-        // accountStatementListMutation(request);
+
         const data: any = await accountListMutation.mutateAsync(request);
-        console.log(data)
+        console.log(data);
         if (data.status) {
             setAccountStatement(data?.data.stmtData);
             setIsLoading(false);
@@ -127,9 +126,10 @@ export const AccountStatement = () => {
             <div className={"main-container"}>
                 <Loader loading={isLoading} />
                 <div className={"main-heading"}>
-                    {activeSettlement
-                        ? "Account Statement"
-                        : "Repayment Schedule"}
+                    {!activeSettlement &&
+                    accountStatement.some((data) => data.drcr === "Debit")
+                        ? ""
+                        : "Account Statement"}
                 </div>
                 <div className={styles["sub-heading"]}>
                     <div
@@ -154,7 +154,8 @@ export const AccountStatement = () => {
                     </div>
                 </div>
 
-                {!activeSettlement ? (
+                {!activeSettlement &&
+                accountStatement.some((data) => data.drcr === "Debit") ? (
                     <Repayment />
                 ) : (
                     <section className={styles["account-statement-content"]}>

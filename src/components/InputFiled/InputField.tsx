@@ -52,7 +52,6 @@ const InputField: React.FC<TextFieldProps> = ({
                     )}
                 </>
             )}
-            {/* {props.label?<div className={styles["label"]}>{props.label}</div>:""} */}
             {label === "hidden" && (
                 <div className={styles["label"]}>
                     {" "}
