@@ -6,13 +6,66 @@ import {
     Dispatch,
     SetStateAction,
 } from "react";
-import { ApplCreditData } from "../interfaces/ApplCreditData.interface";
+
+export interface ApplCreditData {
+    basicInfo?: BasicInfo;
+    collateralinfoData?: any[] | null;
+    documentInfodata?: any[] | null;
+    addDocumentFlag?: boolean;
+    loading: boolean;
+}
+
+export interface CreditCollateralDocument {
+    collateralDescription: string | any;
+    collateralMarketValue: number | null | any;
+    collateralRefNo: number | null | any;
+    collateralTypeDescription: string | any;
+    collateralTypeId: number | null | any;
+    expiryDateStr: string | any;
+    forcedSalesValue: number | null | any;
+    collateralCurrencyId: number | null;
+    lendingPercent: number | null | any;
+    lendingValue: number | null | any;
+}
+
+export interface CreditDocument {
+    docFileExtension: string;
+    docFileName: string;
+    documentDescription: string;
+    documentId: number | null | any;
+    documentRefernce: string;
+    documentType: number | null;
+    documentTypeDescription: string;
+}
+
+export interface BasicInfo {
+    amount?: number | null | string;
+    creditTypeId?: number | null;
+    currencyId?: number | any;
+    productId?: number | any;
+    purposeOfCreditId?: number | null;
+    strApplicationDate?: string;
+    termCode?: string;
+    termValue?: number | null;
+    repaySourceAcctNo?: string;
+}
+export interface DocumentListInfoProps {
+    binaryDocument?: string | Blob | any;
+    docFileExt?: string | Blob | any;
+    docFileName?: string | any;
+    docTypeDesc?: string | any;
+    docExt?: string | any;
+    docId?: number | null | any;
+    docRef?: string | any;
+    docTypeId?: number | null | any;
+    docDesc?: string | any;
+}
 
 interface MyComponentProps {
     children: ReactNode;
 }
 
-//Define the shape of your context state
+// Define the shape of your context state
 interface MyContextType {
     creditApplDataFields_context: ApplCreditData;
     setCreditApplDataFields_context: Dispatch<SetStateAction<ApplCreditData>>;
@@ -20,7 +73,7 @@ interface MyContextType {
 
 export const CreditApplicationData = createContext<MyContextType | null>(null);
 
-//Define a custom hook to access the context
+// Define a custom hook to access the context
 export function useCreditApplicationDataContext() {
     const context = useContext(CreditApplicationData);
     if (!context) {
@@ -28,8 +81,7 @@ export function useCreditApplicationDataContext() {
     }
     return context;
 }
-
-const CreditApplContext = ({ children }: MyComponentProps) => {
+const CreditApplContext: React.FC<MyComponentProps> = ({ children }) => {
     const [creditApplDataFields_context, setCreditApplDataFields_context] =
         useState<ApplCreditData>({
             basicInfo: {

@@ -59,7 +59,6 @@ export const AccountStatement = () => {
         };
 
         const data: any = await accountListMutation.mutateAsync(request);
-        console.log(data);
         if (data.status) {
             setAccountStatement(data?.data.stmtData);
             setIsLoading(false);
@@ -154,7 +153,7 @@ export const AccountStatement = () => {
                     </div>
                 </div>
 
-                {!activeSettlement &&
+                {!activeSettlement && !isLoading &&
                 accountStatement.some((data) => data.drcr === "Debit") ? (
                     <Repayment />
                 ) : (

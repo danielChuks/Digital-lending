@@ -219,6 +219,7 @@ const DocumentInfo: React.FC<any> = (props: any) => {
     };
 
     const handleChange = (info: any) => {
+    
         if (info.fileList.length === 0) {
             setByteArray(null);
         } else {
@@ -230,14 +231,14 @@ const DocumentInfo: React.FC<any> = (props: any) => {
 
             if (
                 info.fileList[0]?.type === "application/pdf" ||
-                "application/msword"
+                info.fileList[0]?.type === "application/msword"
             ) {
                 setDocumentData((prev) => ({
                     ...prev,
                     docFileExt: "." + info.fileList[0].type.substring(12),
                 }));
             }
-            if (info.fileList[0]?.type === "image/png" || "image/jpeg") {
+            if (info.fileList[0]?.type === "image/png" || info.fileList[0]?.type === "image/jpeg") {
                 setDocumentData((prev) => ({
                     ...prev,
                     docFileExt:

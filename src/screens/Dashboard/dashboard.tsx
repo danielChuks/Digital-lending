@@ -11,7 +11,6 @@ import { GiFamilyHouse } from "react-icons/gi";
 import { GiTakeMyMoney } from "react-icons/gi";
 
 import { RiDraftFill } from "react-icons/ri";
-import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { HiDocumentSearch } from "react-icons/hi";
 import { MdDrafts } from "react-icons/md";
 import croller from "../../assets/images/croller.png";
@@ -75,12 +74,12 @@ const Dashboard = () => {
             icon: <RiDraftFill size={80} color='#fff' />,
             path: "/dashboard/draftList",
         },
-        {
-            id: 4,
-            name: "Transfer",
-            icon: <FaMoneyBillTransfer size={80} color='#fff' />,
-            path: "/dashboard/fundTransfer",
-        },
+        // {
+        //     id: 4,
+        //     name: "Transfer",
+        //     icon: <FaMoneyBillTransfer size={80} color='#fff' />,
+        //     path: "/dashboard/fundTransfer",
+        // },
         {
             id: 5,
             name: "Track",

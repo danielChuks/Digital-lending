@@ -9,6 +9,7 @@ import { ColumnsType } from "antd/es/table";
 import CustomTable from "../../../../components/Table/Table";
 import styles from "./repayment.module.css";
 import Button from "../../../../components/Button/Button";
+import Loader from "../../../../components/Loader/loader";
 
 interface DataType {
     installmentNo: any;
@@ -141,6 +142,7 @@ export const Repayment = () => {
         <>
             {contextHolder}
             <section className={styles["account-repayment-content"]}>
+                <Loader loading={isLoading} />
                 <div className={styles["repayment-table-container"]}>
                     <CustomTable
                         columns={columns}
