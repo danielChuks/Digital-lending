@@ -26,6 +26,7 @@ import Dashboard from "./screens/Dashboard/dashboard";
 import { Track } from "./screens/Dashboard/Track/track";
 import FundTransfer from "./screens/Dashboard/FundTransfer/fundTransfer";
 import { Message } from "./screens/Dashboard/Message/message";
+import { FundPartnersInfo } from "./screens/Dashboard/FundPartnersInformation/fundPartnersInfo";
 
 function App() {
     useEffect(() => {
@@ -94,6 +95,10 @@ function App() {
                     <Route
                         path={"/dashboard/fundTransfer"}
                         element={<FundTransfer />}
+                    ></Route>
+                    <Route
+                        path={"/dashboard/fundPartnersInfo.tsx"}
+                        element={<FundPartnersInfo />}
                     ></Route>
                     <Route
                         path={"/dashboard/message"}

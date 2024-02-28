@@ -66,7 +66,7 @@ const Dashboard = () => {
             id: 2,
             name: "Apply",
             icon: <GiTakeMyMoney size={80} color='#fff' />,
-            path: "/dashboard/createCreditApplication",
+            path: "/dashboard/FundPartnersInfo",
         },
         {
             id: 3,
