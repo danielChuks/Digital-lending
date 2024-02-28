@@ -1,28 +1,28 @@
-import { Link, Outlet, useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import styles from './homeRouterControl.module.css';
-import PalmsLogo from '../../assets/icons/logo-boi.png';
-import UserLogo from '../../assets/icons/user-circle.svg';
-import { MenuProps, Modal, notification } from 'antd';
-import { Dropdown } from 'antd';
-import { Breadcrumb } from 'antd';
-import * as screenNames from '../../Utils/Constants/screennames';
-import { useEffect, useState } from 'react';
-import { useCustomerContext } from '../../context/customerDetailsContext';
-import ViewProfile from '../../screens/Profile/viewProfile';
-import { ChangePassword } from '../../screens/Profile/changePassword';
-import { useFindDbsUser } from '../../screens/Signup/signup';
-import { useUpdateUserProfile } from '../../screens/ForgotPassword/forgotpasswordService';
+import { Link, Outlet, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import styles from "./homeRouterControl.module.css";
+import PalmsLogo from "../../assets/icons/logo-boi.png";
+import UserLogo from "../../assets/icons/user-circle.svg";
+import { MenuProps, Modal, notification } from "antd";
+import { Dropdown } from "antd";
+import { Breadcrumb } from "antd";
+import * as screenNames from "../../Utils/Constants/screennames";
+import { useEffect, useState } from "react";
+import { useCustomerContext } from "../../context/customerDetailsContext";
+import ViewProfile from "../../screens/Profile/viewProfile";
+import { ChangePassword } from "../../screens/Profile/changePassword";
+import { useFindDbsUser } from "../../screens/Signup/signup";
+import { useUpdateUserProfile } from "../../screens/ForgotPassword/forgotpasswordService";
 import openNotificationWithIcon, {
     CommonnotificationProps,
-} from '../../components/Notification/commonnotification';
-import Loader from '../../components/Loader/loader';
+} from "../../components/Notification/commonnotification";
+import Loader from "../../components/Loader/loader";
 
 const breadcrumbNameMap: Record<string, string> = {
-    '/dashboard': 'Home',
-    '/dashboard/account': 'Account',
-    '/dashboard/account/accountStatement': 'Statement',
-    '/dashboard/draftList': 'Draft',
+    "/dashboard": "Home",
+    "/dashboard/account": "Account",
+    "/dashboard/account/accountStatement": "Statement",
+    "/dashboard/draftList": "Draft",
 };
 
 export const HomeRouterControl = () => {
@@ -38,17 +38,17 @@ export const HomeRouterControl = () => {
     const [userName, setUserName] = useState<any>();
     const [profileData, setProfileData] = useState<any>();
 
-    const pathSnippets = location.pathname.split('/').filter((i) => i);
+    const pathSnippets = location.pathname.split("/").filter((i) => i);
 
     useEffect(() => {
         getProfileInfo();
-        if (sessionStorage.getItem('dbsUserId') === 'null') {
+        if (sessionStorage.getItem("dbsUserId") === "null") {
             navigate(screenNames.SIGN_IN);
         }
     }, []);
 
     const breadcrumbItems = pathSnippets.map((_, index) => {
-        const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
+        const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
         return {
             key: url,
             title: <Link to={url}>{breadcrumbNameMap[url]}</Link>,
@@ -59,7 +59,7 @@ export const HomeRouterControl = () => {
 
     const getProfileInfo = async () => {
         const registerData: any = {
-            dbsUserId: Number(sessionStorage.getItem('dbsUserId')),
+            dbsUserId: Number(sessionStorage.getItem("dbsUserId")),
         };
 
         setIsLoading(true);
@@ -67,29 +67,29 @@ export const HomeRouterControl = () => {
         if (response.status === 200) {
             setIsLoading(false);
             setUserName(
-                response.data?.firstName + ' ' + response.data?.lastName
+                response.data?.firstName + " " + response.data?.lastName
             );
             setProfileData(response.data);
         } else if (
-            response.errorCode === 'CI_JWT_001' ||
-            response.errorCode === 'CI_JWT_002'
+            response.errorCode === "CI_JWT_001" ||
+            response.errorCode === "CI_JWT_002"
         ) {
             setIsLoading(false);
             const notificationData: CommonnotificationProps = {
-                type: 'info',
-                msgtitle: 'Notification',
-                msgDesc: 'Your session is over, Please login again',
+                type: "info",
+                msgtitle: "Notification",
+                msgDesc: "Your session is over, Please login again",
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             setTimeout(() => {
-                navigate({ pathname: '/login' });
+                navigate({ pathname: "/login" });
             }, 3000);
         } else {
             setIsLoading(false);
             const notificationData: CommonnotificationProps = {
-                type: 'error',
-                msgtitle: 'Error',
+                type: "error",
+                msgtitle: "Error",
                 msgDesc: response.errorMessage,
                 api: api,
             };
@@ -101,40 +101,40 @@ export const HomeRouterControl = () => {
 
     const updateProfile = async (data: any) => {
         const registerData: any = {
-            dbsUserId: Number(sessionStorage.getItem('dbsUserId')),
+            dbsUserId: Number(sessionStorage.getItem("dbsUserId")),
             failedLoginNo: 0,
             ...data,
         };
         const response: any = await mutaion.mutateAsync(registerData);
         if (response.status === 200) {
             const notificationData: CommonnotificationProps = {
-                type: 'success',
-                msgtitle: 'Success',
-                msgDesc: 'Profile Data updated',
+                type: "success",
+                msgtitle: "Success",
+                msgDesc: "Profile Data updated",
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             getProfileInfo();
             setModelOpen(false);
         } else if (
-            response.errorCode === 'CI_JWT_001' ||
-            response.errorCode === 'CI_JWT_002'
+            response.errorCode === "CI_JWT_001" ||
+            response.errorCode === "CI_JWT_002"
         ) {
             setIsLoading(false);
             const notificationData: CommonnotificationProps = {
-                type: 'info',
-                msgtitle: 'Notification',
-                msgDesc: 'Your session is over, Please login again',
+                type: "info",
+                msgtitle: "Notification",
+                msgDesc: "Your session is over, Please login again",
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             setTimeout(() => {
-                navigate({ pathname: '/login' });
+                navigate({ pathname: "/login" });
             }, 3000);
         } else {
             const notificationData: CommonnotificationProps = {
-                type: 'error',
-                msgtitle: 'Error',
+                type: "error",
+                msgtitle: "Error",
                 msgDesc: response.errorMessage,
                 api: api,
             };
@@ -158,23 +158,22 @@ export const HomeRouterControl = () => {
         setModelOpen(true);
     };
 
-    const items: MenuProps['items'] = [
+    const items: MenuProps["items"] = [
         {
-            key: '1',
+            key: "1",
             label: <p onClick={HandleProfile}>Profile</p>,
         },
         {
-            key: '2',
+            key: "2",
             label: <p onClick={HandlePasswordChange}>Change Password</p>,
         },
         {
-            key: '3',
+            key: "3",
             label: (
-                // eslint-disable-next-line jsx-a11y/anchor-is-valid
                 <p
                     onClick={() => {
                         sessionStorage.clear();
-                        navigate('/');
+                        navigate("/");
                     }}
                 >
                     Log out
@@ -182,21 +181,6 @@ export const HomeRouterControl = () => {
             ),
         },
     ];
-
-    // .dashboard-content {
-    //     display: flex;
-    //     grid-template-columns: repeat(2, 2fr);
-    //     gap: 120px;
-    //     padding: 20px 20px;
-    //     width: 100%;
-    // }
-    
-    // .action-icons-container {
-    //     width: 100%;
-    //     display: grid;
-    //     grid-template-columns: repeat(3, 2fr);
-    //     gap: 25px 25px;
-    // }
 
     return (
         <>
@@ -209,45 +193,45 @@ export const HomeRouterControl = () => {
                     onCancel={() => {
                         setModelOpen(false);
                     }}
-                    className={styles['profile-model']}
+                    className={styles["profile-model"]}
                 >
                     {modelData}
                 </Modal>
             </div>
-            <header className={styles['Header-container']}>
-                <div className="logo-container">
+            <header className={styles["Header-container"]}>
+                <div className='logo-container'>
                     <img
-                        className={styles['palms-logo']}
+                        className={styles["palms-logo"]}
                         src={PalmsLogo}
-                        alt="palms logo"
+                        alt='palms logo'
                     />
                 </div>
-                <div className={styles['nav-container']}>
-                    <p className={styles['userName']}>{userName}</p>
+                <div className={styles["nav-container"]}>
+                    <p className={styles["userName"]}>{userName}</p>
                     <Dropdown
                         menu={{ items }}
-                        trigger={['click']}
-                        placement="bottomRight"
+                        trigger={["click"]}
+                        placement='bottomRight'
                         arrow
                     >
                         <div onClick={(e) => e.preventDefault()}>
                             <img
-                                className={styles['user-logo']}
+                                className={styles["user-logo"]}
                                 src={UserLogo}
-                                alt="user logo"
+                                alt='user logo'
                             />
                         </div>
                     </Dropdown>
                 </div>
             </header>
-            <div className={styles['']}>
+            <div className={styles[""]}>
                 {pathSnippets.length > 1 && CustomerData.customerDraftFlag ? (
                     <Breadcrumb
-                        className={styles['custom-breadcrumb']}
+                        className={styles["custom-breadcrumb"]}
                         items={breadcrumbItems}
                     />
                 ) : (
-                    ''
+                    ""
                 )}
                 <Outlet />
             </div>

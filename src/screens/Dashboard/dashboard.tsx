@@ -74,12 +74,7 @@ const Dashboard = () => {
             icon: <RiDraftFill size={80} color='#fff' />,
             path: "/dashboard/draftList",
         },
-        // {
-        //     id: 4,
-        //     name: "Transfer",
-        //     icon: <FaMoneyBillTransfer size={80} color='#fff' />,
-        //     path: "/dashboard/fundTransfer",
-        // },
+      
         {
             id: 5,
             name: "Track",

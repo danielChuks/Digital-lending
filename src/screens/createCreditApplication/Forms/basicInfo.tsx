@@ -3,23 +3,23 @@ import React, {
     useEffect,
     forwardRef,
     useImperativeHandle,
-} from 'react';
-import styles from '../createCreditApplication.module.css';
-import InputField from '../../../components/InputFiled/InputField';
-import CustomSelector from '../../../components/CustomSelector/customSelector';
-import { notification } from 'antd';
-import { useNavigate } from 'react-router';
-import CustomDatePicker from '../../../components/CustomDatePicker/customDatePicker';
-import { useCreditApplicationDataContext } from '../../../context/creditApplDetailsContext';
-import { usePickListContext } from '../../../context/pickListDataContext';
-import { useGetPicklist } from '../createCreditApplicationService';
+} from "react";
+import styles from "../createCreditApplication.module.css";
+import InputField from "../../../components/InputFiled/InputField";
+import CustomSelector from "../../../components/CustomSelector/customSelector";
+import { notification } from "antd";
+import { useNavigate } from "react-router";
+import CustomDatePicker from "../../../components/CustomDatePicker/customDatePicker";
+import { useCreditApplicationDataContext } from "../../../context/creditApplDetailsContext";
+import { usePickListContext } from "../../../context/pickListDataContext";
+import { useGetPicklist } from "../createCreditApplicationService";
 import openNotificationWithIcon, {
     CommonnotificationProps,
-} from '../../../components/Notification/commonnotification';
-import SimpleReactValidator from 'simple-react-validator';
-import { useAccountList } from '../../Dashboard/Account/account';
-import { UserDetailRequest } from '../../OtpVerification/otp';
-import { useCustomerContext } from '../../../context/customerDetailsContext';
+} from "../../../components/Notification/commonnotification";
+import SimpleReactValidator from "simple-react-validator";
+import { useAccountList } from "../../Dashboard/Account/account";
+import { UserDetailRequest } from "../../OtpVerification/otp";
+import { useCustomerContext } from "../../../context/customerDetailsContext";
 
 // Define the props for the ChildComponent
 type ChildComponentProps = {};
@@ -51,9 +51,9 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
         ///// fetch the product data /////
         const fetchproduct = async () => {
             const payload = {
-                instituteCode: 'DBS01',
+                instituteCode: "DBS01",
                 transmissionTime: Date.now(),
-                category: 'FETCH_PRODUCT_BY_CREDIT_TYPE',
+                category: "FETCH_PRODUCT_BY_CREDIT_TYPE",
                 subCategory:
                     creditApplDataFields_context.basicInfo?.creditTypeId,
             };
@@ -73,18 +73,18 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     setProduct(temp);
                 }
             } else if (
-                data.errorCode === 'CI_JWT_001' ||
-                data.errorCode === 'CI_JWT_002'
+                data.errorCode === "CI_JWT_001" ||
+                data.errorCode === "CI_JWT_002"
             ) {
                 const notificationData: CommonnotificationProps = {
-                    type: 'info',
-                    msgtitle: 'Notification',
-                    msgDesc: 'Your session is over, Please login again',
+                    type: "info",
+                    msgtitle: "Notification",
+                    msgDesc: "Your session is over, Please login again",
                     api: api,
                 };
                 openNotificationWithIcon(notificationData);
                 setTimeout(() => {
-                    navigate({ pathname: '/login' });
+                    navigate({ pathname: "/login" });
                 }, 3000);
             }
         };
@@ -103,9 +103,9 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
         //////  fetch the PurposeCredit data /////
         const fetchPurposeCredit = async () => {
             const payload = {
-                instituteCode: 'DBS01',
+                instituteCode: "DBS01",
                 transmissionTime: Date.now(),
-                category: 'FETCH_PURPOSE_OF_CREDIT',
+                category: "FETCH_PURPOSE_OF_CREDIT",
                 subCategory:
                     creditApplDataFields_context.basicInfo?.creditTypeId,
             };
@@ -125,18 +125,18 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     setPurposeCredit(temp);
                 }
             } else if (
-                data.errorCode === 'CI_JWT_001' ||
-                data.errorCode === 'CI_JWT_002'
+                data.errorCode === "CI_JWT_001" ||
+                data.errorCode === "CI_JWT_002"
             ) {
                 const notificationData: CommonnotificationProps = {
-                    type: 'info',
-                    msgtitle: 'Notification',
-                    msgDesc: 'Your session is over, Please login again',
+                    type: "info",
+                    msgtitle: "Notification",
+                    msgDesc: "Your session is over, Please login again",
                     api: api,
                 };
                 openNotificationWithIcon(notificationData);
                 setTimeout(() => {
-                    navigate({ pathname: '/login' });
+                    navigate({ pathname: "/login" });
                 }, 3000);
             }
         };
@@ -144,9 +144,9 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
         const fetchSettelementData = async () => {
             // setIsLoading(true);
             const requestdata: UserDetailRequest = {
-                instituteCode: sessionStorage.getItem('instituteCode') || '{}',
+                instituteCode: sessionStorage.getItem("instituteCode") || "{}",
                 transmissionTime: Date.now(),
-                dbsUserId: sessionStorage.getItem('dbsUserId') || '{}',
+                dbsUserId: sessionStorage.getItem("dbsUserId") || "{}",
             };
             const data: any = await accountListMutation.mutateAsync(
                 requestdata
@@ -157,7 +157,7 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                 if (data.data.dpAcctDetails?.length > 0) {
                     let temp: { value: any; label: any }[] = [];
                     data.data.dpAcctDetails?.map((data: any) => {
-                        if (data.status === 'Active') {
+                        if (data.status === "Active") {
                             temp.push({
                                 value: data.acctNo,
                                 label: data.acctNo,
@@ -167,18 +167,18 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     setSettelementData(temp);
                 }
             } else if (
-                data.errorCode === 'CI_JWT_001' ||
-                data.errorCode === 'CI_JWT_002'
+                data.errorCode === "CI_JWT_001" ||
+                data.errorCode === "CI_JWT_002"
             ) {
                 const notificationData: CommonnotificationProps = {
-                    type: 'info',
-                    msgtitle: 'Notification',
-                    msgDesc: 'Your session is over, Please login again',
+                    type: "info",
+                    msgtitle: "Notification",
+                    msgDesc: "Your session is over, Please login again",
                     api: api,
                 };
                 openNotificationWithIcon(notificationData);
                 setTimeout(() => {
-                    navigate({ pathname: '/login' });
+                    navigate({ pathname: "/login" });
                 }, 3000);
             }
         };
@@ -204,13 +204,13 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                 basicInfo: { ...prev.basicInfo, [name]: value },
             }));
 
-            if (name === 'creditTypeId') {
+            if (name === "creditTypeId") {
                 setCreditApplDataFields_context((prev: any) => {
                     return {
                         ...prev,
                         basicInfo: {
                             ...prev.basicInfo,
-                            productId: '',
+                            productId: "",
                             purposeOfCreditId: null,
                         },
                     };
@@ -248,93 +248,93 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
         }));
 
         return (
-            <div className={styles['basic-info-container']}>
-                <div className={styles['input-container-split']}>
+            <div className={styles["basic-info-container"]}>
+                <div className={styles["input-container-split"]}>
                     <div>
                         <CustomSelector
-                            label={'Credit Type'}
-                            onChange={(e) => handleSelector(e, 'creditTypeId')}
+                            label={"Credit Type"}
+                            onChange={(e) => handleSelector(e, "creditTypeId")}
                             optionsList={picklistData.creditTypeList}
                             value={creditApplDataFields_context.basicInfo?.creditTypeId?.toString()}
-                            name="creditTypeId"
+                            name='creditTypeId'
                             readonly={CustomerData.customerDraftReadOnlyFlag}
                         />
-                        <span className="text-error">
+                        <span className='text-error'>
                             {validator.message(
-                                'creditTypeId',
+                                "creditTypeId",
                                 creditApplDataFields_context.basicInfo
                                     ?.creditTypeId,
-                                'required'
+                                "required"
                             )}
                         </span>
                     </div>
                 </div>
 
-                <div className={styles['input-container-split']}>
-                    <div className={styles['validator-block']}>
+                <div className={styles["input-container-split"]}>
+                    <div className={styles["validator-block"]}>
                         <CustomSelector
-                            label={'Product'}
-                            onChange={(e) => handleSelector(e, 'productId')}
+                            label={"Product"}
+                            onChange={(e) => handleSelector(e, "productId")}
                             optionsList={product}
                             value={creditApplDataFields_context.basicInfo?.productId?.toString()}
-                            name={'productId'}
+                            name={"productId"}
                             readonly={CustomerData.customerDraftReadOnlyFlag}
                         />
-                        <span className="text-error">
+                        <span className='text-error'>
                             {validator.message(
-                                'productId',
+                                "productId",
                                 creditApplDataFields_context.basicInfo
                                     ?.productId,
-                                'required'
+                                "required"
                             )}
                         </span>
                     </div>
                 </div>
 
-                <div className={styles['input-container-split']}>
-                    <div className={styles['validator-block']}>
+                <div className={styles["input-container-split"]}>
+                    <div className={styles["validator-block"]}>
                         <CustomSelector
-                            label={'Currency'}
-                            onChange={(e) => handleSelector(e, 'currencyId')}
+                            label={"Currency"}
+                            onChange={(e) => handleSelector(e, "currencyId")}
                             optionsList={picklistData.currencyList}
                             value={creditApplDataFields_context.basicInfo?.currencyId?.toString()}
-                            name={'currencyId'}
+                            name={"currencyId"}
                             readonly={CustomerData.customerDraftReadOnlyFlag}
                         />
-                        <span className="text-error">
+                        <span className='text-error'>
                             {validator.message(
-                                'currencyId',
+                                "currencyId",
                                 creditApplDataFields_context.basicInfo
                                     ?.currencyId,
-                                'required'
+                                "required"
                             )}
                         </span>
                     </div>
 
-                    <div className={styles['validator-block']}>
+                    <div className={styles["validator-block"]}>
                         <InputField
-                            label={'Amount'}
-                            type={'number'}
+                            label={"Amount"}
+                            type={"number"}
                             onChange={handleBasicInfo}
                             value={creditApplDataFields_context.basicInfo?.amount?.toString()}
-                            name="amount"
+                            name='amount'
                             readonly={CustomerData.customerDraftReadOnlyFlag}
                         />
-                        <span className="text-error">
+                        <span className='text-error'>
                             {validator.message(
-                                'amount',
+                                "amount",
                                 creditApplDataFields_context.basicInfo?.amount,
-                                'required'
+                                "required"
                             )}
                         </span>
                     </div>
                 </div>
 
-                <div className={styles['input-container-split']}>
+                <div className={styles["input-container-split"]}>
                     <div>
                         <>
                             <CustomDatePicker
-                                label={'Application Date'}
+                                label={"Application Date"}
                                 value={
                                     creditApplDataFields_context.basicInfo
                                         ?.strApplicationDate
@@ -354,106 +354,106 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                                     CustomerData.customerDraftReadOnlyFlag
                                 }
                             />
-                            <span className="text-error">
+                            <span className='text-error'>
                                 {validator.message(
-                                    'strApplicationDate',
+                                    "strApplicationDate",
                                     creditApplDataFields_context.basicInfo
                                         ?.strApplicationDate,
-                                    'required'
+                                    "required"
                                 )}
                             </span>
                         </>
                     </div>
                 </div>
 
-                <div className={styles['input-container-split']}>
-                    <div className={styles['validator-block']}>
+                <div className={styles["input-container-split"]}>
+                    <div className={styles["validator-block"]}>
                         <InputField
-                            label={'Terms'}
-                            type={'number'}
+                            label={"Terms"}
+                            type={"number"}
                             // required={true}
                             onChange={handleBasicInfo}
                             value={creditApplDataFields_context.basicInfo?.termValue?.toString()}
-                            name="termValue"
+                            name='termValue'
                             readonly={CustomerData.customerDraftReadOnlyFlag}
                         />
-                        <span className="text-error">
+                        <span className='text-error'>
                             {validator.message(
-                                'termValue',
+                                "termValue",
                                 creditApplDataFields_context.basicInfo
                                     ?.termValue,
-                                'required'
+                                "required"
                             )}
                         </span>
                     </div>
                 </div>
 
-                <div className={styles['input-container-split']}>
-                    <div className={styles['validator-block']}>
+                <div className={styles["input-container-split"]}>
+                    <div className={styles["validator-block"]}>
                         <CustomSelector
-                            label={'Code'}
-                            onChange={(e) => handleSelector(e, 'termCode')}
+                            label={"Code"}
+                            onChange={(e) => handleSelector(e, "termCode")}
                             optionsList={picklistData.termCode}
                             value={
                                 creditApplDataFields_context.basicInfo?.termCode
                             }
-                            name={'termCode'}
+                            name={"termCode"}
                             readonly={CustomerData.customerDraftReadOnlyFlag}
                         />
 
-                        <span className="text-error">
+                        <span className='text-error'>
                             {validator.message(
-                                'termCode',
+                                "termCode",
                                 creditApplDataFields_context.basicInfo
                                     ?.termCode,
-                                'required'
+                                "required"
                             )}
                         </span>
                     </div>
                 </div>
 
-                <div className={styles['input-container-split']}>
-                    <div className={styles['validator-block']}>
+                <div className={styles["input-container-split"]}>
+                    <div className={styles["validator-block"]}>
                         <CustomSelector
-                            label={'Settlement Account'}
+                            label={"Settlement Account"}
                             onChange={(e) =>
-                                handleSelector(e, 'repaySourceAcctNo')
+                                handleSelector(e, "repaySourceAcctNo")
                             }
                             optionsList={settelementData}
                             value={creditApplDataFields_context.basicInfo?.repaySourceAcctNo?.toString()}
-                            name={'repaySourceAcctNo'}
+                            name={"repaySourceAcctNo"}
                             readonly={CustomerData.customerDraftReadOnlyFlag}
                         />
 
-                        <span className="text-error">
+                        <span className='text-error'>
                             {validator.message(
-                                'repaySourceAcctNo',
+                                "repaySourceAcctNo",
                                 creditApplDataFields_context.basicInfo
                                     ?.repaySourceAcctNo,
-                                'required'
+                                "required"
                             )}
                         </span>
                     </div>
                 </div>
-                <div className={styles['input-container-split']}>
-                    <div className={styles['validator-block']}>
+                <div className={styles["input-container-split"]}>
+                    <div className={styles["validator-block"]}>
                         <CustomSelector
-                            label={'Purpose of Credit'}
+                            label={"Purpose of Credit"}
                             onChange={(e) =>
-                                handleSelector(e, 'purposeOfCreditId')
+                                handleSelector(e, "purposeOfCreditId")
                             }
                             optionsList={purposeCredit}
                             value={creditApplDataFields_context.basicInfo?.purposeOfCreditId?.toString()}
-                            name={'purposeOfCreditId'}
+                            name={"purposeOfCreditId"}
                             readonly={CustomerData.customerDraftReadOnlyFlag}
                         />
 
-                        <span className="text-error">
+                        <span className='text-error'>
                             {validator.message(
-                                'purposeOfCreditId',
+                                "purposeOfCreditId",
                                 creditApplDataFields_context.basicInfo
                                     ?.purposeOfCreditId,
-                                'required'
+                                "required"
                             )}
                         </span>
                     </div>

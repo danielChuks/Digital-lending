@@ -27,11 +27,10 @@ import { useNavigate } from "react-router-dom";
 import usePopulateCustomerDraft from "../../../../Hooks/populateCreditDraft";
 import CustomDatePicker from "../../../../components/CustomDatePicker/customDatePicker";
 import { usePickListContext } from "../../../../context/pickListDataContext";
-
+import { CreditCollateralDocument } from "../../../../context/creditApplDetailsContext";
 import DialogueBox, {
     DialogueBoxProps,
 } from "../../../../components/Model/model";
-import { CreditCollateralDocument } from "../../../../interfaces";
 const Collateral: React.FC<any> = (props: any) => {
     const [validator] = useState(new SimpleReactValidator());
     const { creditApplDataFields_context, setCreditApplDataFields_context } =
@@ -59,7 +58,6 @@ const Collateral: React.FC<any> = (props: any) => {
         });
     ///// picklist for collateral type /////
     const [pickCollateralType, setPickCollateralType] = useState<any>();
-    const [collateralLendingValue, setCollateralLendingValue] = useState<any>();
     const [modelData, setModelData] = useState<DialogueBoxProps>({
         title: "",
         content: "",
@@ -111,18 +109,9 @@ const Collateral: React.FC<any> = (props: any) => {
     ///// fetch collateral lending value /////
     useEffect(() => {
         if (collateraData?.collateralTypeId) {
-            fetchCollateralLendingValue();
+            fetchCollateralLendingPercentage();
         }
     }, [collateraData?.collateralTypeId]);
-
-    useEffect(() => {
-        if (collateralLendingValue) {
-            setCollateraData((prev: any) => ({
-                ...prev,
-                lendingPercent: collateralLendingValue[0].value,
-            }));
-        }
-    }, [collateralLendingValue]);
 
     ////// fetch the collatyeral type data /////
     const fetchCollateralType = async () => {
@@ -163,7 +152,7 @@ const Collateral: React.FC<any> = (props: any) => {
         }
     };
 
-    const fetchCollateralLendingValue = async () => {
+    const fetchCollateralLendingPercentage = async () => {
         const payload = {
             instituteCode: "DBS01",
             transmissionTime: Date.now(),
@@ -173,16 +162,14 @@ const Collateral: React.FC<any> = (props: any) => {
         const data = await picklistMutation.mutateAsync(payload);
         if (data.status === 200) {
             if (data.data.pickListMap.FETCH_COLLATERAL_TYPE_LENDING_REF) {
-                let temp: { value: any; label: any }[] = [];
                 data.data.pickListMap.FETCH_COLLATERAL_TYPE_LENDING_REF?.map(
                     (data: any) => {
-                        temp.push({
-                            value: data.listKey,
-                            label: data.listDesc,
-                        });
+                        setCollateraData((prev: any) => ({
+                            ...prev,
+                            lendingPercent: data.listDesc,
+                        }));
                     }
                 );
-                setCollateralLendingValue(temp);
             }
         } else if (data.errorCode === "CI_JWT_001") {
             const notificationData: CommonnotificationProps = {
@@ -396,7 +383,6 @@ const Collateral: React.FC<any> = (props: any) => {
                 return {
                     ...prev,
                     [name]: value,
-                    lendingValue: value,
                     forcedSalesValue: value,
                 };
             });
@@ -406,6 +392,21 @@ const Collateral: React.FC<any> = (props: any) => {
             });
         }
     };
+
+    useEffect(() => {
+        if (
+            collateraData.lendingPercent &&
+            collateraData.collateralMarketValue
+        ) {
+            const lendingValue = (
+                (collateraData.lendingPercent / 100) *
+                collateraData.collateralMarketValue
+            ).toFixed(2);
+            setCollateraData((prev: any) => {
+                return { ...prev, lendingValue: lendingValue };
+            });
+        }
+    }, [collateraData.collateralMarketValue, collateraData.lendingPercent]);
 
     return (
         <>

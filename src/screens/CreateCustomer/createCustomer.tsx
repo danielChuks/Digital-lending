@@ -1,27 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styles from './createCustomer.module.css';
-import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Button/Button';
-import { ConfigProvider, Steps, notification } from 'antd';
+import React, { useState, useEffect, useRef } from "react";
+import styles from "./createCustomer.module.css";
+import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button/Button";
+import { ConfigProvider, Steps, notification } from "antd";
 // import SimpleReactValidator from 'simple-react-validator';
-import BasicInfo from './Forms/basicInfo';
-import AddressInfo from './Forms/addressInfo';
-import OtherInfo from './Forms/otherInfo';
+import BasicInfo from "./Forms/basicInfo";
+import AddressInfo from "./Forms/addressInfo";
+import OtherInfo from "./Forms/otherInfo";
 import {
     useCreateCustomerDraft,
     useCreateDBSCustomer,
     useGetPicklist,
-} from './createCustomerService';
-import KycList from './Forms/KycInfo/kycList';
-import DocumentList from './Forms/DocumentInfo/documentList';
-import ImageInfo from './Forms/imageInfo';
-import { useCustomerContext } from '../../context/customerDetailsContext';
-import { usePickListContext } from '../../context/pickListDataContext';
-import usePopulateCustomerDraft from '../../Hooks/populateCustomerDraft';
+} from "./createCustomerService";
+import KycList from "./Forms/KycInfo/kycList";
+import DocumentList from "./Forms/DocumentInfo/documentList";
+import ImageInfo from "./Forms/imageInfo";
+import { useCustomerContext } from "../../context/customerDetailsContext";
+import { usePickListContext } from "../../context/pickListDataContext";
+import usePopulateCustomerDraft from "../../Hooks/populateCustomerDraft";
 import openNotificationWithIcon, {
     CommonnotificationProps,
-} from '../../components/Notification/commonnotification';
-import Loader from '../../components/Loader/loader';
+} from "../../components/Notification/commonnotification";
+import Loader from "../../components/Loader/loader";
+import { CheckVerification } from "./Forms/VerificationAcknowledgement/checkVerification";
 
 const CreateCustomer = () => {
     // const [validator] = useState(new SimpleReactValidator());
@@ -42,22 +43,25 @@ const CreateCustomer = () => {
 
     const stepsList = [
         {
-            title: 'Basic info',
+            title: "Basic info",
         },
         {
-            title: 'Address info',
+            title: "Address info",
         },
         {
-            title: 'Other info',
+            title: "Other info",
         },
         {
-            title: 'KYC info',
+            title: "KYC info",
         },
         {
-            title: 'Documents',
+            title: "Documents",
         },
         {
-            title: 'Image info',
+            title: "Image info",
+        },
+        {
+            title: "Verification",
         },
     ];
 
@@ -67,14 +71,14 @@ const CreateCustomer = () => {
             addDocumentFlag: false,
         }));
 
-        if (sessionStorage.getItem('customerDraftFlag') === 'true') {
+        if (sessionStorage.getItem("customerDraftFlag") === "true") {
             setCustomerData((prev) => ({
                 ...prev,
                 customerDraftFlag: true,
             }));
         }
 
-        if (sessionStorage.getItem('customerDraftReadOnlyFlag') === 'true') {
+        if (sessionStorage.getItem("customerDraftReadOnlyFlag") === "true") {
             setCustomerData((prev) => ({
                 ...prev,
                 customerDraftReadOnlyFlag: true,
@@ -105,9 +109,9 @@ const CreateCustomer = () => {
 
     const fetchPicklistData = async () => {
         const payload = {
-            instituteCode: 'DBS01',
+            instituteCode: "DBS01",
             transmissionTime: Date.now(),
-            groupCode: 'CUSTOMER',
+            groupCode: "CUSTOMER",
         };
 
         const data: any = await picklistMutation.mutateAsync(payload);
@@ -116,52 +120,52 @@ const CreateCustomer = () => {
             let pickListMap = [
                 {
                     data: data.data.pickListMap.FETCH_TITLES,
-                    context: 'titleList',
+                    context: "titleList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_ADDRESS_TYPE,
-                    context: 'addressTypeList',
+                    context: "addressTypeList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_COUNTRY,
-                    context: 'countryList',
+                    context: "countryList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_NATIONALITIES,
-                    context: 'nationalityList',
+                    context: "nationalityList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_INDUSTRIES,
-                    context: 'industryList',
+                    context: "industryList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_MARITAL_STATUS_REF,
-                    context: 'maritalStatusList',
+                    context: "maritalStatusList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_GENDER_REF,
-                    context: 'genderList',
+                    context: "genderList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_OCCUPATIONS,
-                    context: 'occupationList',
+                    context: "occupationList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_CURRENCIES,
-                    context: 'currencyList',
+                    context: "currencyList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_SRC_OF_FUNDS,
-                    context: 'sourceofFundList',
+                    context: "sourceofFundList",
                 },
                 {
                     data: data.data.pickListMap
                         .FETCH_MARKET_CAMPAIGN_REFERENCES,
-                    context: 'marketingCampaignList',
+                    context: "marketingCampaignList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_REASON_REFERENCES,
-                    context: 'openingReasonList',
+                    context: "openingReasonList",
                 },
             ];
 
@@ -169,28 +173,28 @@ const CreateCustomer = () => {
                 populatePickList(data.data, data.context);
             });
         } else if (
-            data.errorCode === 'CI_JWT_001' ||
-            data.errorCode === 'CI_JWT_002'
+            data.errorCode === "CI_JWT_001" ||
+            data.errorCode === "CI_JWT_002"
         ) {
             const notificationData: CommonnotificationProps = {
-                type: 'info',
-                msgtitle: 'Notification',
-                msgDesc: 'Your session is over, Please login again',
+                type: "info",
+                msgtitle: "Notification",
+                msgDesc: "Your session is over, Please login again",
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             setTimeout(() => {
-                navigate({ pathname: '/login' });
+                navigate({ pathname: "/login" });
             }, 3000);
         }
     };
 
     const fetchCustomerTypes = async () => {
         const payload = {
-            instituteCode: 'DBS01',
+            instituteCode: "DBS01",
             transmissionTime: Date.now(),
-            category: 'FETCH_CUSTOMER_TYPES_BY_CUST_CATOGORY',
-            subCategory: sessionStorage.getItem('custCat'),
+            category: "FETCH_CUSTOMER_TYPES_BY_CUST_CATOGORY",
+            subCategory: sessionStorage.getItem("custCat"),
         };
         const data = await picklistMutation.mutateAsync(payload);
         if (data.status === 200) {
@@ -198,25 +202,25 @@ const CreateCustomer = () => {
                 {
                     data: data.data.pickListMap
                         .FETCH_CUSTOMER_TYPES_BY_CUST_CATOGORY,
-                    context: 'customerTypeList',
+                    context: "customerTypeList",
                 },
             ];
             pickListMap.map((data) => {
                 populatePickList(data.data, data.context);
             });
         } else if (
-            data.errorCode === 'CI_JWT_001' ||
-            data.errorCode === 'CI_JWT_002'
+            data.errorCode === "CI_JWT_001" ||
+            data.errorCode === "CI_JWT_002"
         ) {
             const notificationData: CommonnotificationProps = {
-                type: 'info',
-                msgtitle: 'Notification',
-                msgDesc: 'Your session is over, Please login again',
+                type: "info",
+                msgtitle: "Notification",
+                msgDesc: "Your session is over, Please login again",
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             setTimeout(() => {
-                navigate({ pathname: '/login' });
+                navigate({ pathname: "/login" });
             }, 3000);
         }
     };
@@ -226,15 +230,15 @@ const CreateCustomer = () => {
     }, [CustomerData.loading]);
 
     useEffect(() => {
-        if (!(sessionStorage.getItem('dbsCustApplId') === null)) {
+        if (!(sessionStorage.getItem("dbsCustApplId") === null)) {
             populateCustomerDraft();
         } else {
             setCustomerData((prev) => ({
                 ...prev,
                 basicInfoData: {
                     ...prev.basicInfoData,
-                    email: sessionStorage.getItem('email'),
-                    mobile: sessionStorage.getItem('mobile'),
+                    email: sessionStorage.getItem("email"),
+                    mobile: sessionStorage.getItem("mobile"),
                 },
             }));
         }
@@ -243,10 +247,10 @@ const CreateCustomer = () => {
     }, []);
 
     useEffect(() => {
-        if (sessionStorage.getItem('dbsCustApplId') === null) {
+        if (sessionStorage.getItem("dbsCustApplId") === null) {
             setCustomerData((prev) => ({
                 ...prev,
-                customerCategory: sessionStorage.getItem('custCat'),
+                customerCategory: sessionStorage.getItem("custCat"),
             }));
         }
     }, [CustomerData.customerCategory]);
@@ -277,18 +281,18 @@ const CreateCustomer = () => {
             const isValid = componentValidation(currentStep);
             if (isValid) {
                 const payload = {
-                    instituteCode: sessionStorage.getItem('instituteCode'),
+                    instituteCode: sessionStorage.getItem("instituteCode"),
                     transmissionTime: Date.now(),
                     ...CustomerData.basicInfoData,
                     ...CustomerData.addressInfoData,
                     ...CustomerData.otherInfoData,
                     identificationsList: CustomerData.identificationInfoData,
-                    dbsUserId: Number(sessionStorage.getItem('dbsUserId')),
+                    dbsUserId: Number(sessionStorage.getItem("dbsUserId")),
                     customerCategory: CustomerData.customerCategory,
-                    email: sessionStorage.getItem('email'),
-                    mobile: sessionStorage.getItem('mobile'),
-                    dbsCustApplId: sessionStorage.getItem('dbsCustApplId')
-                        ? Number(sessionStorage.getItem('dbsCustApplId'))
+                    email: sessionStorage.getItem("email"),
+                    mobile: sessionStorage.getItem("mobile"),
+                    dbsCustApplId: sessionStorage.getItem("dbsCustApplId")
+                        ? Number(sessionStorage.getItem("dbsCustApplId"))
                         : null,
                     strphotoGraphImage: CustomerData.strphotoGraphImage,
                     strsignatureImage: CustomerData.strsignatureImage,
@@ -301,17 +305,17 @@ const CreateCustomer = () => {
                 if (data.status === 200) {
                     setIsLoading(false);
                     sessionStorage.setItem(
-                        'dbsCustApplId',
+                        "dbsCustApplId",
                         data.data.dbsCustApplId
                     );
 
                     if (
                         !(
-                            sessionStorage.getItem('customerDraftFlag') ===
-                            'true'
+                            sessionStorage.getItem("customerDraftFlag") ===
+                            "true"
                         )
                     ) {
-                        sessionStorage.setItem('customerDraftFlag', 'true');
+                        sessionStorage.setItem("customerDraftFlag", "true");
                         setCustomerData((prev) => ({
                             ...prev,
                             customerDraftFlag: true,
@@ -320,25 +324,25 @@ const CreateCustomer = () => {
 
                     setCurrentStep((prev) => prev + 1);
                 } else if (
-                    data.errorCode === 'CI_JWT_001' ||
-                    data.errorCode === 'CI_JWT_002'
+                    data.errorCode === "CI_JWT_001" ||
+                    data.errorCode === "CI_JWT_002"
                 ) {
                     setIsLoading(false);
                     const notificationData: CommonnotificationProps = {
-                        type: 'info',
-                        msgtitle: 'Notification',
-                        msgDesc: 'Your session is over, Please login again',
+                        type: "info",
+                        msgtitle: "Notification",
+                        msgDesc: "Your session is over, Please login again",
                         api: api,
                     };
                     openNotificationWithIcon(notificationData);
                     setTimeout(() => {
-                        navigate({ pathname: '/login' });
+                        navigate({ pathname: "/login" });
                     }, 3000);
                 } else {
                     setIsLoading(false);
                     const notificationData: CommonnotificationProps = {
-                        type: 'error',
-                        msgtitle: '',
+                        type: "error",
+                        msgtitle: "",
                         msgDesc: data.errorMessage,
                         api: api,
                     };
@@ -351,17 +355,17 @@ const CreateCustomer = () => {
     const handleCreateCustomer = async (e: React.FormEvent) => {
         e.preventDefault();
         const payload = {
-            instituteCode: sessionStorage.getItem('instituteCode'),
+            instituteCode: sessionStorage.getItem("instituteCode"),
             transmissionTime: Date.now(),
             ...CustomerData.basicInfoData,
             ...CustomerData.addressInfoData,
             ...CustomerData.otherInfoData,
             identificationsList: CustomerData.identificationInfoData,
-            dbsUserId: Number(sessionStorage.getItem('dbsUserId')),
+            dbsUserId: Number(sessionStorage.getItem("dbsUserId")),
             customerCategory: CustomerData.customerCategory,
-            email: sessionStorage.getItem('email'),
-            mobile: sessionStorage.getItem('mobile'),
-            dbsCustApplId: Number(sessionStorage.getItem('dbsCustApplId')),
+            email: sessionStorage.getItem("email"),
+            mobile: sessionStorage.getItem("mobile"),
+            dbsCustApplId: Number(sessionStorage.getItem("dbsCustApplId")),
             strphotoGraphImage: CustomerData.strphotoGraphImage,
             strsignatureImage: CustomerData.strsignatureImage,
         };
@@ -371,35 +375,35 @@ const CreateCustomer = () => {
         if (data.status === 200) {
             setIsLoading(false);
             const notificationData: CommonnotificationProps = {
-                type: 'success',
-                msgtitle: 'Success ',
-                msgDesc: 'Customer Created SuccessFully',
+                type: "success",
+                msgtitle: "Success ",
+                msgDesc: "Customer Created SuccessFully",
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             setTimeout(() => {
-                navigate({ pathname: '/dashboard' });
+                navigate({ pathname: "/dashboard" });
             }, 2000);
         } else if (
-            data.errorCode === 'CI_JWT_001' ||
-            data.errorCode === 'CI_JWT_002'
+            data.errorCode === "CI_JWT_001" ||
+            data.errorCode === "CI_JWT_002"
         ) {
             setIsLoading(false);
             const notificationData: CommonnotificationProps = {
-                type: 'info',
-                msgtitle: 'Notification',
-                msgDesc: 'Your session is over, Please login again',
+                type: "info",
+                msgtitle: "Notification",
+                msgDesc: "Your session is over, Please login again",
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             setTimeout(() => {
-                navigate({ pathname: '/login' });
+                navigate({ pathname: "/login" });
             }, 3000);
         } else {
             setIsLoading(false);
             const notificationData: CommonnotificationProps = {
-                type: 'error',
-                msgtitle: '',
+                type: "error",
+                msgtitle: "",
                 msgDesc: data.errorMessage,
                 api: api,
             };
@@ -411,15 +415,15 @@ const CreateCustomer = () => {
         <>
             {contextHolder}
             <Loader loading={isLoading} />
-            <div className={'main-container'}>
-                <div className={'main-heading'}>Customer Onboarding</div>
-                <section className={styles['customer-type-content']}>
+            <div className={"main-container"}>
+                <div className={"main-heading"}>Customer Onboarding</div>
+                <section className={styles["customer-type-content"]}>
                     <form onSubmit={handleFormSubmit}>
                         <>
                             <ConfigProvider
                                 theme={{
                                     token: {
-                                        colorPrimary: '#006c33',
+                                        colorPrimary: "#006c33",
                                     },
                                 }}
                             >
@@ -429,7 +433,7 @@ const CreateCustomer = () => {
                                 />
                             </ConfigProvider>
                         </>
-                        <div className={styles['form-box']}>
+                        <div className={styles["form-box"]}>
                             {currentStep === 0 ? (
                                 <BasicInfo ref={basicInfoValidationRef} />
                             ) : currentStep === 1 ? (
@@ -442,26 +446,28 @@ const CreateCustomer = () => {
                                 <DocumentList />
                             ) : currentStep === 5 ? (
                                 <ImageInfo />
+                            ) : currentStep === 6 ? (
+                                <CheckVerification />
                             ) : (
-                                ''
+                                ""
                             )}
                         </div>
-                        <div className={styles['buton-container']}>
+                        <div className={styles["buton-container"]}>
                             {currentStep === 0 &&
-                            sessionStorage.getItem('customerDraftFlag') ? (
+                            sessionStorage.getItem("customerDraftFlag") ? (
                                 <div></div>
                             ) : (
                                 <Button
-                                    text={'Back'}
-                                    type={'button'}
+                                    text={"Back"}
+                                    type={"button"}
                                     disabled={false}
-                                    buttonType={'back'}
+                                    buttonType={"back"}
                                     icon={true}
                                     onClick={() => {
                                         currentStep !== 0
                                             ? setCurrentStep((prev) => prev - 1)
                                             : navigate(
-                                                  '/dashboard/customerType'
+                                                  "/dashboard/customerType"
                                               );
                                         setCustomerData((prev) => ({
                                             ...prev,
@@ -472,32 +478,32 @@ const CreateCustomer = () => {
                             )}
                             {currentStep === stepsList.length - 1 &&
                             !CustomerData.customerDraftReadOnlyFlag ? (
-                                <div className={styles['submit']}>
+                                <div className={styles["submit"]}>
                                     <Button
-                                        text={'Submit'}
-                                        type={'button'}
+                                        text={"Submit"}
+                                        type={"button"}
                                         disabled={
                                             !Boolean(
                                                 CustomerData.strphotoGraphImage &&
                                                     CustomerData.strsignatureImage
                                             )
                                         }
-                                        buttonType={''}
+                                        buttonType={""}
                                         onClick={handleCreateCustomer}
                                     />
                                 </div>
                             ) : (
-                                ''
+                                ""
                             )}
                             {currentStep === stepsList.length - 1 ||
                             CustomerData.addDocumentFlag ? (
-                                ''
+                                ""
                             ) : (
                                 <Button
-                                    text={'Next'}
-                                    type={'submit'}
+                                    text={"Next"}
+                                    type={"submit"}
                                     disabled={false}
-                                    buttonType={'next'}
+                                    buttonType={"next"}
                                     icon={true}
                                 />
                             )}

@@ -6,4 +6,5 @@ export interface identificationInfoProps {
     identityTypeDesc?: string;
     strExpiryDate?: string;
     strIssueDate?: string;
+    verifiedFlag?: boolean;
 }

@@ -1,0 +1,33 @@
+.contianer {
+}
+
+.header {
+    font-family: inter;
+    border-bottom: 1px solid green;
+    padding-bottom: 2px;
+}
+
+.subtitle {
+    font-size: 12px;
+    padding-top: 20px;
+}
+
+.table-contanier {
+    display: flex;
+    margin: 24px;
+    gap: 40px;
+}
+
+.table-header {
+    display: grid;
+    gap: 30px;
+}
+
+.iDcontent {
+    font-size: 13px;
+}
+.checkbox {
+    font-size: 12px;
+    display: flex;
+    gap: 40px;
+}
