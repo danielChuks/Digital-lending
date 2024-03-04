@@ -74,7 +74,7 @@ const Dashboard = () => {
             icon: <RiDraftFill size={80} color='#fff' />,
             path: "/dashboard/draftList",
         },
-      
+
         {
             id: 5,
             name: "Track",

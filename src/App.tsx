@@ -97,7 +97,7 @@ function App() {
                         element={<FundTransfer />}
                     ></Route>
                     <Route
-                        path={"/dashboard/fundPartnersInfo.tsx"}
+                        path={"/dashboard/fundPartnersInfo"}
                         element={<FundPartnersInfo />}
                     ></Route>
                     <Route

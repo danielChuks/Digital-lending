@@ -1,0 +1,65 @@
+.card-container {
+    display: grid;
+    gap: 8px;
+    height: 60px;
+    width: 300px;
+    background-color: #006c33;
+    color: #ffffff;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.card-container .top-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.card-container .top-section .header {
+    color: var(--Font-White, #fff);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.28px;
+}
+
+.card-container .icon-container {
+    cursor: pointer;
+}
+
+.card-container .dropdown-menu {
+    right: 15px;
+    top: 30px;
+    background-color: #ffff;
+    color: #001620;
+    border-radius: 10px;
+    font-family: Inter;
+    width: 180px;
+    height: 80px;
+    display: grid;
+    align-items: center;
+    z-index: 100;
+}
+
+.card-container .buttom-section {
+    display: flex;
+    gap: 3px;
+    color: var(--Font-White, #fff);
+    font-family: "Inter";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    text-align: left;
+}
+
+.card-container .buttom-section span {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.24px;
+}

@@ -186,9 +186,7 @@ const refreshToken = async () => {
 export const fetchConfigInfo = async () => {
     let data;
     try {
-        const res = await fetch(
-            "/applicationProperties.json"
-        );
+        const res = await fetch("/applicationProperties.json");
         data = await res.json();
     } catch (error) {
         console.log("Error in  Read Config", error);
