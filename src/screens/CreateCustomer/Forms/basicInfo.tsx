@@ -470,7 +470,7 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                                 <div className={styles["input-container"]}>
                                     <InputField
                                         label='Next of kin'
-                                        type={"number"}
+                                        type={"string"}
                                         onChange={handleBasicInfo}
                                         value={
                                             CustomerData.basicInfoData.nextOfKin

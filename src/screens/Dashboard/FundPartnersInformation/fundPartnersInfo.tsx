@@ -3,6 +3,8 @@ import styles from "./fundPartnersInfo.module.css";
 import { FundPartnersInfoCard } from "../../../components/FundPartnersInfoCard/fundPartnersInfoCard";
 import axios from "axios";
 import { fetchConfigInfo } from "../../../Network/api";
+import { FaArrowRight } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 interface FundPartnerInfo {
     id: number;
@@ -15,6 +17,7 @@ interface FundPartnerInfo {
 export const FundPartnersInfo = () => {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<FundPartnerInfo[] | null>();
+    const navigate = useNavigate();
 
     const fetchData = async () => {
         const configData = await fetchConfigInfo();
@@ -36,15 +39,23 @@ export const FundPartnersInfo = () => {
         }
     };
 
-    const handleClick = async (id: number) => {
-        const fundPartner = data?.find((item) => item.id === id);
-        if (fundPartner) {
-            try {
-                const fileURL = `${fundPartner.documentPath}/${fundPartner.documentName}`;
+    const handleClick = async (documentName: string) => {
+        try {
+            const configData = await fetchConfigInfo();
+            if (configData) {
+                const url = `${configData.baseUrl}app/dbs/document/viewDocument/${documentName}`;
+                const response = await axios.get(url, {
+                    responseType: "blob",
+                });
+                console.log(response);
+                const file = new Blob([response.data], {
+                    type: "application/pdf",
+                });
+                const fileURL = URL.createObjectURL(file);
                 window.open(fileURL);
-            } catch (error) {
-                console.error("Error opening document:", error);
             }
+        } catch (error) {
+            console.error("Error fetching PDF:", error);
         }
     };
 
@@ -52,10 +63,20 @@ export const FundPartnersInfo = () => {
         fetchData();
     }, []);
 
+    const route = () => {
+        navigate("/dashboard/createCreditApplication");
+    };
     return (
         <div>
             <div className={styles.container}>
-                Fund partner Loan Requirement{" "}
+                <div className={styles["header"]}>
+                    Fund partner Loan Requirement
+                </div>
+                <div className={styles["proceedBtn"]}>
+                    <div onClick={route}>
+                        Proceed to apply <FaArrowRight />
+                    </div>
+                </div>
             </div>
             <div className={styles.containerContent}>
                 <div className={styles.cardWrapper}>
@@ -63,8 +84,8 @@ export const FundPartnersInfo = () => {
                         <FundPartnersInfoCard
                             key={i}
                             name={d.fundPartner}
-                            linkedInformation={d.creditTypeCode}
-                            onclick={() => handleClick(d.id)}
+                            linkedInformation={d.documentName}
+                            onclick={() => handleClick(d.documentName)}
                         />
                     ))}
                 </div>

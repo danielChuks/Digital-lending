@@ -162,7 +162,7 @@ export const Register = () => {
             <div className={styles["country"]}>
               <PhoneInput
                 inputClass={styles["tel-input"]}
-                country={"eg"}
+                country={"ng"}
                 enableSearch={true}
                 value={countryCode}
                 onChange={(phone) => setCountryCode(phone)}

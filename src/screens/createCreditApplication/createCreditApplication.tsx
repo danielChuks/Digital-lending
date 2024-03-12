@@ -1,30 +1,30 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styles from './createCreditApplication.module.css';
-import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Button/Button';
-import { ConfigProvider, Divider, Steps, notification } from 'antd';
-import BasicInfo from './Forms/basicInfo';
-import DocumentList from './Forms/Document/documentList';
-import { useCreditApplicationDataContext } from '../../context/creditApplDetailsContext';
+import React, { useState, useEffect, useRef } from "react";
+import styles from "./createCreditApplication.module.css";
+import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button/Button";
+import { ConfigProvider, Divider, Steps, notification } from "antd";
+import BasicInfo from "./Forms/basicInfo";
+import DocumentList from "./Forms/Document/documentList";
+import { useCreditApplicationDataContext } from "../../context/creditApplDetailsContext";
 /** picklist generation */
-import { usePickListContext } from '../../context/pickListDataContext';
+import { usePickListContext } from "../../context/pickListDataContext";
 import {
     useCreateCreditApplDraft,
     useCreateDBSCreditAppl,
     useGetPicklist,
-} from './createCreditApplicationService';
+} from "./createCreditApplicationService";
 
 import openNotificationWithIcon, {
     CommonnotificationProps,
-} from '../../components/Notification/commonnotification';
-import CollateralList from './Forms/Collateral/collateralList';
+} from "../../components/Notification/commonnotification";
+import CollateralList from "./Forms/Collateral/collateralList";
 /**end*/
 
 /**load db data */
-import usePopulateCreditDraft from '../../Hooks/populateCreditDraft';
+import usePopulateCreditDraft from "../../Hooks/populateCreditDraft";
 
-import Loader from '../../components/Loader/loader';
-import { useCustomerContext } from '../../context/customerDetailsContext';
+import Loader from "../../components/Loader/loader";
+import { useCustomerContext } from "../../context/customerDetailsContext";
 
 const CreateCreditApplication = () => {
     const navigate = useNavigate();
@@ -42,13 +42,13 @@ const CreateCreditApplication = () => {
     const { CustomerData, setCustomerData } = useCustomerContext();
     const stepsList = [
         {
-            title: 'Basic info',
+            title: "Basic info",
         },
         {
-            title: 'Documents',
+            title: "Documents",
         },
         {
-            title: 'Collateral',
+            title: "Collateral",
         },
     ];
 
@@ -72,91 +72,92 @@ const CreateCreditApplication = () => {
     ///// picklist data for credit apllication /////
     const fetchPicklistData = async () => {
         const payload = {
-            instituteCode: 'DBS01',
+            instituteCode: "DBS01",
             transmissionTime: Date.now(),
-            groupCode: 'CREDIT_APPL',
+            groupCode: "CREDIT_APPL",
         };
         const data: any = await picklistMutation.mutateAsync(payload);
+        console.log(data);
         if (data.status === 200) {
             let pickListMap = [
                 {
                     data: data.data.pickListMap.FETCH_CAUTION_LIST,
-                    context: 'cautionList',
+                    context: "cautionList",
                 },
                 {
                     data: data.data.pickListMap
                         .FETCH_COLLATERAL_TYPE_LENDING_REF,
-                    context: 'collateralTypeLendingList',
+                    context: "collateralTypeLendingList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_COLLATERAL_TYPE_REF,
-                    context: 'collatteralTypeRefList',
+                    context: "collatteralTypeRefList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_CREDIT_DOCUMENT_REF,
-                    context: 'creditDocumentRefList',
+                    context: "creditDocumentRefList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_CREDIT_OFFICER,
-                    context: 'creditOfficerList',
+                    context: "creditOfficerList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_CREDIT_PORTFOLIO,
-                    context: 'creditPortfolioList',
+                    context: "creditPortfolioList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_CREDIT_TYPE,
-                    context: 'creditTypeList',
+                    context: "creditTypeList",
                 },
                 {
                     data: data.data.pickListMap
                         .FETCH_CREDIT_UTILISATION_BY_CREDIT_TYPE,
-                    context: 'creditUlitisationTypeList',
+                    context: "creditUlitisationTypeList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_INDUSTRY,
-                    context: 'industryList',
+                    context: "industryList",
                 },
 
                 {
                     data: data.data.pickListMap.FETCH_CURRENCY_LIST,
-                    context: 'currencyList',
+                    context: "currencyList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_PRODUCT_BY_CREDIT_TYPE,
-                    context: 'productCreditTypeList',
+                    context: "productCreditTypeList",
                 },
                 {
                     data: data.data.pickListMap
                         .FETCH_PRODUCT_BY_CUSTOMER_AND_CREDIT_TYPE,
-                    context: 'productCustomerAndCreditTypeList',
+                    context: "productCustomerAndCreditTypeList",
                 },
                 {
                     data: data.data.pickListMap.FETCH_PURPOSE_OF_CREDIT,
-                    context: 'purposeOfCreditTypeList',
+                    context: "purposeOfCreditTypeList",
                 },
 
                 {
                     data: data.data.pickListMap.FETCH_FREQUENCY_REF,
-                    context: 'termCode',
+                    context: "termCode",
                 },
             ];
             pickListMap.map((data) => {
                 populatePickList(data.data, data.context);
             });
         } else if (
-            data.errorCode === 'CI_JWT_001' ||
-            data.errorCode === 'CI_JWT_002'
+            data.errorCode === "CI_JWT_001" ||
+            data.errorCode === "CI_JWT_002"
         ) {
             const notificationData: CommonnotificationProps = {
-                type: 'info',
-                msgtitle: 'Notification',
-                msgDesc: 'Your session is over, Please login again',
+                type: "info",
+                msgtitle: "Notification",
+                msgDesc: "Your session is over, Please login again",
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             setTimeout(() => {
-                navigate({ pathname: '/login' });
+                navigate({ pathname: "/login" });
             }, 3000);
         }
     };
@@ -166,7 +167,7 @@ const CreateCreditApplication = () => {
     }, [creditApplDataFields_context.loading]);
 
     useEffect(() => {
-        if (!(sessionStorage.getItem('dbsCustApplId') === null)) {
+        if (!(sessionStorage.getItem("dbsCustApplId") === null)) {
             populateCreditDraft();
         } else {
             setCreditApplDataFields_context({
@@ -178,14 +179,14 @@ const CreateCreditApplication = () => {
         }
         fetchPicklistData();
 
-        if (sessionStorage.getItem('customerDraftFlag') === 'true') {
+        if (sessionStorage.getItem("customerDraftFlag") === "true") {
             setCustomerData((prev) => ({
                 ...prev,
                 customerDraftFlag: true,
             }));
         }
 
-        if (sessionStorage.getItem('customerDraftReadOnlyFlag') === 'true') {
+        if (sessionStorage.getItem("customerDraftReadOnlyFlag") === "true") {
             setCustomerData((prev) => ({
                 ...prev,
                 customerDraftReadOnlyFlag: true,
@@ -220,9 +221,9 @@ const CreateCreditApplication = () => {
             const isValid = componentValidation(currentStep);
             if (isValid) {
                 let payload = {};
-                if (sessionStorage.getItem('dbsCustApplId') === null) {
+                if (sessionStorage.getItem("dbsCustApplId") === null) {
                     payload = {
-                        instituteCode: sessionStorage.getItem('instituteCode'),
+                        instituteCode: sessionStorage.getItem("instituteCode"),
                         transmissionTime: Date.now(),
 
                         applData: {
@@ -232,7 +233,7 @@ const CreateCreditApplication = () => {
                     };
                 } else {
                     payload = {
-                        instituteCode: sessionStorage.getItem('instituteCode'),
+                        instituteCode: sessionStorage.getItem("instituteCode"),
                         transmissionTime: Date.now(),
 
                         applData: {
@@ -242,7 +243,7 @@ const CreateCreditApplication = () => {
                         },
 
                         dbsCustApplId: Number(
-                            sessionStorage.getItem('dbsCustApplId')
+                            sessionStorage.getItem("dbsCustApplId")
                         ),
                     };
                 }
@@ -254,26 +255,26 @@ const CreateCreditApplication = () => {
                 if (data.status === 200) {
                     setIsLoading(false);
                     sessionStorage.setItem(
-                        'dbsCustApplId',
+                        "dbsCustApplId",
                         data.data.dbsCustApplId
                     );
                     setCurrentStep((prev) => prev + 1);
-                } else if (data.errorCode === 'CI_JWT_001') {
+                } else if (data.errorCode === "CI_JWT_001") {
                     setIsLoading(false);
                     const notificationData: CommonnotificationProps = {
-                        type: 'info',
-                        msgtitle: 'Notification',
-                        msgDesc: 'Your session is over, Please login again',
+                        type: "info",
+                        msgtitle: "Notification",
+                        msgDesc: "Your session is over, Please login again",
                         api: api,
                     };
                     openNotificationWithIcon(notificationData);
                     setTimeout(() => {
-                        navigate({ pathname: '/login' });
+                        navigate({ pathname: "/login" });
                     }, 2000);
                 } else {
                     setIsLoading(false);
                     const notificationData: CommonnotificationProps = {
-                        type: 'error',
+                        type: "error",
                         msgtitle: data.errorCode,
                         msgDesc: data.errorMessage,
                         api: api,
@@ -287,7 +288,7 @@ const CreateCreditApplication = () => {
     const handleCreateCreditApplication = async (e: React.FormEvent) => {
         e.preventDefault();
         const payload = {
-            instituteCode: sessionStorage.getItem('instituteCode'),
+            instituteCode: sessionStorage.getItem("instituteCode"),
             transmissionTime: Date.now(),
             applData: {
                 // collateralData:creditApplDataFields_context.collateralinfoData,
@@ -296,42 +297,42 @@ const CreateCreditApplication = () => {
                 documentList: creditApplDataFields_context.documentInfodata,
             },
 
-            dbsUserId: Number(sessionStorage.getItem('dbsUserId')),
-            dbsCustApplId: Number(sessionStorage.getItem('dbsCustApplId')),
+            dbsUserId: Number(sessionStorage.getItem("dbsUserId")),
+            dbsCustApplId: Number(sessionStorage.getItem("dbsCustApplId")),
         };
         setIsLoading(true);
         const data = await createDBSCreditApplMutation.mutateAsync(payload);
         if (data.status === 200) {
             setIsLoading(false);
             const notificationData: CommonnotificationProps = {
-                type: 'success',
-                msgtitle: 'Success ',
-                msgDesc: 'Credit Application Created SuccessFully',
+                type: "success",
+                msgtitle: "Success ",
+                msgDesc: "Credit Application Created SuccessFully",
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             setTimeout(() => {
-                navigate({ pathname: '/dashboard' });
+                navigate({ pathname: "/dashboard" });
             }, 2000);
         } else if (
-            data.errorCode === 'CI_JWT_001' ||
-            data.errorCode === 'CI_JWT_002'
+            data.errorCode === "CI_JWT_001" ||
+            data.errorCode === "CI_JWT_002"
         ) {
             setIsLoading(false);
             const notificationData: CommonnotificationProps = {
-                type: 'info',
-                msgtitle: 'Notification',
-                msgDesc: 'Your session is over, Please login again',
+                type: "info",
+                msgtitle: "Notification",
+                msgDesc: "Your session is over, Please login again",
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             setTimeout(() => {
-                navigate({ pathname: '/login' });
+                navigate({ pathname: "/login" });
             }, 2000);
         } else {
             setIsLoading(false);
             const notificationData: CommonnotificationProps = {
-                type: 'error',
+                type: "error",
                 msgtitle: data.errorCode,
                 msgDesc: data.errorMessage,
                 api: api,
@@ -343,15 +344,15 @@ const CreateCreditApplication = () => {
         <>
             {contextHolder}
             <Loader loading={isLoading} />
-            <div className={'main-container'}>
-                <div className={'main-heading'}>Create Credit Application</div>
-                <section className={styles['customer-type-content']}>
+            <div className={"main-container"}>
+                <div className={"main-heading"}>Create Credit Application</div>
+                <section className={styles["customer-type-content"]}>
                     <form onSubmit={handleFormSubmit}>
                         <>
                             <ConfigProvider
                                 theme={{
                                     token: {
-                                        colorPrimary: '#39C594',
+                                        colorPrimary: "#39C594",
                                     },
                                 }}
                             >
@@ -359,20 +360,20 @@ const CreateCreditApplication = () => {
                                     current={currentStep}
                                     items={[
                                         {
-                                            title: 'Basic info',
+                                            title: "Basic info",
                                             // description: "This is a description.",
                                         },
                                         {
-                                            title: 'Documents',
+                                            title: "Documents",
                                         },
                                         {
-                                            title: 'Collateral',
+                                            title: "Collateral",
                                         },
                                     ]}
                                 />
                             </ConfigProvider>
                         </>
-                        <div className={styles['form-box']}>
+                        <div className={styles["form-box"]}>
                             {currentStep === 0 ? (
                                 <BasicInfo ref={BasicInfovalidref} />
                             ) : currentStep === 1 ? (
@@ -380,60 +381,60 @@ const CreateCreditApplication = () => {
                             ) : currentStep === 2 ? (
                                 <CollateralList />
                             ) : (
-                                ''
+                                ""
                             )}
                         </div>
-                        <div className={styles['buton-container']}>
+                        <div className={styles["buton-container"]}>
                             {currentStep !== 0 ? (
                                 <Button
-                                    text={'Back'}
-                                    type={'button'}
+                                    text={"Back"}
+                                    type={"button"}
                                     disabled={false}
-                                    buttonType={'back'}
+                                    buttonType={"back"}
                                     icon={true}
                                     onClick={() => {
                                         setCurrentStep((prev) => prev - 1);
                                     }}
                                 />
                             ) : (
-                                ''
+                                ""
                             )}
 
                             {currentStep === 2 &&
                             !CustomerData.customerDraftReadOnlyFlag ? (
                                 <>
-                                    <div className={styles['submit']}>
+                                    <div className={styles["submit"]}>
                                         {!creditApplDataFields_context.addDocumentFlag ? (
                                             <Button
-                                                text={'Submit'}
-                                                type={'submit'}
+                                                text={"Submit"}
+                                                type={"submit"}
                                                 // disabled={false}
-                                                buttonType={''}
+                                                buttonType={""}
                                                 onClick={
                                                     handleCreateCreditApplication
                                                 }
                                             />
                                         ) : (
-                                            ''
+                                            ""
                                         )}
                                     </div>
                                 </>
                             ) : (
-                                ''
+                                ""
                             )}
-                            {currentStep === 0 ? <div></div> : ''}
+                            {currentStep === 0 ? <div></div> : ""}
                             {currentStep === stepsList.length - 1 ? (
-                                ''
+                                ""
                             ) : !creditApplDataFields_context.addDocumentFlag ? (
                                 <Button
-                                    text={'Next'}
-                                    type={'submit'}
+                                    text={"Next"}
+                                    type={"submit"}
                                     disabled={false}
-                                    buttonType={'next'}
+                                    buttonType={"next"}
                                     icon={true}
                                 />
                             ) : (
-                                ''
+                                ""
                             )}
                         </div>
                     </form>
