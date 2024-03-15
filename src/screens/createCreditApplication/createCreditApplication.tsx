@@ -25,6 +25,7 @@ import usePopulateCreditDraft from "../../Hooks/populateCreditDraft";
 
 import Loader from "../../components/Loader/loader";
 import { useCustomerContext } from "../../context/customerDetailsContext";
+import { CheckVerification } from "./VerificationAcknowledgement/checkVerification";
 
 const CreateCreditApplication = () => {
     const navigate = useNavigate();
@@ -49,6 +50,10 @@ const CreateCreditApplication = () => {
         },
         {
             title: "Collateral",
+        },
+
+        {
+            title: "Verification",
         },
     ];
 
@@ -369,6 +374,7 @@ const CreateCreditApplication = () => {
                                         {
                                             title: "Collateral",
                                         },
+                                        { title: "Verification" },
                                     ]}
                                 />
                             </ConfigProvider>
@@ -380,6 +386,8 @@ const CreateCreditApplication = () => {
                                 <DocumentList />
                             ) : currentStep === 2 ? (
                                 <CollateralList />
+                            ) : currentStep === 3 ? (
+                                <CheckVerification />
                             ) : (
                                 ""
                             )}
@@ -400,7 +408,7 @@ const CreateCreditApplication = () => {
                                 ""
                             )}
 
-                            {currentStep === 2 &&
+                            {currentStep === 3 &&
                             !CustomerData.customerDraftReadOnlyFlag ? (
                                 <>
                                     <div className={styles["submit"]}>
@@ -408,7 +416,7 @@ const CreateCreditApplication = () => {
                                             <Button
                                                 text={"Submit"}
                                                 type={"submit"}
-                                                // disabled={false}
+                                                disabled={false}
                                                 buttonType={""}
                                                 onClick={
                                                     handleCreateCreditApplication

@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import styles from "./checksVerification.module.css";
 import { FaArrowRight } from "react-icons/fa6";
 import axios from "axios";
-import { fetchConfigInfo } from "../../../../Network/api";
-import Loader from "../../../../components/Loader/loader";
 import toast, { Toaster } from "react-hot-toast";
 import { notification } from "antd";
 import { SetterOrUpdater, useSetRecoilState } from "recoil";
-import { verificationAtom } from "../../../../state";
-import { VerificationStatusProps } from "../../../../interfaces";
+import { fetchConfigInfo } from "../../../Network/api";
+import Loader from "../../../components/Loader/loader";
+import { verificationAtom } from "../../../state";
+import { VerificationStatusProps } from "../../../interfaces";
 
 export const CheckVerification = () => {
     const setVerificationStatus: SetterOrUpdater<VerificationStatusProps> =

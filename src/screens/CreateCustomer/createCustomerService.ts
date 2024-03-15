@@ -1,17 +1,17 @@
-import { PostAxios } from '../../Network/api';
-import { useMutation } from 'react-query';
+import { PostAxios } from "../../Network/api";
+import { useMutation } from "react-query";
 
 ///// Get the pickList Data /////////
 
 const getPicklist = async (
     credentials: any = {
-        instituteCode: sessionStorage.getItem('instituteCode'),
+        instituteCode: sessionStorage.getItem("instituteCode"),
         transmissionTime: Date.now(),
-        groupCode: 'CUSTOMER',
+        groupCode: "CUSTOMER",
     }
 ): Promise<any> => {
     const responsePicklist = await PostAxios(
-        '/app/dbs/userservice/getPickListData',
+        "/app/dbs/userservice/getPickListData",
         credentials
     );
     return responsePicklist;
@@ -27,7 +27,7 @@ export const useGetPicklist = () => useMutation(picklistMutationFn);
 
 const CreateCustomerDraft = async (credentials: any): Promise<any> => {
     const responseCreateCustomerDraft = await PostAxios(
-        '/app/dbs/customerapplication/createCustomerApplDraft',
+        "/app/dbs/customerapplication/createCustomerApplDraft",
         credentials
     );
     return responseCreateCustomerDraft;
@@ -44,7 +44,7 @@ export const useCreateCustomerDraft = () =>
 
 const CreateDBSCustomer = async (credentials: any): Promise<any> => {
     const responseCreateCustomerDraft = await PostAxios(
-        '/app/dbs/customerapplication/createCustomerForDBSUser',
+        "/app/dbs/customerapplication/createCustomerForDBSUser",
         credentials
     );
     return responseCreateCustomerDraft;
@@ -61,7 +61,7 @@ export const useCreateDBSCustomer = () =>
 
 const CreateCustomerDocument = async (credentials: any): Promise<any> => {
     const responseCreateCustomerDocument = await PostAxios(
-        'app/dbs/document/createDocument',
+        "app/dbs/document/createDocument",
         credentials
     );
     return responseCreateCustomerDocument;
@@ -78,7 +78,7 @@ export const useCreateCustomerDocument = () =>
 
 const ModifyCustomerDocument = async (credentials: any): Promise<any> => {
     const responseModifyCustomerDocument = await PostAxios(
-        '/app/dbs/document/modifyDocument',
+        "/app/dbs/document/modifyDocument",
         credentials
     );
     return responseModifyCustomerDocument;
@@ -95,7 +95,7 @@ export const useModifyCustomerDocument = () =>
 
 const RemoveCustomerDocument = async (credentials: any): Promise<any> => {
     const responseRemoveCustomerDocument = await PostAxios(
-        '/app/dbs/document/removeDocument',
+        "/app/dbs/document/removeDocument",
         credentials
     );
     return responseRemoveCustomerDocument;

@@ -9,3 +9,4 @@ export * from "./BasicInfo.interface";
 export * from "./IdentificationInfoProps";
 export * from "./BasicInfo.interface";
 export * from "./CreditCollateralDocument.interface";
+export * from "./Verification.interface"

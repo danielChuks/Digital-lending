@@ -27,6 +27,7 @@ import { Track } from "./screens/Dashboard/Track/track";
 import FundTransfer from "./screens/Dashboard/FundTransfer/fundTransfer";
 import { Message } from "./screens/Dashboard/Message/message";
 import { FundPartnersInfo } from "./screens/Dashboard/FundPartnersInformation/fundPartnersInfo";
+import { RecoilRoot } from "recoil";
 
 function App() {
     useEffect(() => {
@@ -110,13 +111,15 @@ function App() {
     );
     return (
         <div className='App'>
-            <CustomerDetailsContext>
-                <CreditApplContext>
-                    <PickListContext>
-                        <RouterProvider router={router} />
-                    </PickListContext>
-                </CreditApplContext>
-            </CustomerDetailsContext>
+            <RecoilRoot>
+                <CustomerDetailsContext>
+                    <CreditApplContext>
+                        <PickListContext>
+                            <RouterProvider router={router} />
+                        </PickListContext>
+                    </CreditApplContext>
+                </CustomerDetailsContext>
+            </RecoilRoot>
         </div>
     );
 }

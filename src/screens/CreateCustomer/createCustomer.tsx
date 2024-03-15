@@ -23,6 +23,8 @@ import openNotificationWithIcon, {
 } from "../../components/Notification/commonnotification";
 import Loader from "../../components/Loader/loader";
 import { CheckVerification } from "./Forms/VerificationAcknowledgement/checkVerification";
+import { useRecoilValue } from "recoil";
+import { verificationAtom } from "../../state";
 
 const CreateCustomer = () => {
     // const [validator] = useState(new SimpleReactValidator());
@@ -40,6 +42,7 @@ const CreateCustomer = () => {
     const basicInfoValidationRef = useRef<any | null>(null);
     const addressInfoValidationRef = useRef<any | null>(null);
     const otherInfoValidationRef = useRef<any | null>(null);
+    const verificationPassed = useRecoilValue(verificationAtom);
 
     const stepsList = [
         {
@@ -205,6 +208,7 @@ const CreateCustomer = () => {
                     context: "customerTypeList",
                 },
             ];
+            // eslint-disable-next-line array-callback-return
             pickListMap.map((data) => {
                 populatePickList(data.data, data.context);
             });
@@ -486,6 +490,12 @@ const CreateCustomer = () => {
                                             !Boolean(
                                                 CustomerData.strphotoGraphImage &&
                                                     CustomerData.strsignatureImage
+                                            ) ||
+                                            !(
+                                                verificationPassed.bvnVerified ===
+                                                    true &&
+                                                verificationPassed.ninVerified ===
+                                                    true
                                             )
                                         }
                                         buttonType={""}
