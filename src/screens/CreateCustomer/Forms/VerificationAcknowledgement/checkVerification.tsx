@@ -58,10 +58,11 @@ export const CheckVerification = () => {
             const consentUrl = `${configData.baseUrl}app/dbs/customerapplication/validateChecksForDBSUser?consent=${consent}`;
             const response = await axios.post(consentUrl, dataIdentification);
             if (response.data.error) {
-                toast.error("failed to validate at this time");
+                // toast.error("failed to validate at this time");
             } else {
             }
             setLoading(false);
+            fetchData();
         } catch (error) {
             setLoading(false);
         }
@@ -69,7 +70,7 @@ export const CheckVerification = () => {
 
     const handleConsent = () => {
         setConsent(true);
-        toast.error("failed to validate at this time");
+        // toast.error("failed to validate at this time");
     };
 
     if (loading || !dataIdentification) {
@@ -186,29 +187,30 @@ export const CheckVerification = () => {
                     </div>
                 </div>
 
-                {dataIdentification.bvnVerifyFg !== "Y" &&
-                    dataIdentification.ninVerifyFg !== "Y" && (
-                        <div className={styles["checkbox"]}>
-                            <div className={styles["verification"]}>
-                                <div>
-                                    <input
-                                        type='checkbox'
-                                        onClick={handleConsent}
-                                    />
-                                </div>
-                                I consent to external Verification of my
-                                identity with the identification provides as
-                                listed above
+                {dataIdentification.bvnVerifyFg === "Y" &&
+                dataIdentification.ninVerifyFg === "Y" ? (
+                    " "
+                ) : (
+                    <div className={styles["checkbox"]}>
+                        <div className={styles["verification"]}>
+                            <div>
+                                <input
+                                    type='checkbox'
+                                    onClick={handleConsent}
+                                />
                             </div>
-
-                            <div
-                                className={styles["proceed"]}
-                                onClick={handleProceed}
-                            >
-                                Verify <FaArrowRight />
-                            </div>
+                            I consent to external Verification of my identity
+                            with the identification provides as listed above
                         </div>
-                    )}
+
+                        <div
+                            className={styles["proceed"]}
+                            onClick={handleProceed}
+                        >
+                            Verify <FaArrowRight />
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );

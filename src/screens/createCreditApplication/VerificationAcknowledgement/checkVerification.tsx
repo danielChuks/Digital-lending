@@ -23,7 +23,7 @@ export const CheckVerification = () => {
         setLoading(true);
         try {
             const configData = await fetchConfigInfo();
-            const url = `${configData.baseUrl}app/dbs/customerapplication/findCustomerIdDetails`;
+            const url = `${configData.baseUrl}app/dbs/creditapplication/validateChecksForCreditAppl`;
             const payload = {
                 dbsUserId: sessionStorage.getItem("dbsUserId"),
                 channelCode: "DBS",
