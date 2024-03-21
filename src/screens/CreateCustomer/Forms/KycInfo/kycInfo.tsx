@@ -33,7 +33,7 @@ const KycInfo: React.FC<any> = (props: any) => {
     const [identityTypes, setIdentityTypes] = useState<any>();
     const [kycData, setkycData] = useState<identificationInfoProps>({
         binaryImage: "",
-        countryOfIssueId: null,
+        countryOfIssueId: 682,
         identityNumber: "",
         identityTypeCd: "",
         identityTypeDesc: "",
@@ -58,7 +58,7 @@ const KycInfo: React.FC<any> = (props: any) => {
 
     useEffect(() => {
         if (props.identityData?.data) {
-            console.log(props.identityData);
+            // console.log(props.identityData);
             setkycData({
                 binaryImage: props.identityData.data.binaryImage,
                 countryOfIssueId:
@@ -190,7 +190,6 @@ const KycInfo: React.FC<any> = (props: any) => {
                 }
             } else {
                 arr = [kycData];
-                console.log(kycData);
             }
             const payload = {
                 instituteCode: sessionStorage.getItem("instituteCode"),

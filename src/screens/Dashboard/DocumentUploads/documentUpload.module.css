@@ -1,0 +1,62 @@
+/******************* Image styles ***************/
+.image-container {
+    display: flex;
+}
+
+.image-input-main-container {
+    flex-basis: 50%;
+    width: 100%;
+}
+
+.image-input-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    padding: 10px;
+    align-items: baseline;
+    gap: 10px;
+    justify-content: space-evenly;
+}
+.image-input-text {
+    font-weight: 600;
+}
+
+.image-preview-container-background-black {
+    background-color: #cea766;
+    flex-basis: 50%;
+    height: 50vh;
+    border: 2px dotted black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.image-preview-container-background-white {
+    background-color: #ffffff;
+    flex-basis: 50%;
+    height: 50vh;
+    border: 2px dotted black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.image-preview-section {
+    max-width: 400px;
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.input-container-split {
+    display: flex;
+    justify-content: space-between;
+}
+.input-container-split > div {
+    margin: 0 8px;
+    width: 150px;
+    flex-basis: 150px;
+    flex-grow: 1;
+    gap: 10px;
+}
+
+span {
+    font-size: 13px;
+    padding-top: 5px;
+}

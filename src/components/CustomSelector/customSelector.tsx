@@ -14,6 +14,7 @@ interface SelectorProps {
     name?: any;
     FormItemName?: any;
     readonly?: boolean;
+    stylesprops?: string;
 }
 
 const filterOption = (
@@ -29,6 +30,7 @@ const CustomSelector: React.FC<SelectorProps> = ({
     name,
     FormItemName,
     readonly,
+    stylesprops,
 }: SelectorProps) => (
     <div className={styles["select-container"]}>
         <ConfigProvider
@@ -38,7 +40,7 @@ const CustomSelector: React.FC<SelectorProps> = ({
                 },
             }}
         >
-            <div className={styles["label"]}>{label}</div>
+            <div className={`${styles["label"]} ${stylesprops}`}>{label}</div>
             <Select
                 showSearch
                 filterOption={filterOption}

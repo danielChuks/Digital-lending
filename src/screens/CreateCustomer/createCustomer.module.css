@@ -228,6 +228,12 @@
     width: 150px;
     flex-basis: 150px;
     flex-grow: 1;
+    gap: 10px;
+}
+
+span {
+    font-size: 13px;
+    padding-top: 5px;
 }
 /********************** mediaqury *********************/
 @media (max-width: 1087px) {

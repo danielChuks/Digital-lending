@@ -91,7 +91,7 @@ const Dashboard = () => {
             id: 7,
             name: "Docs Upload",
             icon: <FaFileUpload size={80} color='#fff' />,
-            path: "/dashboard/uploadFiles",
+            path: "/dashboard/documentUpload",
         },
     ];
 

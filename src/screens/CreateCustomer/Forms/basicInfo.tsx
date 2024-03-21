@@ -97,6 +97,8 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
             isValidated,
         }));
 
+        console.log(CustomerData);
+
         return (
             <div>
                 <div className={styles["basic-info-container"]}>
@@ -145,6 +147,7 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     <div className={styles["input-container-split"]}>
                         <div>
                             <CustomSelector
+                                stylesprops={styles.customRequireStyles}
                                 label='Customer Type'
                                 onChange={(e) =>
                                     handleSelector(e, "customerType")
@@ -169,8 +172,9 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     {isIndividual ? (
                         <>
                             <div className={styles["input-container-split"]}>
-                                <div>
+                                <div className={styles["input-container"]}>
                                     <CustomSelector
+                                        stylesprops={styles.customRequireStyles}
                                         label='Title'
                                         onChange={(e) =>
                                             handleSelector(e, "titleCd")
@@ -197,6 +201,7 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                             <div className={styles["input-container-split"]}>
                                 <div className={styles["input-container"]}>
                                     <InputField
+                                        styleProps={styles.customRequireStyles}
                                         label='First Name'
                                         type={"text"}
                                         onChange={handleBasicInfo}
@@ -239,6 +244,7 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                             <div className={styles["input-container-split"]}>
                                 <div className={styles["input-container"]}>
                                     <InputField
+                                        styleProps={styles.customRequireStyles}
                                         label='Last Name'
                                         type={"text"}
                                         onChange={handleBasicInfo}
@@ -370,6 +376,7 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     <div className={styles["input-container-split"]}>
                         <div>
                             <CustomSelector
+                                stylesprops={styles.customRequireStyles}
                                 label={"Industry"}
                                 onChange={(e) =>
                                     handleSelector(e, "industryId")
@@ -400,7 +407,10 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                                 }
                                 optionsList={picklistData.countryList}
                                 name='countryOfResidenceId'
-                                value={CustomerData.basicInfoData.countryOfResidenceId?.toString()}
+                                value={
+                                    CustomerData.basicInfoData
+                                        .countryOfResidenceId
+                                }
                                 readonly={
                                     CustomerData.customerDraftReadOnlyFlag
                                 }
@@ -421,6 +431,7 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                             <div className={styles["input-container-split"]}>
                                 <div>
                                     <CustomSelector
+                                        stylesprops={styles.customRequireStyles}
                                         label={"Marital status"}
                                         onChange={(e) =>
                                             handleSelector(e, "maritalStatus")
@@ -567,6 +578,7 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                             <div className={styles["input-container-split"]}>
                                 <div>
                                     <CustomSelector
+                                        stylesprops={styles.customRequireStyles}
                                         label={"Gender"}
                                         onChange={(e) =>
                                             handleSelector(e, "gender")

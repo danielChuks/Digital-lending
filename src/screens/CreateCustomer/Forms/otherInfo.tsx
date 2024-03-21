@@ -69,6 +69,7 @@ const OtherInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     <div className={styles["input-container-split"]}>
                         <div>
                             <CustomSelector
+                                stylesprops={styles.customRequireStyles}
                                 label={"Opening Reason"}
                                 onChange={(e) =>
                                     handleSelector(e, "openingReasonCd")
@@ -95,6 +96,7 @@ const OtherInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     <div className={styles["input-container-split"]}>
                         <div>
                             <CustomSelector
+                                stylesprops={styles.customRequireStyles}
                                 label={"How did you find out about us?"}
                                 onChange={(e) =>
                                     handleSelector(e, "marketingCampaignCd")

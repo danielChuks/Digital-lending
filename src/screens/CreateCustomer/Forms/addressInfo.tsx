@@ -196,6 +196,7 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     <div className={styles["input-container-split"]}>
                         <div className={styles["input-container"]}>
                             <InputField
+                                styleProps={styles["customRequireStyles"]}
                                 label={"House No / Building Name "}
                                 type={"text"}
                                 onChange={handleAddressInfo}
@@ -222,6 +223,7 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     <div className={styles["input-container-split"]}>
                         <div className={styles["input-container"]}>
                             <InputField
+                                styleProps={styles["customRequireStyles"]}
                                 label={"Street"}
                                 type={"text"}
                                 onChange={handleAddressInfo}
@@ -240,6 +242,7 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     <div className={styles["input-container-split"]}>
                         <div className={styles["input-container"]}>
                             <InputField
+                                styleProps={styles["customRequireStyles"]}
                                 label={"Town/District"}
                                 type={"text"}
                                 onChange={handleAddressInfo}
@@ -258,6 +261,7 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     <div className={styles["input-container-split"]}>
                         <div className={styles["input-container"]}>
                             <InputField
+                                styleProps={styles["customRequireStyles"]}
                                 label={"Directions"}
                                 type={"text"}
                                 onChange={handleAddressInfo}
@@ -276,6 +280,7 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     <div className={styles["input-container-split"]}>
                         <div>
                             <CustomSelector
+                                stylesprops={styles.customRequireStyles}
                                 label={"Country"}
                                 onChange={(e) => {
                                     handleSelector(
@@ -311,6 +316,7 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     <div className={styles["input-container-split"]}>
                         <div>
                             <CustomSelector
+                                stylesprops={styles.customRequireStyles}
                                 label={"State"}
                                 onChange={(e) => {
                                     handleSelector(e, "primaryAddressState");
@@ -346,6 +352,7 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     <div className={styles["input-container-split"]}>
                         <div>
                             <CustomSelector
+                                stylesprops={styles.customRequireStyles}
                                 label={"City"}
                                 onChange={(e) =>
                                     handleSelector(e, "primaryAddressCity")

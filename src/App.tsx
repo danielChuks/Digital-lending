@@ -28,6 +28,7 @@ import FundTransfer from "./screens/Dashboard/FundTransfer/fundTransfer";
 import { Message } from "./screens/Dashboard/Message/message";
 import { FundPartnersInfo } from "./screens/Dashboard/FundPartnersInformation/fundPartnersInfo";
 import { RecoilRoot } from "recoil";
+import { DocumentUpload } from "./screens/Dashboard/DocumentUploads/documentUpload";
 
 function App() {
     useEffect(() => {
@@ -94,8 +95,8 @@ function App() {
                         element={<Track />}
                     ></Route>
                     <Route
-                        path={"/dashboard/fundTransfer"}
-                        element={<FundTransfer />}
+                        path={"/dashboard/documentUpload"}
+                        element={<DocumentUpload />}
                     ></Route>
                     <Route
                         path={"/dashboard/fundPartnersInfo"}

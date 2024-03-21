@@ -441,6 +441,7 @@ const DocumentInfo: React.FC<any> = (props: any) => {
             <div className={styles["basic-info-container"]}>
                 <div>
                     <CustomSelector
+                        stylesprops={styles.customRequireStyles}
                         label={"Document Type"}
                         onChange={(e, option) => {
                             handleSelector(
@@ -469,6 +470,7 @@ const DocumentInfo: React.FC<any> = (props: any) => {
                         onChange={handleDocumentInfo}
                         value={documentData.docRef}
                         name='docRef'
+                        styleProps={styles["customRequireStyles"]}
                     />
                     <span className='text-error'>
                         {validator.message(
@@ -486,6 +488,7 @@ const DocumentInfo: React.FC<any> = (props: any) => {
                         onChange={handleDocumentInfo}
                         value={documentData.docDesc}
                         name='docDesc'
+                        styleProps={styles["customRequireStyles"]}
                     />
                 </div>
                 <ConfigProvider
