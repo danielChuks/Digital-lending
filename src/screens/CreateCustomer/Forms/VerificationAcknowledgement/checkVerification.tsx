@@ -129,11 +129,7 @@ export const CheckVerification = () => {
                         </div>
                         {dataIdentification.customerCategory === "COR" && (
                             <div className={styles["iDcontent"]}>
-                                {dataIdentification?.customerIdentification.some(
-                                    (item) => item.identityTypeCd === "IT108"
-                                )
-                                    ? "Corporate Affairs Commission"
-                                    : "Business Name"}
+                                "Corporate Affairs Commission"
                             </div>
                         )}
                     </div>
@@ -159,12 +155,7 @@ export const CheckVerification = () => {
 
                         {dataIdentification.customerCategory === "COR" && (
                             <div className={styles["iDcontent"]}>
-                                {
-                                    dataIdentification?.customerIdentification.find(
-                                        (item) =>
-                                            item.identityTypeCd === "IT108"
-                                    )?.identityNumber
-                                }
+                                {dataIdentification.registrationNumber}
                             </div>
                         )}
                     </div>
@@ -227,6 +218,7 @@ interface CustomerInfo {
     cacId: string | null;
     cacVerifyFg: string | null;
     customerCategory: string;
+    registrationNumber: string;
     customerIdentification: {
         identityTypeCd: string;
         identityNumber: string;

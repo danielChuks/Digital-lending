@@ -19,6 +19,7 @@ interface TextFieldProps {
     rules?: any;
     readonly?: boolean;
     onBlur?: React.FocusEventHandler<HTMLInputElement>;
+    styleProps?: string;
 }
 
 const InputField: React.FC<TextFieldProps> = ({
@@ -40,19 +41,19 @@ const InputField: React.FC<TextFieldProps> = ({
     label,
     rules,
     onBlur,
+    styleProps,
 }: TextFieldProps) => {
     return (
         <>
             {label !== "hidden" && (
                 <>
                     {label ? (
-                        <div className={styles["label"]}>{label}</div>
+                        <div className={`${styles.label} ${styleProps}`}>{label}</div>
                     ) : (
                         ""
                     )}
                 </>
             )}
-            {/* {props.label?<div className={styles["label"]}>{props.label}</div>:""} */}
             {label === "hidden" && (
                 <div className={styles["label"]}>
                     {" "}
@@ -65,7 +66,9 @@ const InputField: React.FC<TextFieldProps> = ({
                     type={type}
                     placeholder={placeholder}
                     required={required || false}
-                    style={{ padding: image ? "" : "8px 15px" }}
+                    style={{
+                        padding: image ? "" : "8px 15px",
+                    }}
                     pattern={pattern}
                     title={title}
                     maxLength={maxLength}

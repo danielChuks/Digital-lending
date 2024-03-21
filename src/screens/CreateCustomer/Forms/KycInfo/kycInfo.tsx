@@ -396,6 +396,7 @@ const KycInfo: React.FC<any> = (props: any) => {
                             onChange={handleIdentityInfo}
                             value={kycData.identityNumber}
                             name='identityNumber'
+                            styleProps={styles["customRequireStyles"]}
                         />
                         <span className='text-error'>
                             {validator.message(

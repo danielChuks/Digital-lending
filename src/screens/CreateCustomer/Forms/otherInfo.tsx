@@ -53,6 +53,7 @@ const OtherInfo = forwardRef<ChildMethods, ChildComponentProps>(
                 forceUpdate({});
             }
         };
+        console.log(picklistData);
 
         const [, forceUpdate] = useState({});
 
@@ -131,13 +132,17 @@ const OtherInfo = forwardRef<ChildMethods, ChildComponentProps>(
                         />
                     </div>
                     <div className={styles["input-container-split"]}>
-                        <CustomSelector
-                            label={"Currency"}
-                            onChange={(e) => handleSelector(e, "amountUnit")}
-                            optionsList={picklistData.currencyList}
-                            value={CustomerData.otherInfoData.amountUnit}
-                            readonly={CustomerData.customerDraftReadOnlyFlag}
-                        />
+                        <div className={styles["input-container"]}>
+                            <InputField
+                                label={"Currency"}
+                                onChange={() => null}
+                                value={picklistData.currencyList[0].value}
+                                readonly={
+                                    CustomerData.customerDraftReadOnlyFlag
+                                }
+                                type={"string"}
+                            />
+                        </div>
                     </div>
 
                     <div className={styles["input-container-split"]}>

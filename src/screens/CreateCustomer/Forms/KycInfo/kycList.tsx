@@ -8,6 +8,7 @@ import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 
 const KycList = () => {
     const { CustomerData } = useCustomerContext();
+    console.log(CustomerData);
     const [open, setOpen] = useState(false);
     const [identityData, setIdentityData] = useState<any>();
 
