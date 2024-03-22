@@ -1,6 +1,8 @@
 /******************* Image styles ***************/
 .image-container {
-    display: flex;
+    display: grid;
+    justify-content: center;
+    align-items: center;
 }
 
 .image-input-main-container {
@@ -31,9 +33,7 @@
 }
 .image-preview-container-background-white {
     background-color: #ffffff;
-    flex-basis: 50%;
     height: 50vh;
-    border: 2px dotted black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,6 +44,15 @@
     object-fit: contain;
 }
 
+.view-pdf {
+    background-color: #ffffff;
+    height: 50vh;
+    border: 2px dotted black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 800px;
+}
 .input-container-split {
     display: flex;
     justify-content: space-between;
@@ -59,4 +68,8 @@
 span {
     font-size: 13px;
     padding-top: 5px;
+}
+
+.upload-button {
+    padding-top: 10px;
 }

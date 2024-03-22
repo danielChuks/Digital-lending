@@ -97,7 +97,6 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
             isValidated,
         }));
 
-        console.log(CustomerData);
 
         return (
             <div>

@@ -23,7 +23,7 @@ export const CheckVerification = () => {
         setLoading(true);
         try {
             const configData = await fetchConfigInfo();
-            const url = `${configData.baseUrl}app/dbs/creditapplication/validateChecksForCreditAppl`;
+            const url = `${configData.baseUrl}app/dbs/customerapplication/findCustomerIdDetails`;
             const payload = {
                 dbsUserId: sessionStorage.getItem("dbsUserId"),
                 channelCode: "DBS",
@@ -55,7 +55,7 @@ export const CheckVerification = () => {
         try {
             setLoading(true);
             const configData = await fetchConfigInfo();
-            const consentUrl = `${configData.baseUrl}app/dbs/customerapplication/validateChecksForDBSUser?consent=${consent}`;
+            const consentUrl = `${configData.baseUrl}/app/dbs/creditapplication/validateChecksForCreditAppl?consent=${consent}`;
             const response = await axios.post(consentUrl, dataIdentification);
             if (response.data.error) {
                 toast.error("failed to validate at this time");

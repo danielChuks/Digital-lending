@@ -80,7 +80,6 @@ export const AccountStatement = () => {
             setIsLoading(false);
         }
     };
-
     const columns: ColumnsType<DataType> = [
         {
             title: "Date",
@@ -153,7 +152,8 @@ export const AccountStatement = () => {
                     </div>
                 </div>
 
-                {!activeSettlement && !isLoading &&
+                {!activeSettlement &&
+                !isLoading &&
                 accountStatement.some((data) => data.drcr === "Debit") ? (
                     <Repayment />
                 ) : (

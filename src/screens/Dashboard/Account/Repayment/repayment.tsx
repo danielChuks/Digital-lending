@@ -72,7 +72,7 @@ export const Repayment = () => {
             setIsLoading(false);
         }
     };
-
+    console.log(repaymentScheduleStatement);
     const columns: ColumnsType<DataType> = [
         {
             title: "Installment No",
@@ -135,6 +135,8 @@ export const Repayment = () => {
             key: "daysLate",
         },
     ];
+
+    console.log(repaymentScheduleStatement);
     useEffect(() => {
         fetchData();
     }, []);

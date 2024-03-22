@@ -5,42 +5,39 @@ import { Button, ConfigProvider, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useCustomerContext } from "../../../context/customerDetailsContext";
 import PaperClipOutlined from "@ant-design/icons/lib/icons/PaperClipOutlined";
+import { Document, Page } from "react-pdf";
 
 export const DocumentUpload = () => {
     const { CustomerData, setCustomerData } = useCustomerContext();
     const [previewFile, setPreviewFile] = useState<any>();
-    const [previewPhotoFile, setPreviewPhotoFile] = useState<any>();
-    const [previewSignFile, setPreviewSignFile] = useState<any>();
     const [alreadyPhotoFile, setAlreadyPhotoFile] = useState<any>(false);
     const [alreadySignFile, setAlreadySignFile] = useState<any>(false);
 
-    useEffect(() => {
-        if (CustomerData.strphotoGraphImage) {
-            setPreviewPhotoFile(
-                `data:image/jpeg;base64,${CustomerData?.strphotoGraphImage}`
-            );
-        }
-        if (CustomerData.strsignatureImage) {
-            setPreviewSignFile(
-                `data:image/jpeg;base64,${CustomerData.strsignatureImage}`
-            );
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (CustomerData.strphotoGraphImage) {
+    //         setPreviewPhotoFile(
+    //             `data:image/jpeg;base64,${CustomerData?.strphotoGraphImage}`
+    //         );
+    //     }
+    //     if (CustomerData.strsignatureImage) {
+    //         setPreviewSignFile(
+    //             `data:image/jpeg;base64,${CustomerData.strsignatureImage}`
+    //         );
+    //     }
+    // }, []);
 
     const uploadPhotographprops = {
         onRemove: () => {
-            setPreviewPhotoFile("");
+            setPreviewFile("");
+            setAlreadyPhotoFile(false);
             setCustomerData((prev) => ({
                 ...prev,
                 strphotoGraphImage: null,
             }));
-            if (previewFile === previewPhotoFile) {
-                setPreviewFile("");
-            }
         },
 
         beforeUpload: (file: any) => {
-            setPreviewPhotoFile(URL.createObjectURL(file));
+            setPreviewFile(URL.createObjectURL(file));
             setAlreadyPhotoFile(true);
             let reader = new FileReader();
             reader.readAsDataURL(file);
@@ -60,18 +57,16 @@ export const DocumentUpload = () => {
 
     const uploadSignatureprops = {
         onRemove: () => {
-            setPreviewSignFile("");
+            setPreviewFile("");
+            setAlreadySignFile(false);
             setCustomerData((prev) => ({
                 ...prev,
                 strsignatureImage: null,
             }));
-            if (previewFile === previewSignFile) {
-                setPreviewFile("");
-            }
         },
 
         beforeUpload: (file: any) => {
-            setPreviewSignFile(URL.createObjectURL(file));
+            setPreviewFile(URL.createObjectURL(file));
             setAlreadySignFile(true);
             let reader = new FileReader();
             reader.readAsDataURL(file);
@@ -93,7 +88,9 @@ export const DocumentUpload = () => {
         <div className={styles["image-container"]}>
             <div className={styles["image-input-main-container"]}>
                 <div className={styles["image-input-container"]}>
-                    <p className={styles["image-input-text"]}>Photograph</p>
+                    <p className={styles["image-input-text"]}>
+                        Document Upload
+                    </p>
                     <div>
                         <ConfigProvider
                             theme={{
@@ -106,7 +103,7 @@ export const DocumentUpload = () => {
                                 {...uploadPhotographprops}
                                 multiple={false}
                                 maxCount={1}
-                                accept={".png"}
+                                accept={".pdf"}
                             >
                                 <Button
                                     icon={<UploadOutlined />}
@@ -138,13 +135,15 @@ export const DocumentUpload = () => {
                         text={"Preview"}
                         type={"button"}
                         onClick={() => {
-                            setPreviewFile(previewPhotoFile);
+                            setPreviewFile(previewFile);
                         }}
                     />
                 </div>
-
                 <div className={styles["image-input-container"]}>
-                    <p className={styles["image-input-text"]}>Signature</p>
+                    <p className={styles["image-input-text"]}>
+                        {" "}
+                        Document Upload
+                    </p>
                     <div>
                         <ConfigProvider
                             theme={{
@@ -157,7 +156,7 @@ export const DocumentUpload = () => {
                                 {...uploadSignatureprops}
                                 multiple={false}
                                 maxCount={1}
-                                accept={".png"}
+                                accept={".pdf"}
                             >
                                 <Button
                                     icon={<UploadOutlined />}
@@ -188,7 +187,7 @@ export const DocumentUpload = () => {
                         text={"Preview"}
                         type={"button"}
                         onClick={() => {
-                            setPreviewFile(previewSignFile);
+                            setPreviewFile(previewFile);
                         }}
                     />
                 </div>
@@ -200,11 +199,24 @@ export const DocumentUpload = () => {
                         : styles["image-preview-container-background-black"]
                 }
             >
-                <img
-                    alt='no upload'
-                    src={previewFile}
-                    className={styles["image-preview-section"]}
-                ></img>
+                {previewFile && (
+                    <div className={styles["view-pdf"]}>
+                        <iframe
+                            title='uploadPdf1'
+                            src={previewFile}
+                            width={"900px"}
+                        />
+                    </div>
+                )}
+            </div>
+            <div className={styles["upload-button"]}>
+                <CustomButton
+                    text={"upLoad"}
+                    type={"button"}
+                    onClick={() => {
+                        setPreviewFile(previewFile);
+                    }}
+                />
             </div>
         </div>
     );

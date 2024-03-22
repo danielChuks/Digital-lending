@@ -55,29 +55,6 @@ const otherInfo = {
     monthlyIncomeAmount: 0,
 };
 
-// const identificationInfo = {
-//     binaryImage: "",
-//     countryOfIssueId: null,
-//     identityNumber: "",
-//     identityTypeId: "",
-//     identityTypeDesc: "",
-//     strExpiryDate: "",
-//     strIssueDate: "",
-// };
-
-// const documentInfo = {
-//     binaryDocument: "",
-//     docFileExtension: "",
-//     docFileName: "",
-//     documentDescription: "",
-//     documentExtension: "",
-//     documentExtensionDescription: "",
-//     documentId: null,
-//     documentRefernce: "",
-//     documentType: null,
-//     documentTypeDescription: "",
-// };
-
 // Define props for MyContextProvider
 interface ChildrenProps {
     children: ReactNode;
