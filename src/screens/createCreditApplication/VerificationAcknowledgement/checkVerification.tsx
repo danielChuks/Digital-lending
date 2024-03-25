@@ -55,7 +55,7 @@ export const CheckVerification = () => {
         try {
             setLoading(true);
             const configData = await fetchConfigInfo();
-            const consentUrl = `${configData.baseUrl}/app/dbs/creditapplication/validateChecksForCreditAppl?consent=${consent}`;
+            const consentUrl = `${configData.baseUrl}app/dbs/creditapplication/validateChecksForCreditAppl?consent=${consent}`;
             const response = await axios.post(consentUrl, dataIdentification);
             if (response.data.error) {
                 toast.error("failed to validate at this time");
