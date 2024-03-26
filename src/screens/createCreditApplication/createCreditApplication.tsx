@@ -52,9 +52,9 @@ const CreateCreditApplication = () => {
             title: "Collateral",
         },
 
-        {
-            title: "Verification",
-        },
+        // {
+        //     title: "Verification",
+        // },
     ];
 
     ////// picklist load //////
@@ -374,7 +374,7 @@ const CreateCreditApplication = () => {
                                         {
                                             title: "Collateral",
                                         },
-                                        { title: "Verification" },
+                                        // { title: "Verification" },
                                     ]}
                                 />
                             </ConfigProvider>
@@ -386,8 +386,6 @@ const CreateCreditApplication = () => {
                                 <DocumentList />
                             ) : currentStep === 2 ? (
                                 <CollateralList />
-                            ) : currentStep === 3 ? (
-                                <CheckVerification />
                             ) : (
                                 ""
                             )}
