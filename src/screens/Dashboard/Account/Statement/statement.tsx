@@ -105,11 +105,23 @@ export const AccountStatement = () => {
             title: "Amount",
             dataIndex: "txnAmt",
             key: "txnAmt",
+            // render: (text, record: any) => {
+            //     const cellStyle = {
+            //         color: record.drcr === "Debit" ? "red" : "#052A47",
+            //     };
+            //     return <div style={cellStyle}>{text}</div>;
+            // },
             render: (text, record: any) => {
-                const cellStyle = {
-                    color: record.drcr === "Debit" ? "red" : "#052A47",
-                };
-                return <div style={cellStyle}>{text}</div>;
+                const amount = parseFloat(text).toFixed(2); // Ensure two decimal places
+                const formattedAmount = amount.replace(
+                    /\B(?=(\d{3})+(?!\d))/g,
+                    ","
+                ); // Add comma separator
+                return (
+                    <div style={{ textAlign: "right", paddingRight: "8px" }}>
+                        {formattedAmount}.00
+                    </div>
+                );
             },
         },
     ];
