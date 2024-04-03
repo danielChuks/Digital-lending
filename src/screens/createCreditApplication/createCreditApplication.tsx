@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./createCreditApplication.module.css";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
-import { ConfigProvider, Divider, Steps, notification } from "antd";
+import { ConfigProvider, Steps, notification } from "antd";
 import BasicInfo from "./Forms/basicInfo";
 import DocumentList from "./Forms/Document/documentList";
 import { useCreditApplicationDataContext } from "../../context/creditApplDetailsContext";
@@ -25,7 +25,6 @@ import usePopulateCreditDraft from "../../Hooks/populateCreditDraft";
 
 import Loader from "../../components/Loader/loader";
 import { useCustomerContext } from "../../context/customerDetailsContext";
-import { CheckVerification } from "./VerificationAcknowledgement/checkVerification";
 
 const CreateCreditApplication = () => {
     const navigate = useNavigate();
@@ -50,10 +49,6 @@ const CreateCreditApplication = () => {
         },
         {
             title: "Collateral",
-        },
-
-        {
-            title: "Verification",
         },
     ];
 
@@ -374,7 +369,6 @@ const CreateCreditApplication = () => {
                                         {
                                             title: "Collateral",
                                         },
-                                        { title: "Verification" },
                                     ]}
                                 />
                             </ConfigProvider>
@@ -386,8 +380,6 @@ const CreateCreditApplication = () => {
                                 <DocumentList />
                             ) : currentStep === 2 ? (
                                 <CollateralList />
-                            ) : currentStep === 3 ? (
-                                <CheckVerification />
                             ) : (
                                 ""
                             )}
@@ -408,7 +400,7 @@ const CreateCreditApplication = () => {
                                 ""
                             )}
 
-                            {currentStep === 3 &&
+                            {currentStep === 2 &&
                             !CustomerData.customerDraftReadOnlyFlag ? (
                                 <>
                                     <div className={styles["submit"]}>

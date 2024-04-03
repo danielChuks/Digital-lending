@@ -63,9 +63,6 @@ const CreateCustomer = () => {
         {
             title: "Image info",
         },
-        {
-            title: "Verification",
-        },
     ];
 
     useEffect(() => {
@@ -450,8 +447,6 @@ const CreateCustomer = () => {
                                 <DocumentList />
                             ) : currentStep === 5 ? (
                                 <ImageInfo />
-                            ) : currentStep === 6 ? (
-                                <CheckVerification />
                             ) : (
                                 ""
                             )}
@@ -490,12 +485,6 @@ const CreateCustomer = () => {
                                             !Boolean(
                                                 CustomerData.strphotoGraphImage &&
                                                     CustomerData.strsignatureImage
-                                            ) ||
-                                            !(
-                                                verificationPassed.bvnVerified ===
-                                                    true &&
-                                                verificationPassed.ninVerified ===
-                                                    true
                                             )
                                         }
                                         buttonType={""}

@@ -4,59 +4,54 @@ import axios, { Axios } from "axios";
 
 ///// Get the pickList Data /////////
 
-const getPicklist = async (
-  credentials: any = {
-    instituteCode: sessionStorage.getItem("instituteCode"),
-    transmissionTime: Date.now(),
-    groupCode: "CUSTOMER",
-  }
+const getPicklist = async (credentials: any = {
+        instituteCode: sessionStorage.getItem("instituteCode"),
+        transmissionTime: Date.now(),
+        groupCode: "CUSTOMER",
+    }
 ): Promise<any> => {
-  const responsePicklist = await PostAxios(
-    "/app/dbs/userservice/getPickListData",
-    credentials
-  );
-  return responsePicklist;
+    const responsePicklist = await PostAxios(
+        "/app/dbs/userservice/getPickListData",
+        credentials
+    );
+    return responsePicklist;
 };
 
 const picklistMutationFn = (credentials: any) => {
-  return getPicklist(credentials);
+    return getPicklist(credentials);
 };
 
 export const useGetPicklist = () => useMutation(picklistMutationFn);
 
 ///// create Customer Draft /////////
 const CreateCreditApplDraft = async (credentials: any): Promise<any> => {
-  const responseCreateCreditApplDraft = await PostAxios(
-    // "/app/dbs/customerapplication/createCustomerApplDraft",
-   
-    "/app/dbs/creditapplication/createCreditApplDraft",
-    credentials
-  );
-  return responseCreateCreditApplDraft;
+    const responseCreateCreditApplDraft = await PostAxios(
+        // "/app/dbs/customerapplication/createCustomerApplDraft",
+
+        "/app/dbs/creditapplication/createCreditApplDraft",
+        credentials
+    );
+    return responseCreateCreditApplDraft;
 };
 const createCreditApplDraftMutationFn = (credentials: any) => {
-  return CreateCreditApplDraft(credentials);
+    return CreateCreditApplDraft(credentials);
 };
 export const useCreateCreditApplDraft = () =>
-  useMutation(createCreditApplDraftMutationFn);
+    useMutation(createCreditApplDraftMutationFn);
 ///// create Credit Application /////////
 
 const CreateDBSCreditAppl = async (credentials: any): Promise<any> => {
-  const responseCreateCreditApplDraft = await PostAxios(
+    const responseCreateCreditApplDraft = await PostAxios(
+        "/app/dbs/creditapplication/createCreditApplication",
 
-    "/app/dbs/creditapplication/createCreditApplication",
-   
-    credentials
-  );
-  return responseCreateCreditApplDraft;
+        credentials
+    );
+    return responseCreateCreditApplDraft;
 };
 
 const createDBSCreditApplMutationFn = (credentials: any) => {
-  return CreateDBSCreditAppl(credentials);
+    return CreateDBSCreditAppl(credentials);
 };
 
 export const useCreateDBSCreditAppl = () =>
-  useMutation(createDBSCreditApplMutationFn);
-
-
-
+    useMutation(createDBSCreditApplMutationFn);
