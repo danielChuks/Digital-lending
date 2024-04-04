@@ -58,7 +58,6 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     creditApplDataFields_context.basicInfo?.creditTypeId,
             };
             const data = await picklistMutation.mutateAsync(payload);
-            console.log(data);
             if (data.status === 200) {
                 if (data.data.pickListMap.FETCH_PRODUCT_BY_CREDIT_TYPE) {
                     let temp: { value: any; label: any }[] = [];
@@ -140,9 +139,9 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                 }, 3000);
             }
         };
+
         ////// fetch the fetch settelement data //////
         const fetchSettelementData = async () => {
-            // setIsLoading(true);
             const requestdata: UserDetailRequest = {
                 instituteCode: sessionStorage.getItem("instituteCode") || "{}",
                 transmissionTime: Date.now(),
@@ -151,7 +150,6 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
             const data: any = await accountListMutation.mutateAsync(
                 requestdata
             );
-            console.log(data);
 
             if (data.status === 200) {
                 if (data.data.dpAcctDetails?.length > 0) {
@@ -185,16 +183,49 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
         const handleBasicInfo = ({
             target: { value, name },
         }: React.ChangeEvent<HTMLInputElement>) => {
-            setCreditApplDataFields_context((prev: any) => {
-                return {
-                    ...prev,
-                    basicInfo: {
-                        ...prev.basicInfo,
-                        [name]: value,
-                    },
-                };
-            });
+            const numericValue = parseInt(value.trim());
+            setCreditApplDataFields_context((prev: any) => ({
+                ...prev,
+                basicInfo: {
+                    ...prev.basicInfo,
+                    [name]: isNaN(numericValue) ? null : numericValue,
+                },
+            }));
         };
+
+        const onhandleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+            const { value, name } = e.target;
+
+            if (name === "amount") {
+                const numericValue = parseFloat(value.trim());
+                if (!isNaN(numericValue)) {
+                    // const formattedValue = numericValue.toLocaleString(
+                    //     "en-US",
+                    //     {
+                    //         minimumFractionDigits: 2,
+                    //         maximumFractionDigits: 2,
+                    //     }
+                    // );
+                    const formattedValue = numericValue.toFixed(2);
+                    setCreditApplDataFields_context((prev: any) => ({
+                        ...prev,
+                        basicInfo: {
+                            ...prev.basicInfo,
+                            amount: formattedValue,
+                        },
+                    }));
+                } else {
+                    setCreditApplDataFields_context((prev: any) => ({
+                        ...prev,
+                        basicInfo: {
+                            ...prev.basicInfo,
+                            amount: "",
+                        },
+                    }));
+                }
+            }
+        };
+
         const handleSelector = (
             value: React.MouseEvent<Element, MouseEvent>,
             name: string
@@ -314,9 +345,12 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     <div className={styles["validator-block"]}>
                         <InputField
                             label={"Amount"}
-                            type={"number"}
+                            type={"text"}
                             onChange={handleBasicInfo}
-                            value={creditApplDataFields_context.basicInfo?.amount?.toString()}
+                            value={
+                                creditApplDataFields_context.basicInfo?.amount
+                            }
+                            onBlur={onhandleBlur}
                             name='amount'
                             readonly={CustomerData.customerDraftReadOnlyFlag}
                         />

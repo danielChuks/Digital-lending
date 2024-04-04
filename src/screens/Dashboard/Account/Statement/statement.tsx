@@ -16,6 +16,8 @@ import openNotificationWithIcon, {
 import { notification } from "antd";
 import { useCustomerContext } from "../../../../context/customerDetailsContext";
 import { Repayment } from "../Repayment/repayment";
+import { useRecoilValue } from "recoil";
+import { accountListDataAtom } from "../../../../state";
 
 interface DataType {
     key: string;
@@ -80,6 +82,8 @@ export const AccountStatement = () => {
             setIsLoading(false);
         }
     };
+
+    console.log(selectedAccount);
     const columns: ColumnsType<DataType> = [
         {
             title: "Date",
@@ -105,23 +109,12 @@ export const AccountStatement = () => {
             title: "Amount",
             dataIndex: "txnAmt",
             key: "txnAmt",
-            // render: (text, record: any) => {
-            //     const cellStyle = {
-            //         color: record.drcr === "Debit" ? "red" : "#052A47",
-            //     };
-            //     return <div style={cellStyle}>{text}</div>;
-            // },
             render: (text, record: any) => {
-                const amount = parseFloat(text).toFixed(2); // Ensure two decimal places
-                const formattedAmount = amount.replace(
-                    /\B(?=(\d{3})+(?!\d))/g,
-                    ","
-                ); // Add comma separator
-                return (
-                    <div style={{ textAlign: "right", paddingRight: "8px" }}>
-                        {formattedAmount}.00
-                    </div>
-                );
+                const cellStyle = {
+                    color: record.drcr === "Debit" ? "red" : "#052A47",
+                };
+                const amountWithoutCurrency = text.replace(/^NGN/, "");
+                return <div style={cellStyle}>{amountWithoutCurrency}</div>;
             },
         },
     ];
@@ -136,37 +129,55 @@ export const AccountStatement = () => {
             <div className={"main-container"}>
                 <Loader loading={isLoading} />
                 <div className={"main-heading"}>
-                    {!activeSettlement &&
-                    accountStatement.some((data) => data.drcr === "Debit")
-                        ? ""
-                        : "Account Statement"}
-                </div>
-                <div className={styles["sub-heading"]}>
-                    <div
-                        className={
-                            styles[
-                                activeSettlement ? "active-toggle" : "normal"
-                            ]
-                        }
-                        onClick={handletoggle}
-                    >
-                        Statement
-                    </div>
-                    <div
-                        className={
-                            styles[
-                                activeSettlement ? "normal" : "active-toggle"
-                            ]
-                        }
-                        onClick={handletoggle}
-                    >
-                        Repayment
-                    </div>
+                    {!activeSettlement ? "" : "Account Statement"}
                 </div>
 
-                {!activeSettlement &&
-                !isLoading &&
-                accountStatement.some((data) => data.drcr === "Debit") ? (
+                <div className={styles["sub-heading"]}>
+                    {selectedAccount.length > 0 &&
+                    selectedAccount[0].productCategory === "DP" ? (
+                        <div
+                            className={
+                                styles[
+                                    activeSettlement
+                                        ? "active-toggle"
+                                        : "normal"
+                                ]
+                            }
+                            onClick={handletoggle}
+                        >
+                            Statement
+                        </div>
+                    ) : (
+                        <>
+                            <div
+                                className={
+                                    styles[
+                                        activeSettlement
+                                            ? "active-toggle"
+                                            : "normal"
+                                    ]
+                                }
+                                onClick={handletoggle}
+                            >
+                                Statement
+                            </div>
+                            <div
+                                className={
+                                    styles[
+                                        activeSettlement
+                                            ? "normal"
+                                            : "active-toggle"
+                                    ]
+                                }
+                                onClick={handletoggle}
+                            >
+                                Repayment
+                            </div>
+                        </>
+                    )}
+                </div>
+
+                {!activeSettlement && !isLoading ? (
                     <Repayment />
                 ) : (
                     <section className={styles["account-statement-content"]}>

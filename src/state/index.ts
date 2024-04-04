@@ -14,3 +14,8 @@ export const documentUploadAtom = atom<documentUploadProps> ({
     key: "documentState",
     default: { url: null }
 })
+
+export const accountListDataAtom = atom<any[]>({
+    key: 'accountListData',
+    default: []
+})

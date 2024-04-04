@@ -77,7 +77,6 @@ const CreateCreditApplication = () => {
             groupCode: "CREDIT_APPL",
         };
         const data: any = await picklistMutation.mutateAsync(payload);
-        console.log(data);
         if (data.status === 200) {
             let pickListMap = [
                 {

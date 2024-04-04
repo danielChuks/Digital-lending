@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import styles from './accountList.module.css';
-import { useNavigate } from 'react-router-dom';
-import { UserDetailRequest } from '../../../OtpVerification/otp';
-import { useAccountList } from '../account';
-import Button from '../../../../components/Button/Button';
-import Loader from '../../../../components/Loader/loader';
+import React, { useState, useEffect } from "react";
+import styles from "./accountList.module.css";
+import { useNavigate } from "react-router-dom";
+import { UserDetailRequest } from "../../../OtpVerification/otp";
+import { useAccountList } from "../account";
+import Button from "../../../../components/Button/Button";
+import Loader from "../../../../components/Loader/loader";
 import openNotificationWithIcon, {
     CommonnotificationProps,
-} from '../../../../components/Notification/commonnotification';
-import { notification } from 'antd';
-import { useCustomerContext } from '../../../../context/customerDetailsContext';
+} from "../../../../components/Notification/commonnotification";
+import { notification } from "antd";
+import { useCustomerContext } from "../../../../context/customerDetailsContext";
+import { useSetRecoilState } from "recoil";
+import { accountListDataAtom } from "../../../../state";
 
 export const AccountList = () => {
     const navigate = useNavigate();
@@ -18,9 +20,8 @@ export const AccountList = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [api, contextHolder] = notification.useNotification();
     const { CustomerData, setCustomerData } = useCustomerContext();
-
     useEffect(() => {
-        if (sessionStorage.getItem('customerDraftFlag') === 'true') {
+        if (sessionStorage.getItem("customerDraftFlag") === "true") {
             setCustomerData((prev) => ({
                 ...prev,
                 customerDraftFlag: true,
@@ -32,11 +33,12 @@ export const AccountList = () => {
     const getAccountListData = async () => {
         setIsLoading(true);
         const requestdata: UserDetailRequest = {
-            instituteCode: sessionStorage.getItem('instituteCode') || '{}',
+            instituteCode: sessionStorage.getItem("instituteCode") || "{}",
             transmissionTime: Date.now(),
-            dbsUserId: sessionStorage.getItem('dbsUserId') || '{}',
+            dbsUserId: sessionStorage.getItem("dbsUserId") || "{}",
         };
         const data: any = await accountListMutation.mutateAsync(requestdata);
+
         if (data.status === 200) {
             setIsLoading(false);
             let mergedArray = [
@@ -44,25 +46,26 @@ export const AccountList = () => {
                 ...data.data.lnAcctDetails,
             ];
             setAccountListData(mergedArray);
+
             setIsLoading(false);
         } else if (
-            data.errorCode === 'CI_JWT_001' ||
-            data.errorCode === 'CI_JWT_002'
+            data.errorCode === "CI_JWT_001" ||
+            data.errorCode === "CI_JWT_002"
         ) {
             const notificationData: CommonnotificationProps = {
-                type: 'info',
-                msgtitle: 'Notification',
-                msgDesc: 'Your session is over, Please login again',
+                type: "info",
+                msgtitle: "Notification",
+                msgDesc: "Your session is over, Please login again",
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             setTimeout(() => {
-                navigate({ pathname: '/login' });
+                navigate({ pathname: "/login" });
             }, 3000);
         } else {
             setIsLoading(false);
             const notificationData: CommonnotificationProps = {
-                type: 'error',
+                type: "error",
                 msgtitle: data.errorCode,
                 msgDesc: data.errorCode,
                 api: api,
@@ -75,18 +78,18 @@ export const AccountList = () => {
         const selectedAccount = accountListData.filter((data, index) =>
             index === id ? data : 0
         );
-        navigate('/dashboard/account/accountStatement', {
+        navigate("/dashboard/account/accountStatement", {
             state: { selectedAccount },
         });
     };
     return (
         <>
             {contextHolder}
-            <div className={'main-container'}>
+            <div className={"main-container"}>
                 <Loader loading={isLoading} />
-                <div className={'main-heading'}>Accounts</div>
-                <section className={styles['Account-content']}>
-                    <div className={styles['account-action-container']}>
+                <div className={"main-heading"}>Accounts</div>
+                <section className={styles["Account-content"]}>
+                    <div className={styles["account-action-container"]}>
                         {accountListData?.map(
                             (
                                 {
@@ -107,64 +110,64 @@ export const AccountList = () => {
                             ) => (
                                 <div
                                     key={index}
-                                    className={styles['account-action-box']}
+                                    className={styles["account-action-box"]}
                                     onClick={() => handleShowStatement(index)}
                                 >
                                     <div
                                         className={
-                                            styles['account-action-header']
+                                            styles["account-action-header"]
                                         }
                                     >
                                         {productDesc}
                                     </div>
                                     <div
                                         className={
-                                            productCategory === 'DP'
+                                            productCategory === "DP"
                                                 ? styles[
-                                                      'account-action-content-dpAccount'
+                                                      "account-action-content-dpAccount"
                                                   ]
                                                 : styles[
-                                                      'account-action-content-lnAccount'
+                                                      "account-action-content-lnAccount"
                                                   ]
                                         }
                                     >
                                         <div
-                                            className={styles['text-container']}
+                                            className={styles["text-container"]}
                                         >
                                             <p>Account Number</p>
-                                            <b className={styles['green-text']}>
+                                            <b className={styles["green-text"]}>
                                                 {acctNo}
                                             </b>
                                         </div>
-                                        {productCategory === 'DP' ? (
+                                        {productCategory === "DP" ? (
                                             <div
                                                 className={
-                                                    styles['text-container']
+                                                    styles["text-container"]
                                                 }
                                             >
                                                 <p>Account Balance</p>
                                                 <b
                                                     className={
-                                                        styles['green-text']
+                                                        styles["green-text"]
                                                     }
                                                 >
                                                     {availableBalance}
                                                 </b>
                                             </div>
                                         ) : (
-                                            ''
+                                            ""
                                         )}
-                                        {productCategory === 'LN' ? (
+                                        {productCategory === "LN" ? (
                                             <>
                                                 <div
                                                     className={
-                                                        styles['text-container']
+                                                        styles["text-container"]
                                                     }
                                                 >
                                                     <p>Principal Balance</p>
                                                     <b
                                                         className={
-                                                            styles['green-text']
+                                                            styles["green-text"]
                                                         }
                                                     >
                                                         {outstandingAmount}
@@ -172,13 +175,13 @@ export const AccountList = () => {
                                                 </div>
                                                 <div
                                                     className={
-                                                        styles['text-container']
+                                                        styles["text-container"]
                                                     }
                                                 >
                                                     <p>Due Amount</p>
                                                     <b
                                                         className={
-                                                            styles['green-text']
+                                                            styles["green-text"]
                                                         }
                                                     >
                                                         {emi}
@@ -186,13 +189,13 @@ export const AccountList = () => {
                                                 </div>
                                                 <div
                                                     className={
-                                                        styles['text-container']
+                                                        styles["text-container"]
                                                     }
                                                 >
                                                     <p>Term</p>
                                                     <b
                                                         className={
-                                                            styles['green-text']
+                                                            styles["green-text"]
                                                         }
                                                     >
                                                         {tenure}
@@ -200,7 +203,7 @@ export const AccountList = () => {
                                                 </div>
                                                 <div
                                                     className={
-                                                        styles['text-container']
+                                                        styles["text-container"]
                                                     }
                                                 >
                                                     <p>
@@ -208,7 +211,7 @@ export const AccountList = () => {
                                                     </p>
                                                     <b
                                                         className={
-                                                            styles['green-text']
+                                                            styles["green-text"]
                                                         }
                                                     >
                                                         {nextInstalmentAmount}
@@ -216,13 +219,13 @@ export const AccountList = () => {
                                                 </div>
                                                 <div
                                                     className={
-                                                        styles['text-container']
+                                                        styles["text-container"]
                                                     }
                                                 >
                                                     <p>Next Instalment Date</p>
                                                     <b
                                                         className={
-                                                            styles['green-text']
+                                                            styles["green-text"]
                                                         }
                                                     >
                                                         {nextInstalmentDate}
@@ -230,7 +233,7 @@ export const AccountList = () => {
                                                 </div>
                                                 <div
                                                     className={
-                                                        styles['text-container']
+                                                        styles["text-container"]
                                                     }
                                                 >
                                                     <p>
@@ -238,7 +241,7 @@ export const AccountList = () => {
                                                     </p>
                                                     <b
                                                         className={
-                                                            styles['green-text']
+                                                            styles["green-text"]
                                                         }
                                                     >
                                                         {nextInstalmentDays}
@@ -246,24 +249,24 @@ export const AccountList = () => {
                                                 </div>
                                             </>
                                         ) : (
-                                            ''
+                                            ""
                                         )}
 
                                         <div
-                                            className={styles['text-container']}
+                                            className={styles["text-container"]}
                                         >
                                             <p>Account Type</p>
-                                            <b className={styles['green-text']}>
-                                                {productCategory === 'DP'
-                                                    ? 'Deposit'
-                                                    : 'Loan'}
+                                            <b className={styles["green-text"]}>
+                                                {productCategory === "DP"
+                                                    ? "Deposit"
+                                                    : "Loan"}
                                             </b>
                                         </div>
                                         <div
-                                            className={styles['text-container']}
+                                            className={styles["text-container"]}
                                         >
                                             <p>Status</p>
-                                            <b className={styles['green-text']}>
+                                            <b className={styles["green-text"]}>
                                                 {status}
                                             </b>
                                         </div>
@@ -272,14 +275,14 @@ export const AccountList = () => {
                             )
                         )}
                     </div>
-                    <div className={styles['buton-container']}>
+                    <div className={styles["buton-container"]}>
                         <Button
-                            text={'Back'}
-                            type={'button'}
+                            text={"Back"}
+                            type={"button"}
                             disabled={false}
-                            buttonType={'back'}
+                            buttonType={"back"}
                             icon={true}
-                            onClick={() => navigate('/dashboard')}
+                            onClick={() => navigate("/dashboard")}
                         />
                     </div>
                 </section>

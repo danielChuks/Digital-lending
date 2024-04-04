@@ -75,7 +75,7 @@ export const Repayment = () => {
     console.log(repaymentScheduleStatement);
     const columns: ColumnsType<DataType> = [
         {
-            title: "Installment No",
+            title: "No",
             dataIndex: "installmentNo",
             key: "installmentNo",
         },
@@ -93,31 +93,37 @@ export const Repayment = () => {
             title: "Principal Amount",
             dataIndex: "principalAmt",
             key: "principalAmt",
+            render: (value: number) => formatNumber(value),
         },
         {
             title: "Interest Amount",
             dataIndex: "interestAmt",
             key: "interestAmt",
+            render: (value: number) => formatNumber(value),
         },
         {
             title: "Fees",
             dataIndex: "fees",
             key: "fees",
+            render: (value: number) => formatNumber(value),
         },
         {
             title: "Late Fees",
             dataIndex: "lateFees",
             key: "lateFees",
+            render: (value: number) => formatNumber(value),
         },
         {
             title: "Total Amount",
             dataIndex: "totalAmt",
             key: "totalAmt",
+            render: (value: number) => formatNumber(value),
         },
         {
             title: "Serviced Amount",
             dataIndex: "servicedAmt",
             key: "servicedAmt",
+            render: (value: number) => formatNumber(value),
         },
         {
             title: "Serviced Date",
@@ -128,6 +134,7 @@ export const Repayment = () => {
             title: "Outstanding Amount",
             dataIndex: "outstandingAmt",
             key: "outstandingAmt",
+            render: (value: number) => formatNumber(value),
         },
         {
             title: "Days Late",
@@ -136,7 +143,13 @@ export const Repayment = () => {
         },
     ];
 
-    console.log(repaymentScheduleStatement);
+    const formatNumber = (value: number) => {
+        return value.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        });
+    };
+
     useEffect(() => {
         fetchData();
     }, []);

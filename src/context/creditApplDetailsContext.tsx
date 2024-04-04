@@ -39,7 +39,7 @@ export interface CreditDocument {
 }
 
 export interface BasicInfo {
-    amount?: number | null | string;
+    amount?: string;
     creditTypeId?: number | null;
     currencyId?: number | any;
     productId?: number | any;
@@ -85,7 +85,7 @@ const CreditApplContext: React.FC<MyComponentProps> = ({ children }) => {
     const [creditApplDataFields_context, setCreditApplDataFields_context] =
         useState<ApplCreditData>({
             basicInfo: {
-                amount: null,
+                amount: '',
                 creditTypeId: null,
                 currencyId: null,
                 productId: null,
