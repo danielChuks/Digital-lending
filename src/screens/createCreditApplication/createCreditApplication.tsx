@@ -171,9 +171,20 @@ const CreateCreditApplication = () => {
             populateCreditDraft();
         } else {
             setCreditApplDataFields_context({
-                basicInfo: {},
-                documentInfodata: [],
-                collateralinfoData: [],
+                basicInfo: {
+                    amount: null,
+                    creditTypeId: null,
+                    currencyId: '732',
+                    productId: null,
+                    purposeOfCreditId: null,
+                    strApplicationDate: "",
+                    termCode: "",
+                    termValue: null,
+                    repaySourceAcctNo: "",
+                },
+                collateralinfoData: null,
+                documentInfodata: null,
+                addDocumentFlag: false,
                 loading: false,
             });
         }

@@ -36,6 +36,7 @@ const basicInfo = {
 };
 
 const addressInfo = {
+    primaryAddressCountryCd: "682",
     primaryAddressCity: "",
     primaryAddressLine1: "",
     primaryAddressLine2: "",
@@ -43,7 +44,7 @@ const addressInfo = {
     primaryAddressLine4: "",
     primaryAddressState: "",
     strFromDate: "",
-    primaryAddressCountryCd: "",
+   
     addressTypeId: "",
 };
 
