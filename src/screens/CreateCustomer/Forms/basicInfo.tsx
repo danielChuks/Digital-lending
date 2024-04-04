@@ -27,6 +27,7 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
         // const validator = new SimpleReactValidator();
         const [validator] = useState(new SimpleReactValidator());
         const { CustomerData, setCustomerData } = useCustomerContext();
+
         const [isIndividual, setIsIndividual] = useState(true);
 
         const { picklistData } = usePickListContext();
@@ -86,10 +87,10 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
             } else {
                 validator.showMessages();
                 ref.current.isValidated = false;
-                forceUpdate({});
+                // forceUpdate({});
             }
         };
-        const [, forceUpdate] = useState({});
+        // const [, forceUpdate] = useState({});
 
         // Expose the childFunction to the parent component using useImperativeHandle
         useImperativeHandle(ref, () => ({
@@ -97,6 +98,8 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
             isValidated,
         }));
 
+        console.log(CustomerData)
+        // console.log(picklistData.nationalityList)
 
         return (
             <div>
@@ -357,7 +360,7 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                                 }
                                 optionsList={picklistData.nationalityList}
                                 name='nationalityCd'
-                                value={CustomerData.basicInfoData.nationalityCd}
+                                value={CustomerData?.basicInfoData?.nationalityCd}
                                 readonly={
                                     CustomerData.customerDraftReadOnlyFlag
                                 }
