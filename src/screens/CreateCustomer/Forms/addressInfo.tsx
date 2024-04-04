@@ -29,7 +29,7 @@ interface ChildMethods {
 const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
     (props, ref: any) => {
         const { CustomerData, setCustomerData } = useCustomerContext();
-        const { picklistData, setPicklistData } = usePickListContext();
+        const { picklistData,  } = usePickListContext();
         const [states, setStates] = useState<any>();
         const [cites, setCites] = useState<any>();
         const picklistMutation = useGetPicklist();
@@ -37,6 +37,13 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
         const isValidated = false;
         const [api, contextHolder] = notification.useNotification();
         const navigate = useNavigate();
+
+        useEffect(()=>{
+            setCustomerData((prev) => ({
+                ...prev,
+                addressInfoData: { ...prev.addressInfoData, primaryAddressCountryCd: '682' },
+            }));
+        },[])
 
         const fetchStates = async () => {
             const payload = {
@@ -149,12 +156,12 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
                 } else {
                     validator.showMessages();
                     ref.current.isValidated = false;
-                    forceUpdate({});
+                    // forceUpdate({});
                 }
             }
         };
 
-        const [, forceUpdate] = useState({});
+        // const [, forceUpdate] = useState({});
 
         // Expose the childFunction to the parent component using useImperativeHandle
 
@@ -162,6 +169,9 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
             handleValidation,
             isValidated,
         }));
+
+        console.log(CustomerData)
+        console.log(picklistData.countryList)
 
         return (
             <div>
@@ -296,7 +306,7 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
                                     }));
                                 }}
                                 optionsList={picklistData.countryList}
-                                value={CustomerData.addressInfoData.primaryAddressCountryCd?.toString()}
+                                value={CustomerData.addressInfoData.primaryAddressCountryCd}
                                 name={"country"}
                                 readonly={
                                     CustomerData.customerDraftReadOnlyFlag

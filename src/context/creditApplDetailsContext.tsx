@@ -87,7 +87,7 @@ const CreditApplContext: React.FC<MyComponentProps> = ({ children }) => {
             basicInfo: {
                 amount: '',
                 creditTypeId: null,
-                currencyId: null,
+                currencyId: '732',
                 productId: null,
                 purposeOfCreditId: null,
                 strApplicationDate: "",

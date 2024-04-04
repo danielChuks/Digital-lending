@@ -96,6 +96,10 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
         }, [creditApplDataFields_context?.basicInfo?.creditTypeId]);
 
         useEffect(() => {
+            // setCreditApplDataFields_context((prev: any) => ({
+            //     ...prev,
+            //     basicInfo: { ...prev.basicInfo, currencyId: '732' },
+            // }));
             fetchSettelementData();
         }, []);
 
