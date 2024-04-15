@@ -171,9 +171,9 @@ const CreateCreditApplication = () => {
         } else {
             setCreditApplDataFields_context({
                 basicInfo: {
-                    amount: null,
+                    amount: "",
                     creditTypeId: null,
-                    currencyId: '732',
+                    currencyId: "732",
                     productId: null,
                     purposeOfCreditId: null,
                     strApplicationDate: "",
@@ -241,6 +241,7 @@ const CreateCreditApplication = () => {
                             collateralData: [],
                         },
                     };
+                    console.log(payload)
                 } else {
                     payload = {
                         instituteCode: sessionStorage.getItem("instituteCode"),
@@ -248,14 +249,22 @@ const CreateCreditApplication = () => {
 
                         applData: {
                             ...creditApplDataFields_context.basicInfo,
+                            // amount: Number(
+                            //     creditApplDataFields_context.basicInfo?.amount?.replaceAll(
+                            //         ",",
+                            //         ""
+                            //     )
+                            // ),
                             collateralData:
                                 creditApplDataFields_context.collateralinfoData,
+                                
                         },
 
                         dbsCustApplId: Number(
                             sessionStorage.getItem("dbsCustApplId")
                         ),
                     };
+                    console.log(payload)
                 }
                 setIsLoading(true);
                 const data = await createCreditApplDraftMutation.mutateAsync(
@@ -303,6 +312,12 @@ const CreateCreditApplication = () => {
             applData: {
                 // collateralData:creditApplDataFields_context.collateralinfoData,
                 ...creditApplDataFields_context.basicInfo,
+                // amount: Number(
+                //     creditApplDataFields_context.basicInfo?.amount?.replaceAll(
+                //         ",",
+                //         ""
+                //     )
+                // ),
                 collateralData: creditApplDataFields_context.collateralinfoData,
                 documentList: creditApplDataFields_context.documentInfodata,
             },
@@ -310,6 +325,7 @@ const CreateCreditApplication = () => {
             dbsUserId: Number(sessionStorage.getItem("dbsUserId")),
             dbsCustApplId: Number(sessionStorage.getItem("dbsCustApplId")),
         };
+        console.log(payload)
         setIsLoading(true);
         const data = await createDBSCreditApplMutation.mutateAsync(payload);
         if (data.status === 200) {
@@ -371,7 +387,6 @@ const CreateCreditApplication = () => {
                                     items={[
                                         {
                                             title: "Basic info",
-                                            // description: "This is a description.",
                                         },
                                         {
                                             title: "Documents",

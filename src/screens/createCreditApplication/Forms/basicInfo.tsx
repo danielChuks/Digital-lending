@@ -96,10 +96,6 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
         }, [creditApplDataFields_context?.basicInfo?.creditTypeId]);
 
         useEffect(() => {
-            // setCreditApplDataFields_context((prev: any) => ({
-            //     ...prev,
-            //     basicInfo: { ...prev.basicInfo, currencyId: '732' },
-            // }));
             fetchSettelementData();
         }, []);
 
@@ -203,14 +199,14 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
             if (name === "amount") {
                 const numericValue = parseFloat(value.trim());
                 if (!isNaN(numericValue)) {
-                    // const formattedValue = numericValue.toLocaleString(
-                    //     "en-US",
-                    //     {
-                    //         minimumFractionDigits: 2,
-                    //         maximumFractionDigits: 2,
-                    //     }
-                    // );
-                    const formattedValue = numericValue.toFixed(2);
+                    const formattedValue = numericValue.toLocaleString(
+                        "en-US",
+                        {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                        }
+                    );
+                    // const formattedValue = numericValue.toFixed(2);
                     setCreditApplDataFields_context((prev: any) => ({
                         ...prev,
                         basicInfo: {
@@ -354,7 +350,7 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                             value={
                                 creditApplDataFields_context.basicInfo?.amount
                             }
-                            onBlur={onhandleBlur}
+                            // onBlur={onhandleBlur}
                             name='amount'
                             readonly={CustomerData.customerDraftReadOnlyFlag}
                         />

@@ -17,7 +17,7 @@ export interface ApplCreditData {
 
 export interface CreditCollateralDocument {
     collateralDescription: string | any;
-    collateralMarketValue: number | null | any;
+    collateralMarketValue: string | null | any;
     collateralRefNo: number | null | any;
     collateralTypeDescription: string | any;
     collateralTypeId: number | null | any;

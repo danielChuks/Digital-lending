@@ -43,7 +43,7 @@ const Collateral: React.FC<any> = (props: any) => {
             collateralMarketValue: "",
             collateralRefNo: "",
             collateralTypeDescription: "",
-            collateralCurrencyId: null,
+            collateralCurrencyId: 732,
             collateralTypeId: "",
             expiryDateStr: "",
             forcedSalesValue: "",
@@ -197,8 +197,31 @@ const Collateral: React.FC<any> = (props: any) => {
         }));
     };
 
+    const onhandleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { value, name } = e.target;
+
+        if (name === "collateralMarketValue") {
+            const numericValue = parseFloat(value.trim());
+            if (!isNaN(numericValue)) {
+                const formattedValue = numericValue.toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                });
+                // const formattedValue = numericValue.toFixed(2);
+                setCollateraData((prev: any) => {
+                    return { ...prev, [name]: formattedValue };
+                });
+            } else {
+                setCollateraData((prev: any) => {
+                    return { ...prev, [name]: value };
+                });
+            }
+        }
+    };
+
     ///// collateral save /////
     const handleCollateral = async (e: React.FormEvent) => {
+        // console.log(collateraData)
         e.preventDefault();
         if (validator.allValid()) {
             let arr: any;
@@ -220,13 +243,19 @@ const Collateral: React.FC<any> = (props: any) => {
             } else {
                 arr = [collateraData];
             }
+            
             let payload = {};
             payload = {
                 instituteCode: sessionStorage.getItem("instituteCode"),
                 transmissionTime: Date.now(),
+
                 applData: {
                     ...creditApplDataFields_context.basicInfo,
-                    collateralData: arr,
+                    collateralData: arr?.map((item : any) => ({
+                        ...item,
+                        collateralMarketValue:
+                            item.collateralMarketValue?.replaceAll(",", ""),
+                    })),
                 },
                 dbsCustApplId: Number(sessionStorage.getItem("dbsCustApplId")),
             };
@@ -388,13 +417,17 @@ const Collateral: React.FC<any> = (props: any) => {
     };
 
     useEffect(() => {
+        //remove commas from amount field
+        const formattedValue = parseInt(
+            collateraData?.collateralMarketValue?.replaceAll(",", "")
+        );
         if (
             collateraData.lendingPercent &&
             collateraData.collateralMarketValue
         ) {
             const lendingValue = (
                 (collateraData.lendingPercent / 100) *
-                collateraData.collateralMarketValue
+                formattedValue
             ).toFixed(2);
             setCollateraData((prev: any) => {
                 return { ...prev, lendingValue: lendingValue };
@@ -498,11 +531,12 @@ const Collateral: React.FC<any> = (props: any) => {
                         <div className={styles[""]}>
                             <InputField
                                 label={"Amount"}
-                                type={"number"}
+                                type={"string"}
                                 required={true}
                                 onChange={handleBasicInfo}
                                 value={collateraData?.collateralMarketValue}
                                 name='collateralMarketValue'
+                                onBlur={onhandleBlur}
                             />
                             <span className='text-error'>
                                 {validator.message(
