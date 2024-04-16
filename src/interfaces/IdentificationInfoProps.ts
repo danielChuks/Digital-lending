@@ -1,6 +1,6 @@
 export interface identificationInfoProps {
     binaryImage: string;
-    countryOfIssueId: number | null;
+    countryOfIssueId: string | null;
     identityNumber: string;
     identityTypeCd?: string;
     identityTypeDesc?: string;

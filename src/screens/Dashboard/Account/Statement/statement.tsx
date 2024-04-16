@@ -109,6 +109,7 @@ export const AccountStatement = () => {
             title: "Amount",
             dataIndex: "txnAmt",
             key: "txnAmt",
+            align: "right",
             render: (text, record: any) => {
                 const cellStyle = {
                     color: record.drcr === "Debit" ? "red" : "#052A47",

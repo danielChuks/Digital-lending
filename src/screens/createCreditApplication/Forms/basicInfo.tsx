@@ -345,7 +345,7 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     <div className={styles["validator-block"]}>
                         <InputField
                             label={"Amount"}
-                            type={"text"}
+                            type={"number"}
                             onChange={handleBasicInfo}
                             value={
                                 creditApplDataFields_context.basicInfo?.amount
