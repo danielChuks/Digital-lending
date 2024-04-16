@@ -170,8 +170,8 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
             isValidated,
         }));
 
-        console.log(CustomerData)
-        console.log(picklistData.countryList)
+        // console.log(CustomerData)
+        // console.log(picklistData.countryList)
 
         return (
             <div>

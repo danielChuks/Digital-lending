@@ -21,10 +21,10 @@ const basicInfo = {
     customerType: "",
     nationalityCd: "532",
     industryId: "",
-    countryOfResidenceId: "682",
+    countryOfResidenceId: "",
     maritalStatus: "",
 
-    countryOfBirthId: "682",
+    countryOfBirthId: "",
     gender: "",
     occupationCd: "",
     employmentFlag: false,
@@ -44,7 +44,7 @@ const addressInfo = {
     primaryAddressLine4: "",
     primaryAddressState: "",
     strFromDate: "",
-   
+
     addressTypeId: "",
 };
 

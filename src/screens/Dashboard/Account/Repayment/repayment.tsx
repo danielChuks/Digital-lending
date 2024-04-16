@@ -72,7 +72,6 @@ export const Repayment = () => {
             setIsLoading(false);
         }
     };
-    console.log(repaymentScheduleStatement);
     const columns: ColumnsType<DataType> = [
         {
             title: "No",
@@ -189,14 +188,28 @@ export const Repayment = () => {
                                     <p>{installmentNo}</p>
                                     <p>{dueDate}</p>
                                     <p>{event}</p>
-                                    <p>{principalAmt}</p>
-                                    <p>{interestAmt}</p>
-                                    <p>{fees}</p>
-                                    <p>{lateFees}</p>
-                                    <p>{totalAmt}</p>
-                                    <p>{servicedAmt}</p>
+                                    <p className={styles["amount-right"]}>
+                                        {principalAmt}
+                                    </p>
+                                    <p className={styles["amount-right"]}>
+                                        {interestAmt}
+                                    </p>
+                                    <p className={styles["amount-right"]}>
+                                        {fees}
+                                    </p>
+                                    <p className={styles["amount-right"]}>
+                                        {lateFees}
+                                    </p>
+                                    <p className={styles["amount-right"]}>
+                                        {totalAmt}
+                                    </p>
+                                    <p className={styles["amount-right"]}>
+                                        {servicedAmt}
+                                    </p>
                                     <p>{servicedDate}</p>
-                                    <p>{outstandingAmt}</p>
+                                    <p className={styles["amount-right"]}>
+                                        {outstandingAmt}
+                                    </p>
                                     <p>{daysLate}</p>
                                 </div>
                             )

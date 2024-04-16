@@ -80,18 +80,18 @@ const Dashboard = () => {
             icon: <HiDocumentSearch size={80} color='#fff' />,
             path: "/dashboard/track",
         },
-        {
-            id: 6,
-            name: "Message",
-            icon: <MdDrafts size={80} color='#fff' />,
-            path: "/dashboard/message",
-        },
-        {
-            id: 7,
-            name: "Docs Upload",
-            icon: <FaFileUpload size={80} color='#fff' />,
-            path: "/dashboard/documentUpload",
-        },
+        // {
+        //     id: 6,
+        //     name: "Message",
+        //     icon: <MdDrafts size={80} color='#fff' />,
+        //     path: "/dashboard/message",
+        // },
+        // {
+        //     id: 7,
+        //     name: "Docs Upload",
+        //     icon: <FaFileUpload size={80} color='#fff' />,
+        //     path: "/dashboard/documentUpload",
+        // },
     ];
 
     const handleNavigator = (data: any) => {
