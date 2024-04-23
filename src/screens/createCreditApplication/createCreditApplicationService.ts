@@ -26,8 +26,6 @@ export const useGetPicklist = () => useMutation(picklistMutationFn);
 ///// create Customer Draft /////////
 const CreateCreditApplDraft = async (credentials: any): Promise<any> => {
     const responseCreateCreditApplDraft = await PostAxios(
-        // "/app/dbs/customerapplication/createCustomerApplDraft",
-
         "/app/dbs/creditapplication/createCreditApplDraft",
         credentials
     );

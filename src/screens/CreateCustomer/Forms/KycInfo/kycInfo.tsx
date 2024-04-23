@@ -503,7 +503,7 @@ const KycInfo: React.FC<any> = (props: any) => {
                                 {...uploadprops}
                                 multiple={false}
                                 maxCount={1}
-                                accept={".pdf"}
+                                accept={".jpg,.jpeg,.png"}
                             >
                                 <Button
                                     icon={<UploadOutlined />}

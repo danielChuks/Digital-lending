@@ -74,7 +74,6 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                 ...prev,
                 basicInfoData: { ...prev.basicInfoData, [name]: value },
             }));
-            console.log(CustomerData)
         };
         
         useEffect(() => {

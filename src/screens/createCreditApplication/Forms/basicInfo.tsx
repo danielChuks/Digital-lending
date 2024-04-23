@@ -207,21 +207,25 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                         }
                     );
                     // const formattedValue = numericValue.toFixed(2);
-                    setCreditApplDataFields_context((prev: any) => ({
-                        ...prev,
-                        basicInfo: {
-                            ...prev.basicInfo,
-                            amount: formattedValue,
-                        },
-                    }));
+                    setCreditApplDataFields_context((prev: any) => {
+                        return {
+                            ...prev,
+                            basicInfo: {
+                                ...prev.basicInfo,
+                                amount: formattedValue,
+                            },
+                        };
+                    });
                 } else {
-                    setCreditApplDataFields_context((prev: any) => ({
-                        ...prev,
-                        basicInfo: {
-                            ...prev.basicInfo,
-                            amount: "",
-                        },
-                    }));
+                    setCreditApplDataFields_context((prev: any) => {
+                        return {
+                            ...prev,
+                            basicInfo: {
+                                ...prev.basicInfo,
+                                amount: "",
+                            },
+                        };
+                    });
                 }
             }
         };
@@ -343,16 +347,25 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                     </div>
 
                     <div className={styles["validator-block"]}>
-                        <InputField
-                            label={"Amount"}
-                            type={"number"}
+                        <div style={{ paddingBottom: "5px", color: "black" }}>
+                            Amount
+                        </div>
+                        <input
+                            style={{
+                                textAlign: "right",
+                                padding: "11px",
+                                borderRadius: "8px",
+                                border: "1px solid #006c33",
+                                outline: "none",
+                            }}
+                            type={"string"}
                             onChange={handleBasicInfo}
                             value={
                                 creditApplDataFields_context.basicInfo?.amount
                             }
-                            // onBlur={onhandleBlur}
+                            onBlur={onhandleBlur}
                             name='amount'
-                            readonly={CustomerData.customerDraftReadOnlyFlag}
+                            // readonly={CustomerData.customerDraftReadOnlyFlag}
                         />
                         <span className='text-error'>
                             {validator.message(

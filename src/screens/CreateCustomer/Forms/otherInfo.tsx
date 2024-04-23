@@ -24,14 +24,51 @@ const OtherInfo = forwardRef<ChildMethods, ChildComponentProps>(
             target: { value, name },
         }: React.ChangeEvent<HTMLInputElement>) => {
             // Parse the value to a number before setting it in the state
-            const incomeAmount = parseFloat(value);
+            const numericValue = parseFloat(value.trim());
             setCustomerData((prev) => ({
                 ...prev,
                 otherInfoData: {
                     ...prev.otherInfoData,
-                    [name]: isNaN(incomeAmount) ? "" : incomeAmount,
+                    [name]: isNaN(numericValue) ? null : numericValue,
                 },
             }));
+        };
+
+        const onhandleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+            const { value, name } = e.target;
+
+            if (name === "monthlyIncomeAmount") {
+                const numericValue = parseFloat(value.trim());
+                if (!isNaN(numericValue)) {
+                    const formattedValue = numericValue.toLocaleString(
+                        "en-US",
+                        {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                        }
+                    );
+
+                    setCustomerData((prev: any) => {
+                        return {
+                            ...prev,
+                            otherInfoData: {
+                                ...prev.otherInfoData,
+                                monthlyIncomeAmount: formattedValue,
+                            },
+                        };
+                    });
+                } else {
+                    setCustomerData((prev: any) => {
+                        return {
+                            ...prev,
+                            otherInfoData: {
+                                ...prev.otherInfoData,
+                                monthlyIncomeAmount: "",
+                            },
+                        };
+                    });
+                }
+            }
         };
 
         const handleSelector = (
@@ -53,7 +90,6 @@ const OtherInfo = forwardRef<ChildMethods, ChildComponentProps>(
                 forceUpdate({});
             }
         };
-        console.log(picklistData);
 
         const [, forceUpdate] = useState({});
 
@@ -149,19 +185,31 @@ const OtherInfo = forwardRef<ChildMethods, ChildComponentProps>(
 
                     <div className={styles["input-container-split"]}>
                         <div className={styles["input-container"]}>
-                            <InputField
-                                label={"Monthly Income / Turnover"}
-                                type={"text"}
+                            <div
+                                style={{ paddingBottom: "5px", color: "black" }}
+                            >
+                                Monthly Income / Turnover
+                            </div>
+                            <input
+                                type={"string"}
+                                onBlur={onhandleBlur}
+                                style={{
+                                    textAlign: "right",
+                                    padding: "11px",
+                                    borderRadius: "8px",
+                                    border: "1px solid #006c33",
+                                    outline: "none",
+                                }}
+                                name='monthlyIncomeAmount'
                                 // required={true}
                                 onChange={handleAddressInfo}
                                 value={
                                     CustomerData.otherInfoData
                                         .monthlyIncomeAmount
                                 }
-                                name='monthlyIncomeAmount'
-                                readonly={
-                                    CustomerData.customerDraftReadOnlyFlag
-                                }
+                                // readonly={
+                                //     CustomerData.customerDraftReadOnlyFlag
+                                // }
                             />
                         </div>
                     </div>

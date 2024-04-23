@@ -531,7 +531,7 @@ const DocumentInfo: React.FC<any> = (props: any) => {
                             onChange={handleChange}
                             multiple={false}
                             maxCount={1}
-                            accept={acceptFileTypes}
+                            accept=".pdf"
                             disabled={!documentData.docTypeId}
                         >
                             <Button

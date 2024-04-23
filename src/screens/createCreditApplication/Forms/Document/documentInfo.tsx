@@ -219,7 +219,6 @@ const DocumentInfo: React.FC<any> = (props: any) => {
     };
 
     const handleChange = (info: any) => {
-    
         if (info.fileList.length === 0) {
             setByteArray(null);
         } else {
@@ -238,7 +237,10 @@ const DocumentInfo: React.FC<any> = (props: any) => {
                     docFileExt: "." + info.fileList[0].type.substring(12),
                 }));
             }
-            if (info.fileList[0]?.type === "image/png" || info.fileList[0]?.type === "image/jpeg") {
+            if (
+                info.fileList[0]?.type === "image/png" ||
+                info.fileList[0]?.type === "image/jpeg"
+            ) {
                 setDocumentData((prev) => ({
                     ...prev,
                     docFileExt:
@@ -521,7 +523,7 @@ const DocumentInfo: React.FC<any> = (props: any) => {
                                 onChange={handleChange}
                                 multiple={false}
                                 maxCount={1}
-                                accept={acceptFileTypes}
+                                accept='.pdf'
                                 disabled={!documentData.docTypeId}
                             >
                                 <Button

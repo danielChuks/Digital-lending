@@ -243,7 +243,7 @@ const Collateral: React.FC<any> = (props: any) => {
             } else {
                 arr = [collateraData];
             }
-            
+
             let payload = {};
             payload = {
                 instituteCode: sessionStorage.getItem("instituteCode"),
@@ -251,7 +251,7 @@ const Collateral: React.FC<any> = (props: any) => {
 
                 applData: {
                     ...creditApplDataFields_context.basicInfo,
-                    collateralData: arr?.map((item : any) => ({
+                    collateralData: arr?.map((item: any) => ({
                         ...item,
                         collateralMarketValue:
                             item.collateralMarketValue?.replaceAll(",", ""),
@@ -527,25 +527,34 @@ const Collateral: React.FC<any> = (props: any) => {
                             </span>
                         </div>
                     </div>
-                    <div className={styles["input-container-split"]}>
-                        <div className={styles[""]}>
-                            <InputField
-                                label={"Amount"}
-                                type={"string"}
-                                required={true}
-                                onChange={handleBasicInfo}
-                                value={collateraData?.collateralMarketValue}
-                                name='collateralMarketValue'
-                                onBlur={onhandleBlur}
-                            />
-                            <span className='text-error'>
-                                {validator.message(
-                                    "collateralMarketValue",
-                                    collateraData?.collateralMarketValue,
-                                    "required"
-                                )}
-                            </span>
+                    <div style={{margin: '10px'}}>
+                        <div style={{ paddingBottom: "5px", color: "black" }}>
+                            Amount
                         </div>
+
+                        <input
+                            style={{
+                                textAlign: "right",
+                                padding: "11px",
+                                borderRadius: "8px",
+                                border: "1px solid #006c33",
+                                outline: "none",
+                                width: "100%",
+                            }}
+                            type={"string"}
+                            required={true}
+                            onChange={handleBasicInfo}
+                            value={collateraData?.collateralMarketValue}
+                            name='collateralMarketValue'
+                            onBlur={onhandleBlur}
+                        />
+                        <span className='text-error'>
+                            {validator.message(
+                                "collateralMarketValue",
+                                collateraData?.collateralMarketValue,
+                                "required"
+                            )}
+                        </span>
                     </div>
                     <div className={styles["input-container-split"]}>
                         <div>

@@ -219,8 +219,27 @@ const CreateCreditApplication = () => {
             return true;
         }
     };
+
+    // const replaceNonNumeric = (value: any) => {
+    //     // Use regular expression to replace non-numeric characters with empty string
+    //     return value?.replace(/[^\d.]/g, ""); // This pattern matches any character that is not a digit or a dot
+    // };
+
+    const replaceNonNumeric = (value: any) => {
+        if (typeof value === "string") {
+            // Use regular expression to replace non-numeric characters with empty string
+            return value.replace(/[^\d.]/g, ""); // This pattern matches any character that is not a digit or a dot
+        } else {
+            return value;
+        }
+    };
+
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const amount = parseFloat(
+            replaceNonNumeric(creditApplDataFields_context.basicInfo?.amount)
+        );
+
         if (
             CustomerData.customerDraftReadOnlyFlag ||
             currentStep === 1 ||
@@ -238,10 +257,10 @@ const CreateCreditApplication = () => {
 
                         applData: {
                             ...creditApplDataFields_context.basicInfo,
+                            amount,
                             collateralData: [],
                         },
                     };
-                    console.log(payload)
                 } else {
                     payload = {
                         instituteCode: sessionStorage.getItem("instituteCode"),
@@ -249,24 +268,18 @@ const CreateCreditApplication = () => {
 
                         applData: {
                             ...creditApplDataFields_context.basicInfo,
-                            // amount: Number(
-                            //     creditApplDataFields_context.basicInfo?.amount?.replaceAll(
-                            //         ",",
-                            //         ""
-                            //     )
-                            // ),
+                            amount,
                             collateralData:
                                 creditApplDataFields_context.collateralinfoData,
-                                
                         },
 
                         dbsCustApplId: Number(
                             sessionStorage.getItem("dbsCustApplId")
                         ),
                     };
-                    console.log(payload)
                 }
                 setIsLoading(true);
+                // console.log(payload);
                 const data = await createCreditApplDraftMutation.mutateAsync(
                     payload
                 );
@@ -306,18 +319,16 @@ const CreateCreditApplication = () => {
 
     const handleCreateCreditApplication = async (e: React.FormEvent) => {
         e.preventDefault();
+        const amount = parseFloat(
+            replaceNonNumeric(creditApplDataFields_context.basicInfo?.amount)
+        );
         const payload = {
             instituteCode: sessionStorage.getItem("instituteCode"),
             transmissionTime: Date.now(),
             applData: {
                 // collateralData:creditApplDataFields_context.collateralinfoData,
                 ...creditApplDataFields_context.basicInfo,
-                // amount: Number(
-                //     creditApplDataFields_context.basicInfo?.amount?.replaceAll(
-                //         ",",
-                //         ""
-                //     )
-                // ),
+                amount,
                 collateralData: creditApplDataFields_context.collateralinfoData,
                 documentList: creditApplDataFields_context.documentInfodata,
             },
@@ -325,7 +336,7 @@ const CreateCreditApplication = () => {
             dbsUserId: Number(sessionStorage.getItem("dbsUserId")),
             dbsCustApplId: Number(sessionStorage.getItem("dbsCustApplId")),
         };
-        console.log(payload)
+
         setIsLoading(true);
         const data = await createDBSCreditApplMutation.mutateAsync(payload);
         if (data.status === 200) {
