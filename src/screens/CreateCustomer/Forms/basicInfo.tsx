@@ -28,8 +28,6 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
         const [validator] = useState(new SimpleReactValidator());
         const { CustomerData, setCustomerData } = useCustomerContext();
 
-        console.log(CustomerData);
-
         const [isIndividual, setIsIndividual] = useState(true);
 
         const { picklistData } = usePickListContext();
@@ -56,7 +54,7 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                 },
             }));
         };
-        
+
         const handleBasicInfo = ({
             target: { value, name },
         }: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +73,7 @@ const BasicInfo = forwardRef<ChildMethods, ChildComponentProps>(
                 basicInfoData: { ...prev.basicInfoData, [name]: value },
             }));
         };
-        
+
         useEffect(() => {
             setCustomerData((prev) => ({
                 ...prev,

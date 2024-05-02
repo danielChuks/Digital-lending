@@ -220,11 +220,6 @@ const CreateCreditApplication = () => {
         }
     };
 
-    // const replaceNonNumeric = (value: any) => {
-    //     // Use regular expression to replace non-numeric characters with empty string
-    //     return value?.replace(/[^\d.]/g, ""); // This pattern matches any character that is not a digit or a dot
-    // };
-
     const replaceNonNumeric = (value: any) => {
         if (typeof value === "string") {
             // Use regular expression to replace non-numeric characters with empty string

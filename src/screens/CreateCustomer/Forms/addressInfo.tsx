@@ -29,7 +29,7 @@ interface ChildMethods {
 const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
     (props, ref: any) => {
         const { CustomerData, setCustomerData } = useCustomerContext();
-        const { picklistData,  } = usePickListContext();
+        const { picklistData } = usePickListContext();
         const [states, setStates] = useState<any>();
         const [cites, setCites] = useState<any>();
         const picklistMutation = useGetPicklist();
@@ -38,12 +38,15 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
         const [api, contextHolder] = notification.useNotification();
         const navigate = useNavigate();
 
-        useEffect(()=>{
+        useEffect(() => {
             setCustomerData((prev) => ({
                 ...prev,
-                addressInfoData: { ...prev.addressInfoData, primaryAddressCountryCd: '682' },
+                addressInfoData: {
+                    ...prev.addressInfoData,
+                    primaryAddressCountryCd: "682",
+                },
             }));
-        },[])
+        }, []);
 
         const fetchStates = async () => {
             const payload = {
@@ -83,6 +86,7 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
                 }, 3000);
             }
         };
+        console.log(CustomerData);
 
         const fetchCities = async () => {
             const payload = {
@@ -156,12 +160,9 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
                 } else {
                     validator.showMessages();
                     ref.current.isValidated = false;
-                    // forceUpdate({});
                 }
             }
         };
-
-        // const [, forceUpdate] = useState({});
 
         // Expose the childFunction to the parent component using useImperativeHandle
 
@@ -169,9 +170,6 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
             handleValidation,
             isValidated,
         }));
-
-        // console.log(CustomerData)
-        // console.log(picklistData.countryList)
 
         return (
             <div>
@@ -184,7 +182,23 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
                                 onChange={(e) =>
                                     handleSelector(e, "addressTypeId")
                                 }
-                                optionsList={picklistData.addressTypeList}
+                                // optionsList={picklistData.addressTypeList}
+                                // value={
+                                //     CustomerData.addressInfoData.addressTypeId
+                                // }
+                                // name={"AddressType"}
+                                // readonly={
+                                //     CustomerData.customerDraftReadOnlyFlag
+                                // }
+
+                                optionsList={
+                                    CustomerData.customerCategory === "COR"
+                                        ? [
+                                              picklistData.addressTypeList[4],
+                                              picklistData.addressTypeList[6],
+                                          ]
+                                        : picklistData.addressTypeList
+                                }
                                 value={
                                     CustomerData.addressInfoData.addressTypeId
                                 }
@@ -306,7 +320,10 @@ const AddressInfo = forwardRef<ChildMethods, ChildComponentProps>(
                                     }));
                                 }}
                                 optionsList={picklistData.countryList}
-                                value={CustomerData.addressInfoData.primaryAddressCountryCd}
+                                value={
+                                    CustomerData.addressInfoData
+                                        .primaryAddressCountryCd
+                                }
                                 name={"country"}
                                 readonly={
                                     CustomerData.customerDraftReadOnlyFlag
