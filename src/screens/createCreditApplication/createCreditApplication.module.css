@@ -167,8 +167,8 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    font-weight: '600';
-    color: '#032947';
+    font-weight: "600";
+    color: "#032947";
 }
 .card-header {
     text-align: center;
@@ -328,4 +328,7 @@
         cursor: pointer;
         height: 100%;
     }
+}
+.right-aligned {
+    text-align: right;
 }

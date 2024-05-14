@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./createCreditApplication.module.css";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
-import { ConfigProvider, Divider, Steps, notification } from "antd";
+import { ConfigProvider, Steps, notification } from "antd";
 import BasicInfo from "./Forms/basicInfo";
 import DocumentList from "./Forms/Document/documentList";
 import { useCreditApplicationDataContext } from "../../context/creditApplDetailsContext";
@@ -25,7 +25,6 @@ import usePopulateCreditDraft from "../../Hooks/populateCreditDraft";
 
 import Loader from "../../components/Loader/loader";
 import { useCustomerContext } from "../../context/customerDetailsContext";
-import { CheckVerification } from "./VerificationAcknowledgement/checkVerification";
 
 const CreateCreditApplication = () => {
     const navigate = useNavigate();
@@ -51,10 +50,6 @@ const CreateCreditApplication = () => {
         {
             title: "Collateral",
         },
-
-        // {
-        //     title: "Verification",
-        // },
     ];
 
     ////// picklist load //////
@@ -82,7 +77,6 @@ const CreateCreditApplication = () => {
             groupCode: "CREDIT_APPL",
         };
         const data: any = await picklistMutation.mutateAsync(payload);
-        console.log(data);
         if (data.status === 200) {
             let pickListMap = [
                 {
@@ -176,9 +170,20 @@ const CreateCreditApplication = () => {
             populateCreditDraft();
         } else {
             setCreditApplDataFields_context({
-                basicInfo: {},
-                documentInfodata: [],
-                collateralinfoData: [],
+                basicInfo: {
+                    amount: "",
+                    creditTypeId: null,
+                    currencyId: "732",
+                    productId: null,
+                    purposeOfCreditId: null,
+                    strApplicationDate: "",
+                    termCode: "",
+                    termValue: null,
+                    repaySourceAcctNo: "",
+                },
+                collateralinfoData: null,
+                documentInfodata: null,
+                addDocumentFlag: false,
                 loading: false,
             });
         }
@@ -214,8 +219,22 @@ const CreateCreditApplication = () => {
             return true;
         }
     };
+
+    const replaceNonNumeric = (value: any) => {
+        if (typeof value === "string") {
+            // Use regular expression to replace non-numeric characters with empty string
+            return value.replace(/[^\d.]/g, ""); // This pattern matches any character that is not a digit or a dot
+        } else {
+            return value;
+        }
+    };
+
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const amount = parseFloat(
+            replaceNonNumeric(creditApplDataFields_context.basicInfo?.amount)
+        );
+
         if (
             CustomerData.customerDraftReadOnlyFlag ||
             currentStep === 1 ||
@@ -233,6 +252,7 @@ const CreateCreditApplication = () => {
 
                         applData: {
                             ...creditApplDataFields_context.basicInfo,
+                            amount,
                             collateralData: [],
                         },
                     };
@@ -243,6 +263,7 @@ const CreateCreditApplication = () => {
 
                         applData: {
                             ...creditApplDataFields_context.basicInfo,
+                            amount,
                             collateralData:
                                 creditApplDataFields_context.collateralinfoData,
                         },
@@ -253,6 +274,7 @@ const CreateCreditApplication = () => {
                     };
                 }
                 setIsLoading(true);
+                // console.log(payload);
                 const data = await createCreditApplDraftMutation.mutateAsync(
                     payload
                 );
@@ -292,12 +314,16 @@ const CreateCreditApplication = () => {
 
     const handleCreateCreditApplication = async (e: React.FormEvent) => {
         e.preventDefault();
+        const amount = parseFloat(
+            replaceNonNumeric(creditApplDataFields_context.basicInfo?.amount)
+        );
         const payload = {
             instituteCode: sessionStorage.getItem("instituteCode"),
             transmissionTime: Date.now(),
             applData: {
                 // collateralData:creditApplDataFields_context.collateralinfoData,
                 ...creditApplDataFields_context.basicInfo,
+                amount,
                 collateralData: creditApplDataFields_context.collateralinfoData,
                 documentList: creditApplDataFields_context.documentInfodata,
             },
@@ -305,6 +331,7 @@ const CreateCreditApplication = () => {
             dbsUserId: Number(sessionStorage.getItem("dbsUserId")),
             dbsCustApplId: Number(sessionStorage.getItem("dbsCustApplId")),
         };
+
         setIsLoading(true);
         const data = await createDBSCreditApplMutation.mutateAsync(payload);
         if (data.status === 200) {
@@ -366,7 +393,6 @@ const CreateCreditApplication = () => {
                                     items={[
                                         {
                                             title: "Basic info",
-                                            // description: "This is a description.",
                                         },
                                         {
                                             title: "Documents",
@@ -374,7 +400,6 @@ const CreateCreditApplication = () => {
                                         {
                                             title: "Collateral",
                                         },
-                                        // { title: "Verification" },
                                     ]}
                                 />
                             </ConfigProvider>
@@ -406,7 +431,7 @@ const CreateCreditApplication = () => {
                                 ""
                             )}
 
-                            {currentStep === 3 &&
+                            {currentStep === 2 &&
                             !CustomerData.customerDraftReadOnlyFlag ? (
                                 <>
                                     <div className={styles["submit"]}>

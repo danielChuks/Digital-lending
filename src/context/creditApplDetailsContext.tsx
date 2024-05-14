@@ -17,7 +17,7 @@ export interface ApplCreditData {
 
 export interface CreditCollateralDocument {
     collateralDescription: string | any;
-    collateralMarketValue: number | null | any;
+    collateralMarketValue: string | null | any;
     collateralRefNo: number | null | any;
     collateralTypeDescription: string | any;
     collateralTypeId: number | null | any;
@@ -39,7 +39,7 @@ export interface CreditDocument {
 }
 
 export interface BasicInfo {
-    amount?: number | null | string;
+    amount?: string;
     creditTypeId?: number | null;
     currencyId?: number | any;
     productId?: number | any;
@@ -85,9 +85,9 @@ const CreditApplContext: React.FC<MyComponentProps> = ({ children }) => {
     const [creditApplDataFields_context, setCreditApplDataFields_context] =
         useState<ApplCreditData>({
             basicInfo: {
-                amount: null,
+                amount: '',
                 creditTypeId: null,
-                currencyId: null,
+                currencyId: '732',
                 productId: null,
                 purposeOfCreditId: null,
                 strApplicationDate: "",

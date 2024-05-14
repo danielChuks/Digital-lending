@@ -5,7 +5,6 @@ import { Button, ConfigProvider, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useCustomerContext } from "../../../context/customerDetailsContext";
 import PaperClipOutlined from "@ant-design/icons/lib/icons/PaperClipOutlined";
-import { Document, Page } from "react-pdf";
 
 export const DocumentUpload = () => {
     const { CustomerData, setCustomerData } = useCustomerContext();

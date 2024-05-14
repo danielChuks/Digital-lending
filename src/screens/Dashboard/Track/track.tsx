@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import styles from './track.module.css';
-import { useNavigate } from 'react-router-dom';
-import Loader from '../../../components/Loader/loader';
-import { useTrackDBSCustomer } from '../Draft/draft';
+import React, { useState, useEffect } from "react";
+import styles from "./track.module.css";
+import { useNavigate } from "react-router-dom";
+import Loader from "../../../components/Loader/loader";
+import { useTrackDBSCustomer } from "../Draft/draft";
 import openNotificationWithIcon, {
     CommonnotificationProps,
-} from '../../../components/Notification/commonnotification';
-import { notification } from 'antd';
-import DialogueBox, { DialogueBoxProps } from '../../../components/Model/model';
-import { useCustomerContext } from '../../../context/customerDetailsContext';
+} from "../../../components/Notification/commonnotification";
+import { notification } from "antd";
+import DialogueBox, { DialogueBoxProps } from "../../../components/Model/model";
+import { useCustomerContext } from "../../../context/customerDetailsContext";
 
 export const Track = () => {
     const navigate = useNavigate();
@@ -18,18 +18,18 @@ export const Track = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [api, contextHolder] = notification.useNotification();
     const [modelData, setModelData] = useState<DialogueBoxProps>({
-        title: '',
-        content: '',
-        okText: '',
-        cancelText: '',
-        onOk: '',
+        title: "",
+        content: "",
+        okText: "",
+        cancelText: "",
+        onOk: "",
         onCancel: true,
     });
     const [modelOpen, setModelOpen] = useState(false);
 
     useEffect(() => {
         getTrackListData();
-        if (sessionStorage.getItem('customerDraftFlag') === 'true') {
+        if (sessionStorage.getItem("customerDraftFlag") === "true") {
             setCustomerData((prev) => ({
                 ...prev,
                 customerDraftFlag: true,
@@ -40,7 +40,7 @@ export const Track = () => {
     const getTrackListData = async () => {
         setIsLoading(true);
         const request: any = {
-            dbsUserId: sessionStorage.getItem('dbsUserId'),
+            dbsUserId: sessionStorage.getItem("dbsUserId"),
         };
         const response: any = await useTrackDBSCustomerMutation.mutateAsync(
             request
@@ -55,24 +55,24 @@ export const Track = () => {
                 });
             }
         } else if (
-            response.errorCode === 'CI_JWT_001' ||
-            response.errorCode === 'CI_JWT_002'
+            response.errorCode === "CI_JWT_001" ||
+            response.errorCode === "CI_JWT_002"
         ) {
             const notificationData: CommonnotificationProps = {
-                type: 'info',
-                msgtitle: 'Notification',
-                msgDesc: 'Your session is over, Please login again',
+                type: "info",
+                msgtitle: "Notification",
+                msgDesc: "Your session is over, Please login again",
                 api: api,
             };
             openNotificationWithIcon(notificationData);
             setTimeout(() => {
-                navigate({ pathname: '/login' });
+                navigate({ pathname: "/login" });
             }, 3000);
         } else {
             setIsLoading(false);
             const notificationData: CommonnotificationProps = {
-                type: 'error',
-                msgtitle: '',
+                type: "error",
+                msgtitle: "",
                 msgDesc: response.errorMessage,
                 api: api,
             };
@@ -81,32 +81,33 @@ export const Track = () => {
     };
 
     const HandleViewDraft = (id: any, applType: any) => {
-        if (applType === 'CUSTOMER') {
+        if (applType === "CUSTOMER") {
             setCustomerData((prev) => ({
                 ...prev,
                 customerDraftReadOnlyFlag: true,
             }));
-            sessionStorage.setItem('customerDraftReadOnlyFlag', 'true');
-            sessionStorage.setItem('dbsCustApplId', id);
-            navigate('/dashboard/createCustomer');
+            sessionStorage.setItem("customerDraftReadOnlyFlag", "true");
+            sessionStorage.setItem("dbsCustApplId", id);
+            navigate("/dashboard/createCustomer");
         }
-        if (applType === 'CREDIT') {
+        if (applType === "CREDIT") {
             setCustomerData((prev) => ({
                 ...prev,
                 customerDraftReadOnlyFlag: true,
             }));
-            sessionStorage.setItem('customerDraftReadOnlyFlag', 'true');
-            sessionStorage.setItem('dbsCustApplId', id);
-            navigate('/dashboard/createCreditApplication');
+            sessionStorage.setItem("customerDraftReadOnlyFlag", "true");
+            sessionStorage.setItem("dbsCustApplId", id);
+            navigate("/dashboard/createCreditApplication");
         }
     };
 
+    console.log(trackListData);
     return (
-        <div className={'main-container'}>
+        <div className={"main-container"}>
             <Loader loading={isLoading} />
-            <div className={'main-heading'}>Track</div>
-            <div className={styles['Account-content']}>
-                <div className={styles['account-action-container']}>
+            <div className={"main-heading"}>Track</div>
+            <div className={styles["Account-content"]}>
+                <div className={styles["account-action-container"]}>
                     {trackListData.length > 0 ? (
                         trackListData?.map(
                             (
@@ -119,12 +120,13 @@ export const Track = () => {
                                     credit_ref_no,
                                     applicationType,
                                     dbsCustApplId,
+                                    requestedAmt,
                                 },
                                 index
                             ) => (
                                 <div
                                     key={index}
-                                    className={styles['account-action-box']}
+                                    className={styles["account-action-box"]}
                                     onClick={() =>
                                         HandleViewDraft(
                                             dbsCustApplId,
@@ -134,77 +136,145 @@ export const Track = () => {
                                 >
                                     <div
                                         className={
-                                            styles['account-action-header']
+                                            styles["account-action-header"]
                                         }
                                     >
                                         {applicationType}
                                     </div>
                                     <div
                                         className={
-                                            styles['account-action-content']
+                                            styles["account-action-content"]
                                         }
                                     >
                                         <div
-                                            className={styles['text-container']}
+                                            className={styles["text-container"]}
                                         >
                                             <p>Customer Name</p>
-                                            <b className={styles['green-text']}>
+                                            <b className={styles["green-text"]}>
                                                 {customerName}
                                             </b>
                                         </div>
 
                                         <div
-                                            className={styles['text-container']}
+                                            className={styles["text-container"]}
                                         >
                                             <p>Customer Number</p>
-                                            <b className={styles['green-text']}>
+                                            <b className={styles["green-text"]}>
                                                 {customerNumber}
                                             </b>
                                         </div>
                                         <div
-                                            className={styles['text-container']}
+                                            className={styles["text-container"]}
                                         >
                                             <p>Created Date</p>
-                                            <b className={styles['green-text']}>
+                                            <b className={styles["green-text"]}>
                                                 {systemTime}
                                             </b>
                                         </div>
-                                        {applicationType === 'CREDIT' ? (
+                                        {applicationType === "CREDIT" ? (
                                             <div
                                                 className={
-                                                    styles['text-container']
+                                                    styles["text-container"]
                                                 }
                                             >
                                                 <p>CreditApplRefNo</p>
                                                 <b
                                                     className={
-                                                        styles['green-text']
+                                                        styles["green-text"]
                                                     }
                                                 >
                                                     {credit_ref_no}
                                                 </b>
                                             </div>
                                         ) : (
-                                            ''
+                                            ""
                                         )}
 
-                                        <div
-                                            className={styles['text-container']}
-                                        >
-                                            <p>Status</p>
-                                            <b className={styles['green-text']}>
-                                                {coreStatus === 'S'
-                                                    ? 'Submitted'
-                                                    : coreStatus === 'I'
-                                                    ? 'Inactive'
-                                                    : coreStatus === 'A'
-                                                    ? 'Active'
-                                                    : coreStatus === 'C'
-                                                    ? 'Closed'
-                                                    : ''}
-                                            </b>
-                                        </div>
+                                        {applicationType !== "CREDIT" ? (
+                                            <div
+                                                className={
+                                                    styles["status-wrapper"]
+                                                }
+                                            >
+                                                <p>Status:</p>
+                                                <b
+                                                    className={
+                                                        styles["green-text"]
+                                                    }
+                                                >
+                                                    {coreStatus === "S"
+                                                        ? "Submitted"
+                                                        : coreStatus === "I"
+                                                        ? "Inactive"
+                                                        : coreStatus === "A"
+                                                        ? "Active"
+                                                        : coreStatus === "C"
+                                                        ? "Closed"
+                                                        : ""}
+                                                </b>
+                                            </div>
+                                        ) : null}
+
                                         <div></div>
+                                    </div>
+                                    <div
+                                        className={
+                                            styles["text-container-status"]
+                                        }
+                                    >
+                                        {applicationType === "CREDIT" ? (
+                                            <div
+                                                className={
+                                                    styles[
+                                                        "requestAmount-container"
+                                                    ]
+                                                }
+                                            >
+                                                <p>Request Amount</p>
+                                                <b
+                                                    className={
+                                                        styles["green-text"]
+                                                    }
+                                                >
+                                                    ₦
+                                                    {Number(
+                                                        requestedAmt
+                                                    ).toLocaleString("en-US", {
+                                                        minimumFractionDigits: 2,
+                                                        maximumFractionDigits: 2,
+                                                    })}
+                                                </b>
+                                            </div>
+                                        ) : null}
+
+                                        {applicationType === "CREDIT" ? (
+                                            <div
+                                                className={
+                                                    styles[
+                                                        "status-wrapper-notCredit"
+                                                    ]
+                                                }
+                                            >
+                                                <p>Status:</p>
+                                                <b
+                                                    className={
+                                                        styles["green-text"]
+                                                    }
+                                                >
+                                                    {coreStatus === "S"
+                                                        ? "Submitted"
+                                                        : coreStatus === "I"
+                                                        ? "Inactive"
+                                                        : coreStatus === "A"
+                                                        ? "Active"
+                                                        : coreStatus === "C"
+                                                        ? "Closed"
+                                                        : ""}
+                                                </b>
+                                            </div>
+                                        ) : (
+                                            ""
+                                        )}
                                     </div>
                                 </div>
                             )
@@ -212,7 +282,7 @@ export const Track = () => {
                     ) : (
                         <>
                             <p></p>
-                            <p className={styles['nodata']}>No Track to Show</p>
+                            <p className={styles["nodata"]}>No Track to Show</p>
                             <p></p>
                         </>
                     )}

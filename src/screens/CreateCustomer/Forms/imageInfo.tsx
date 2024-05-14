@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../createCustomer.module.css";
 import CustomButton from "../../../components/Button/Button";
 import { Button, ConfigProvider, Upload } from "antd";
@@ -13,6 +13,8 @@ const ImageInfo = () => {
     const [previewSignFile, setPreviewSignFile] = useState<any>();
     const [alreadyPhotoFile, setAlreadyPhotoFile] = useState<any>(false);
     const [alreadySignFile, setAlreadySignFile] = useState<any>(false);
+    const [stream, setStream] = useState<MediaStream | null>(null); // State to hold the webcam stream
+    const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
         if (CustomerData.strphotoGraphImage) {
@@ -26,6 +28,45 @@ const ImageInfo = () => {
             );
         }
     }, []);
+
+    const startWebcam = async () => {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: true,
+            });
+            if (videoRef.current) {
+                videoRef.current.srcObject = stream;
+            }
+            setStream(stream); // Store the stream in state
+        } catch (error) {
+            console.error("Error accessing webcam:", error);
+        }
+    };
+
+    const stopWebcam = () => {
+        if (stream) {
+            stream.getTracks().forEach((track) => track.stop());
+            setStream(null);
+        }
+    };
+
+    const handleCapture = () => {
+        if (videoRef.current) {
+            const canvas = document.createElement("canvas");
+            canvas.width = videoRef.current.videoWidth;
+            canvas.height = videoRef.current.videoHeight;
+            const ctx = canvas?.getContext("2d");
+
+            // Draw the video frame onto the canvas
+            ctx?.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+
+            // Convert the canvas to a data URL representing the captured image
+            const dataURL = canvas.toDataURL("image/png");
+
+            // Set the captured image in state
+            setPreviewFile(dataURL);
+        }
+    };
 
     const uploadPhotographprops = {
         onRemove: () => {
@@ -102,45 +143,31 @@ const ImageInfo = () => {
                                 },
                             }}
                         >
-                            <Upload
-                                {...uploadPhotographprops}
-                                multiple={false}
-                                maxCount={1}
-                                accept={".png"}
-                            >
+                            <video
+                                style={{ height: "200px" }}
+                                ref={videoRef}
+                                autoPlay
+                            />
+                            {stream ? (
                                 <Button
-                                    icon={<UploadOutlined />}
-                                    style={{ width: "100%" }}
-                                    disabled={
-                                        CustomerData.customerDraftReadOnlyFlag
-                                    }
+                                    style={{ alignItems: "center" }}
+                                    onClick={stopWebcam}
                                 >
-                                    Select File
+                                    Stop Camera
                                 </Button>
-                            </Upload>
-                        </ConfigProvider>
-                        <p
-                            className={styles["selectFileheader"]}
-                            style={{ marginTop: "8px" }}
-                        >
-                            {!alreadyPhotoFile &&
-                            CustomerData.strphotoGraphImage ? (
-                                <>
-                                    <PaperClipOutlined /> {"1 file(s)"}
-                                </>
                             ) : (
-                                ""
+                                <Button onClick={startWebcam}>
+                                    Start Camera
+                                </Button>
                             )}
-                        </p>
+                        </ConfigProvider>
+                        <CustomButton
+                            text={"Capture"}
+                            type={"button"}
+                            onClick={handleCapture}
+                            disabled={!stream}
+                        />
                     </div>
-
-                    <CustomButton
-                        text={"Preview"}
-                        type={"button"}
-                        onClick={() => {
-                            setPreviewFile(previewPhotoFile);
-                        }}
-                    />
                 </div>
 
                 <div className={styles["image-input-container"]}>

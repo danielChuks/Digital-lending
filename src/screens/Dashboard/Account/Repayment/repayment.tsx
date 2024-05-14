@@ -72,10 +72,9 @@ export const Repayment = () => {
             setIsLoading(false);
         }
     };
-    console.log(repaymentScheduleStatement);
     const columns: ColumnsType<DataType> = [
         {
-            title: "Installment No",
+            title: "No",
             dataIndex: "installmentNo",
             key: "installmentNo",
         },
@@ -93,31 +92,43 @@ export const Repayment = () => {
             title: "Principal Amount",
             dataIndex: "principalAmt",
             key: "principalAmt",
+            align: "right",
+            render: (value: number) => formatNumber(value),
         },
         {
             title: "Interest Amount",
             dataIndex: "interestAmt",
             key: "interestAmt",
+            align: "right",
+            render: (value: number) => formatNumber(value),
         },
         {
             title: "Fees",
             dataIndex: "fees",
             key: "fees",
+            align: "right",
+            render: (value: number) => formatNumber(value),
         },
         {
             title: "Late Fees",
             dataIndex: "lateFees",
             key: "lateFees",
+            align: "right",
+            render: (value: number) => formatNumber(value),
         },
         {
             title: "Total Amount",
             dataIndex: "totalAmt",
             key: "totalAmt",
+            align: "right",
+            render: (value: number) => formatNumber(value),
         },
         {
             title: "Serviced Amount",
             dataIndex: "servicedAmt",
             key: "servicedAmt",
+            align: "right",
+            render: (value: number) => formatNumber(value),
         },
         {
             title: "Serviced Date",
@@ -128,6 +139,8 @@ export const Repayment = () => {
             title: "Outstanding Amount",
             dataIndex: "outstandingAmt",
             key: "outstandingAmt",
+            align: "right",
+            render: (value: number) => formatNumber(value),
         },
         {
             title: "Days Late",
@@ -136,7 +149,13 @@ export const Repayment = () => {
         },
     ];
 
-    console.log(repaymentScheduleStatement);
+    const formatNumber = (value: number) => {
+        return value.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        });
+    };
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -176,14 +195,28 @@ export const Repayment = () => {
                                     <p>{installmentNo}</p>
                                     <p>{dueDate}</p>
                                     <p>{event}</p>
-                                    <p>{principalAmt}</p>
-                                    <p>{interestAmt}</p>
-                                    <p>{fees}</p>
-                                    <p>{lateFees}</p>
-                                    <p>{totalAmt}</p>
-                                    <p>{servicedAmt}</p>
+                                    <p className={styles["amount-right"]}>
+                                        {principalAmt}
+                                    </p>
+                                    <p className={styles["amount-right"]}>
+                                        {interestAmt}
+                                    </p>
+                                    <p className={styles["amount-right"]}>
+                                        {fees}
+                                    </p>
+                                    <p className={styles["amount-right"]}>
+                                        {lateFees}
+                                    </p>
+                                    <p className={styles["amount-right"]}>
+                                        {totalAmt}
+                                    </p>
+                                    <p className={styles["amount-right"]}>
+                                        {servicedAmt}
+                                    </p>
                                     <p>{servicedDate}</p>
-                                    <p>{outstandingAmt}</p>
+                                    <p className={styles["amount-right"]}>
+                                        {outstandingAmt}
+                                    </p>
                                     <p>{daysLate}</p>
                                 </div>
                             )

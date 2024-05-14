@@ -33,7 +33,7 @@ const KycInfo: React.FC<any> = (props: any) => {
     const [identityTypes, setIdentityTypes] = useState<any>();
     const [kycData, setkycData] = useState<identificationInfoProps>({
         binaryImage: "",
-        countryOfIssueId: 682,
+        countryOfIssueId: "682",
         identityNumber: "",
         identityTypeCd: "",
         identityTypeDesc: "",
@@ -58,7 +58,6 @@ const KycInfo: React.FC<any> = (props: any) => {
 
     useEffect(() => {
         if (props.identityData?.data) {
-            // console.log(props.identityData);
             setkycData({
                 binaryImage: props.identityData.data.binaryImage,
                 countryOfIssueId:
@@ -504,7 +503,7 @@ const KycInfo: React.FC<any> = (props: any) => {
                                 {...uploadprops}
                                 multiple={false}
                                 maxCount={1}
-                                accept={".pdf"}
+                                accept={".jpg,.jpeg,.png"}
                             >
                                 <Button
                                     icon={<UploadOutlined />}

@@ -63,9 +63,6 @@ const CreateCustomer = () => {
         {
             title: "Image info",
         },
-        // {
-        //     title: "Verification",
-        // },
     ];
 
     useEffect(() => {
@@ -356,14 +353,29 @@ const CreateCustomer = () => {
         }
     };
 
+    const replaceNonNumeric = (value: any) => {
+        if (typeof value === "string") {
+            // Use regular expression to replace non-numeric characters with empty string
+            return value.replace(/[^\d.]/g, ""); // This pattern matches any character that is not a digit or a dot
+        } else {
+            return value;
+        }
+    };
+
     const handleCreateCustomer = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        const monthlyIncomeAmount = parseFloat(
+            replaceNonNumeric(CustomerData.otherInfoData?.monthlyIncomeAmount)
+        );
+
         const payload = {
             instituteCode: sessionStorage.getItem("instituteCode"),
             transmissionTime: Date.now(),
             ...CustomerData.basicInfoData,
             ...CustomerData.addressInfoData,
             ...CustomerData.otherInfoData,
+            monthlyIncomeAmount,
             identificationsList: CustomerData.identificationInfoData,
             dbsUserId: Number(sessionStorage.getItem("dbsUserId")),
             customerCategory: CustomerData.customerCategory,

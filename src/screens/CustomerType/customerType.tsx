@@ -10,67 +10,67 @@ const CustomerType = () => {
     const navigate = useNavigate();
     const { CustomerData, setCustomerData } = useCustomerContext();
 
-    useEffect(() => {
-        const basicInfo = {
-            email: '',
-            mobile: '',
-            strDateOfBirth: '',
-            nextOfKin: '',
-            spouseName: '',
-            titleCd: null,
-            lastName: '',
-            middleName: '',
-            firstName: '',
-            customerType: '',
-            nationalityCd: null,
-            industryId: '',
-            countryOfResidenceId: '',
-            maritalStatus: '',
+    // useEffect(() => {
+    //     const basicInfo = {
+    //         email: '',
+    //         mobile: '',
+    //         strDateOfBirth: '',
+    //         nextOfKin: '',
+    //         spouseName: '',
+    //         titleCd: null,
+    //         lastName: '',
+    //         middleName: '',
+    //         firstName: '',
+    //         customerType: '',
+    //         nationalityCd: null,
+    //         industryId: '',
+    //         countryOfResidenceId: '',
+    //         maritalStatus: '',
 
-            countryOfBirthId: '',
-            gender: '',
-            occupationCd: '',
-            employmentFlag: false,
-            noOfDependents: '',
+    //         countryOfBirthId: '',
+    //         gender: '',
+    //         occupationCd: '',
+    //         employmentFlag: false,
+    //         noOfDependents: '',
 
-            organisationName: '',
-            registrationNumber: '',
-            strRegistrationDate: '',
-        };
+    //         organisationName: '',
+    //         registrationNumber: '',
+    //         strRegistrationDate: '',
+    //     };
 
-        const addressInfo = {
-            primaryAddressCity: '',
-            primaryAddressLine1: '',
-            primaryAddressLine2: '',
-            primaryAddressLine3: '',
-            primaryAddressLine4: '',
-            primaryAddressState: '',
-            strFromDate: '',
-            primaryAddressCountryCd: '',
-            addressTypeId: '',
-        };
+    //     const addressInfo = {
+    //         primaryAddressCity: '',
+    //         primaryAddressLine1: '',
+    //         primaryAddressLine2: '',
+    //         primaryAddressLine3: '',
+    //         primaryAddressLine4: '',
+    //         primaryAddressState: '',
+    //         strFromDate: '',
+    //         primaryAddressCountryCd: '',
+    //         addressTypeId: '',
+    //     };
 
-        const otherInfo = {
-            openingReasonCd: '',
-            marketingCampaignCd: '',
-            sourceOfFundCd: '',
-            amountUnit: '',
-            monthlyIncomeAmount: 0,
-        };
-        setCustomerData((prev) => ({
-            ...prev,
-            basicInfoData: basicInfo,
-            addressInfoData: addressInfo,
-            otherInfoData: otherInfo,
-            customerCategory: '',
-            identificationInfoData: null,
-            documentInfodata: null,
-            strphotoGraphImage: null,
-            strsignatureImage: null,
-            addDocumentFlag: false,
-            customerDraftFlag: false,
-        }));
-    }, []);
+    //     const otherInfo = {
+    //         openingReasonCd: '',
+    //         marketingCampaignCd: '',
+    //         sourceOfFundCd: '',
+    //         amountUnit: '',
+    //         monthlyIncomeAmount: 0,
+    //     };
+    //     setCustomerData((prev) => ({
+    //         ...prev,
+    //         basicInfoData: basicInfo,
+    //         addressInfoData: addressInfo,
+    //         otherInfoData: otherInfo,
+    //         customerCategory: '',
+    //         identificationInfoData: null,
+    //         documentInfodata: null,
+    //         strphotoGraphImage: null,
+    //         strsignatureImage: null,
+    //         addDocumentFlag: false,
+    //         customerDraftFlag: false,
+    //     }));
+    // }, []);
 
     const actionIconsList = [
         {
