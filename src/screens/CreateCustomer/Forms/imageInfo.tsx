@@ -11,7 +11,7 @@ const ImageInfo = () => {
     const [previewFile, setPreviewFile] = useState<any>();
     const [previewPhotoFile, setPreviewPhotoFile] = useState<any>();
     const [previewSignFile, setPreviewSignFile] = useState<any>();
-    const [alreadyPhotoFile, setAlreadyPhotoFile] = useState<any>(false);
+
     const [alreadySignFile, setAlreadySignFile] = useState<any>(false);
     const [stream, setStream] = useState<MediaStream | null>(null); // State to hold the webcam stream
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -37,7 +37,7 @@ const ImageInfo = () => {
             if (videoRef.current) {
                 videoRef.current.srcObject = stream;
             }
-            setStream(stream); // Store the stream in state
+            setStream(stream);
         } catch (error) {
             console.error("Error accessing webcam:", error);
         }
@@ -57,46 +57,16 @@ const ImageInfo = () => {
             canvas.height = videoRef.current.videoHeight;
             const ctx = canvas?.getContext("2d");
 
-            // Draw the video frame onto the canvas
             ctx?.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
 
-            // Convert the canvas to a data URL representing the captured image
             const dataURL = canvas.toDataURL("image/png");
-
-            // Set the captured image in state
-            setPreviewFile(dataURL);
-        }
-    };
-
-    const uploadPhotographprops = {
-        onRemove: () => {
-            setPreviewPhotoFile("");
             setCustomerData((prev) => ({
                 ...prev,
-                strphotoGraphImage: null,
+                strphotoGraphImage: dataURL.split(",")[1],
             }));
-            if (previewFile === previewPhotoFile) {
-                setPreviewFile("");
-            }
-        },
 
-        beforeUpload: (file: any) => {
-            setPreviewPhotoFile(URL.createObjectURL(file));
-            setAlreadyPhotoFile(true);
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = function () {
-                if (reader.result != null) {
-                    setCustomerData((prev) => ({
-                        ...prev,
-                        strphotoGraphImage: reader.result
-                            ?.toString()
-                            .split(",")[1],
-                    }));
-                }
-            };
-            return false;
-        },
+            setPreviewFile(dataURL);
+        }
     };
 
     const uploadSignatureprops = {
@@ -133,6 +103,44 @@ const ImageInfo = () => {
     return (
         <div className={styles["image-container"]}>
             <div className={styles["image-input-main-container"]}>
+                {/* <div className={styles["image-input-container"]}>
+                    <p className={styles["image-input-text"]}>Photograph</p>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            gap: "20px",
+                        }}
+                    >
+                        <ConfigProvider
+                            theme={{
+                                token: {
+                                    colorPrimary: "#39C594",
+                                },
+                            }}
+                        >
+                            {stream ? (
+                                <CustomButton
+                                    text='Stop Camera'
+                                    type='button'
+                                    onClick={stopWebcam}
+                                />
+                            ) : (
+                                <CustomButton
+                                    text='Start Camera'
+                                    type='button'
+                                    onClick={startWebcam}
+                                />
+                            )}
+                        </ConfigProvider>
+                        <CustomButton
+                            onClick={handleCapture}
+                            disabled={!stream}
+                            text={"Capture"}
+                            type={"button"}
+                        />
+                    </div>
+                </div> */}
                 <div className={styles["image-input-container"]}>
                     <p className={styles["image-input-text"]}>Photograph</p>
                     <div>
@@ -143,31 +151,27 @@ const ImageInfo = () => {
                                 },
                             }}
                         >
-                            <video
-                                style={{ height: "200px" }}
-                                ref={videoRef}
-                                autoPlay
-                            />
                             {stream ? (
-                                <Button
-                                    style={{ alignItems: "center" }}
+                                <CustomButton
+                                    text='Stop Camera'
+                                    type='button'
                                     onClick={stopWebcam}
-                                >
-                                    Stop Camera
-                                </Button>
+                                />
                             ) : (
-                                <Button onClick={startWebcam}>
-                                    Start Camera
-                                </Button>
+                                <CustomButton
+                                    text='Start Camera'
+                                    type='button'
+                                    onClick={startWebcam}
+                                />
                             )}
                         </ConfigProvider>
-                        <CustomButton
-                            text={"Capture"}
-                            type={"button"}
-                            onClick={handleCapture}
-                            disabled={!stream}
-                        />
                     </div>
+                    <CustomButton
+                        onClick={handleCapture}
+                        disabled={!stream}
+                        text={"Capture"}
+                        type={"button"}
+                    />
                 </div>
 
                 <div className={styles["image-input-container"]}>
@@ -219,6 +223,11 @@ const ImageInfo = () => {
                         }}
                     />
                 </div>
+                <video
+                    style={{ height: "250px", width: "100%" }}
+                    ref={videoRef}
+                    autoPlay
+                />
             </div>
             <div
                 className={

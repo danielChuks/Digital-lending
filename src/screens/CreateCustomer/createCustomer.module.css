@@ -269,7 +269,8 @@ span {
     }
     .image-input-container {
         display: grid;
-        /* grid-template-columns: 1fr; */
+        grid-template-columns: 1fr;
+        width: 100%;
         padding: 10px;
         align-items: baseline;
         gap: 10px;

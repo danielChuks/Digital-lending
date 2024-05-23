@@ -12,7 +12,9 @@ import { GiTakeMyMoney } from "react-icons/gi";
 import { RiDraftFill } from "react-icons/ri";
 import { HiDocumentSearch } from "react-icons/hi";
 import { MdDrafts } from "react-icons/md";
-import croller from "../../assets/images/croller.png";
+import landingScroller from "../../assets/images/landingScroller.png";
+import landingScroller1 from "../../assets/images/landingScroller1.png";
+
 import { FaFileUpload } from "react-icons/fa";
 
 const Dashboard = () => {
@@ -176,10 +178,13 @@ const Dashboard = () => {
                             }}
                         >
                             <div className={styles["carousel-slide"]}>
-                                <img src={croller} alt='Bank Offer 1' />
+                                <img src={landingScroller} alt='Bank Offer 1' />
                             </div>
                             <div className={styles["carousel-slide"]}>
-                                <img src={croller} alt='Bank Offer 2' />
+                                <img
+                                    src={landingScroller1}
+                                    alt='Bank Offer 2'
+                                />
                             </div>
                         </div>
                     </div>
